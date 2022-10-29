@@ -20,9 +20,10 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('identification')->nullable();
+            $table->string('avatar')->nullable();
 
             $table->enum('business_type', ['hotel', 'restaurant', 'tourist_spot', 'none'])->default('none');
-
             $table->rememberToken();
             $table->timestamps();
         });

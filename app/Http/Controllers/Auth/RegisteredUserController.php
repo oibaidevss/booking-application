@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\Storage;
 
 class RegisteredUserController extends Controller
 {
@@ -45,9 +46,19 @@ class RegisteredUserController extends Controller
             'last_name' => $request->last_name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'business_type' => $request->business_type,
+            'business_type' => $request->business_type, 
         ]);
-
+        if($request->hasFile('avatar')){
+            $avatar = $request->avatar->getClientOriginalName();
+            $request->avatar->storeAs('avatars', $avatar, 'public');
+            $user->update(['avatar'=>$avatar]);
+        }
+        
+        if($request->hasFile('identification')){
+            $identification = $request->identification->getClientOriginalName();
+            $request->identification->storeAs('identifications', $identification, 'public');
+            $user->update(['identification'=>$identification]);
+        }
         event(new Registered($user));
         
         Auth::login($user);

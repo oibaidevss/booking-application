@@ -11,8 +11,12 @@
             <div class="flex-none w-auto max-w-full px-3">
                 <div
                     class="text-base ease-soft-in-out h-18.5 w-18.5 relative inline-flex items-center justify-center rounded-xl text-white transition-all duration-200">
-                    <img src="{{asset('assets/img/bruce-mars.jpg')}}" alt="profile_image"
-                        class="w-full shadow-soft-sm rounded-xl">
+                    @if(auth()->user()->avatar)
+                        <img class="w-full shadow-soft-sm rounded-xl" src="{{asset('/storage/avatars/'.Auth::user()->avatar)}}" alt="profile_image" style="width: 80px;height: 80px; padding: 10px; margin: 0px; ">
+                    @else
+                        <img src="{{asset('assets/img/bruce-mars.jpg')}}" alt="profile_image" class="w-full shadow-soft-sm rounded-xl">
+                    @endif
+                        
                 </div>
             </div>
             <div class="flex-none w-auto max-w-full px-3 my-auto">

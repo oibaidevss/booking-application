@@ -23,26 +23,34 @@
                         </div>
                         
                         <div class="flex-auto p-6">
-                            <form method="POST" action="{{ route('register') }}">
+                            <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                                 @csrf
 
                                 <x-form.input :value="old('first_name')" name="first_name" label="First Name"
                                     required />
                                 <x-form.input :value="old('last_name')" name="last_name" label="Last Name" required />
+                                <x-form.input type="file" :value="old('avatar')" name="avatar" label="avatar" required />
                                
 
                                 <div class="my-4">
 
-                                    <a href="#" class="mb-1 ml-1 font-normal cursor-pointer select-none text-sm text-slate-700" onclick="
+                                    <a id="trigger" href="#" class="mb-1 ml-1 font-normal cursor-pointer select-none text-sm text-slate-700" onclick="
                                         event.preventDefault();
     
                                         let el = document.getElementById('business');
                                         el.classList.toggle('hidden')
+                                    
+                                        let id = document.getElementById('identification');
+                                        id.classList.toggle('hidden')
     
                                         let element = document.getElementById('business_type');
                                         element.value = 0;
+                                        var x = document.getElementById('trigger');
+
+                                        x.innerHTML === 'Register as Business?' ? x.innerHTML = 'Register as Customer?': x.innerHTML = 'Register as Business?'
+                                        
     
-                                    ">Register as Business? </a>
+                                    ">Register as Business?</a>
     
                                     <div class="hidden" id="business">
                                         <x-form.field>
@@ -59,8 +67,12 @@
                                             </div>
                                         </x-form.field>
                                     </div>
+                                    
+                                    <div class="" id="identification">
+                                        <x-form.input type="file" :value="old('identification')" name="identification" label="Identification (Valid ID)" required />
+                                    </div>
                                 </div>
-
+                                
                                 <x-form.input :value="old('email')" name="email" label="Email" required />
                                 <x-form.input type="password" name="password" label="Password" required />
                                 <x-form.input type="password" name="password_confirmation" label="Confirm Password" required />
