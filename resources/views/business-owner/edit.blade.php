@@ -1,39 +1,5 @@
 <x-theme.layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('My Business') }}
-        </h2>
-    </x-slot>
-
-    <div class="w-full px-6 mx-auto">
-        <div class="relative flex items-center p-0 mt-6 overflow-hidden bg-center bg-cover min-h-75 rounded-2xl"
-            style="background-image: url('{{ asset('assets/img/curved-images/curved0.jpg') }}'); background-position-y: 50%">
-            <span
-                class="absolute inset-y-0 w-full h-full bg-center bg-cover bg-gradient-to-tl from-purple-700 to-pink-500 opacity-60"></span>
-        </div>
-        <div
-            class="relative flex flex-col flex-auto min-w-0 p-4 mx-6 -mt-16 overflow-hidden break-words border-0 shadow-blur rounded-2xl bg-white/80 bg-clip-border backdrop-blur-2xl backdrop-saturate-200">
-            <div class="flex flex-wrap -mx-3">
-                <div class="flex-none w-auto max-w-full px-3">
-                    <div
-                        class="text-base ease-soft-in-out h-18.5 w-18.5 relative inline-flex items-center justify-center rounded-xl text-white transition-all duration-200">
-                        <img src="{{ asset('assets/img/bruce-mars.jpg') }}" alt="profile_image"
-                            class="w-full shadow-soft-sm rounded-xl">
-                    </div>
-                </div>
-                <div class="flex-none w-auto max-w-full px-3 my-auto">
-                    <div class="h-full">
-                        <h5 class="mb-1">{{ ucwords(auth()->user()->last_name) }}, {{ ucwords(auth()->user()->first_name) }}</h5>
-                        <p class="mb-0 font-semibold leading-normal text-sm">Business Owner</p>
-                    </div>
-                </div>
-                <div class="w-full max-w-full px-3 mx-auto mt-4 sm:my-auto sm:mr-0 md:w-1/2 md:flex-none lg:w-4/12">
-                    
-                </div>
-            </div>
-        </div>
-    </div>
-
+    @include('partials.bo.header')
     <div class="w-full p-6 mx-auto">
         <div class="flex flex-wrap -mx-3">
             <div class="w-full max-w-full px-3 lg-max:mt-6 xl:w-4/12">
@@ -161,7 +127,7 @@
                                             <td
                                                 class="p-2 leading-normal text-center align-middle bg-transparent border-b text-xs whitespace-nowrap shadow-transparent">
                                                 <span
-                                                    class="bg-gradient-to-tl from-green-600 to-lime-400 text-xs rounded-1.8 p-2 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white">Available</span>
+                                                    class="bg-gradient-to-tl from-{{ ($room->status) ? 'green':'red'}}-600 to-{{ ($room->status) ? 'lime':'rose'}}-400 text-xs rounded-1.8 p-2 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white">{{ ($room->status) ? 'available':'occupied' }}</span>
                                             </td>
 
                                             <td
@@ -271,20 +237,27 @@
                                                     class="bg-gradient-to-tl from-green-600 to-lime-400 px-3.6 text-xs rounded-1.8 py-2.2 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white">Available</span>
                                             </td>
 
+                                            
+
                                             <td
                                                 class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                                                 <div class="flex flex-wrap -mx-3">
                                                 
                                                 <a href="{{ route('table.edit', $table) }}"
-                                                    class="font-semibold leading-tight text-xs text-slate-400"> Edit
+                                                    class="block px-0 py-2 font-semibold transition-all ease-nav-brand text-sm text-slate-500"> Edit
                                                 </a>
 
-                                                <form method="POST" action="{{ route('table.destroy', $table) }}">
+                                              
+                                                <form method="POST" action="{{ route('table.destroy', $table) }}">                                                
                                                     @csrf
                                                     @method('DELETE')
-                
-                                                    <button class="font-semibold leading-tight text-xs text-slate-400 px-1">Delete</button>
-
+                                        
+                                                    <a class="block ml-2 px-0 py-2 font-semibold transition-all ease-nav-brand text-sm text-slate-500" href="" onclick="event.preventDefault(); this.closest('form').submit();">
+                                                            <span class="hidden sm:inline">{{ __('Delete') }}</span>
+                                                        </a>
+                                        
+                                                    </form>
+                                                
                                                 </form>
                                                 </div>
                                             </td>

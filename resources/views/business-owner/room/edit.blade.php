@@ -1,10 +1,5 @@
 <x-theme.layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('My Business') }}
-        </h2>
-    </x-slot>
-
+    @include('partials.bo.header')
     <div class="w-full p-6 mx-auto">
         <div class="flex flex-wrap -mx-3">
             <div class="w-full max-w-full px-3 lg-max:mt-6 xl:w-4/12">

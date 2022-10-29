@@ -7,6 +7,7 @@ use App\Http\Controllers\BusinessHotelController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\BusinessController;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\RoomController;
 
@@ -35,6 +36,8 @@ Route::prefix('customer')->group(function () {
     Route::get('/restaurants', [CustomerController::class, 'restaurant'])->name('customer.restaurants');
     Route::get('/hotels', [CustomerController::class, 'hotel'])->name('customer.hotels');
     Route::get('/hotels/{hotel}', [CustomerController::class, 'showHotel'])->name('customer.hotel.show');
+    Route::get('/booking', [BookingController::class, 'hotel'])->name('customer.hotel.booking');
+    Route::get('/restaurants/{restaurant}', [CustomerController::class, 'showRestaurant'])->name('customer.restaurant.show');
 
 });
 

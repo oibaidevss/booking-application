@@ -18,10 +18,12 @@ return new class extends Migration
 
             $table->string('room_number');
             $table->integer('floor');
+            $table->tinyInteger('status')->default(1);
             $table->text('description')->nullable();
             $table->enum('room_type', ['single', 'double', 'family'])->default('single');
             $table->foreignId('hotel_id')->constrained()->cascadeOnDelete();
 
+            
             $table->timestamps();
         });
     }
