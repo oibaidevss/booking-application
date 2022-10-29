@@ -30,17 +30,17 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::prefix('customer')->group(function () {
+Route::prefix('customer')->middleware(['auth', 'verified', 'role:customer'])->group(function () {
     
     Route::get('/', [CustomerController::class, 'index'])->name('customer.index');
     Route::get('/restaurants', [CustomerController::class, 'restaurant'])->name('customer.restaurants');
     Route::get('/hotels', [CustomerController::class, 'hotel'])->name('customer.hotels');
     Route::get('/hotels/{hotel}', [CustomerController::class, 'showHotel'])->name('customer.hotel.show');
-    Route::get('/booking', [BookingController::class, 'hotel'])->name('customer.hotel.booking');
     Route::get('/restaurants/{restaurant}', [CustomerController::class, 'showRestaurant'])->name('customer.restaurant.show');
+    Route::get('/hotel/booking', [BookingController::class, 'hotel'])->name('customer.hotel.booking');
+    Route::post('/hotel/booking', [BookingController::class, 'createHotelBooking'])->name('customer.hotel.booking.store');
 
 });
-
 
 Route::prefix('business')->middleware(['auth', 'role:business owner'])->group(function () {
     

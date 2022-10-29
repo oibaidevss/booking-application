@@ -56,7 +56,7 @@
                                     {{ $hotel->email }}</p>
                             </div>
                         </div>
-                        <p class="mt-2">{{ $hotel->description }}</p>
+                        <p class="mt-2">{!! $hotel->description !!}</p>
                     </div>
                 </div>
             </div>
@@ -69,24 +69,32 @@
                     <div class="flex-auto p-4 pt-6">
                         <ul class="flex flex-col pl-0 mb-0 rounded-lg">
                             @foreach ($hotel->rooms as $room)
-                            <li class="relative flex p-6 mb-2 border-0 rounded-t-inherit rounded-xl bg-gray-50">
-                                <div class="flex flex-col">
-                                    <span class="mb-2 leading-tight text-xs">Room Type: <span
-                                            class="font-semibold text-slate-700 sm:ml-2">{{ ucwords($room->room_type) }}</span></span>
 
-                                    <span class="mb-2 leading-tight text-xs">Room: <span
-                                            class="font-semibold text-slate-700 sm:ml-2">{{ $room->room_number }}</span></span>
-                                    <span class="mb-2 leading-tight text-xs">Floor: <span
-                                            class="font-semibold text-slate-700 sm:ml-2">{{ $room->floor }}</span></span>
-                                </div>
-                                <div class="ml-auto text-right">
+                            <li class="">
+                                <div class=" p-6 mb-2 border-0 rounded-t-inherit rounded-xl bg-gray-50">
+                                    <div class="relative flex">
+                                    <div class="flex flex-col">
+                                        <span class="mb-2 leading-tight text-xs">Room Type: <span
+                                                class="font-semibold text-slate-700 sm:ml-2">{{ ucwords($room->room_type) }}</span></span>
 
-                                    <a class="inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all bg-transparent rounded-lg cursor-pointer leading-pro text-xs ease-soft-in shadow-soft-md bg-150 bg-gradient-to-tl from-gray-900 to-slate-800 hover:shadow-soft-xs active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25"
-                                        href="{{ route('customer.hotel.booking') }}?hotel={{ $hotel->id }}?&room={{ $room->id }}">
-                                           <i class="mr-2 fas fa-plus text-white-700"
-                                            aria-hidden="true"></i>Book this room</a>
+                                        <span class="mb-2 leading-tight text-xs">Room: <span
+                                                class="font-semibold text-slate-700 sm:ml-2">{{ $room->room_number }}</span></span>
+                                        <span class="mb-2 leading-tight text-xs">Floor: <span
+                                                class="font-semibold text-slate-700 sm:ml-2">{{ $room->floor }}</span></span>
+                                    </div>
+                                    <div class="ml-auto text-right">
+
+                                        <a class="inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all bg-transparent rounded-lg cursor-pointer leading-pro text-xs ease-soft-in shadow-soft-md bg-150 bg-gradient-to-tl from-gray-900 to-slate-800 hover:shadow-soft-xs active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25"
+                                            href="{{ route('customer.hotel.booking') }}?hotel={{ $hotel->id }}?&room={{ $room->id }}">
+                                            <i class="mr-2 fas fa-plus text-white-700" aria-hidden="true"></i>Book this
+                                            room</a>
+                                    </div>
+                                    </div>
+                                    <p class="mb-2 leading-tight text-xs">{!! $room->description !!}</p>
                                 </div>
+
                             </li>
+
                             @endforeach
                         </ul>
                     </div>
