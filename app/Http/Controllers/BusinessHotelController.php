@@ -100,7 +100,8 @@ class BusinessHotelController extends Controller
         return request()->validate([
             'room_number' => 'required|numeric',
             'floor' => 'required|numeric',
-            'description' => 'required'
+            'description' => 'required',
+            'room_type' => 'required'
         ]);
     }
 }

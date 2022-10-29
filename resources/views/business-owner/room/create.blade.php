@@ -28,6 +28,18 @@
 
 
                             <x-form.field>
+                                <x-form.label name="Room Type" />
+                                <div class="mb-2">
+                                    <select class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"  name="room_type" id="room_type">
+                                        <option value="single">Single</option>
+                                        <option value="double">Double</option>
+                                        <option value="family">Family</option>
+                                    </select>
+                                </div>
+                                <x-form.error name="description" />
+                            </x-form.field>
+
+                            <x-form.field>
                                 <x-form.label name="description" />
                                 <div class="mb-2">
                                     <textarea

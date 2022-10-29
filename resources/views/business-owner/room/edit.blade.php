@@ -26,7 +26,18 @@
 
                             <x-form.input :value="$room->room_number" name="room_number" label="Room Number" required />
                             <x-form.input :value="$room->floor" name="floor" label="Floor" required />
-
+                            
+                            <x-form.field>
+                                <x-form.label name="Room Type" />
+                                <div class="mb-2">
+                                    <select class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"  name="room_type" id="room_type">
+                                        <option value="single"  {{ $room->room_type === 'single' ? 'selected':'' }}>Single</option>
+                                        <option value="double"  {{ $room->room_type === 'double' ? 'selected':'' }}>Double</option>
+                                        <option value="family"  {{ $room->room_type === 'family' ? 'selected':'' }}>Family</option>
+                                    </select>
+                                </div>
+                                <x-form.error name="description" />
+                            </x-form.field>
 
                             <x-form.field>
                                 <x-form.label name="description" />

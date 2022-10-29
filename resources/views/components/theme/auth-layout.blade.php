@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="apple-touch-icon" sizes="76x76" href="{{asset('assets/img/apple-icon.png')}}" />
     <link rel="icon" type="image/png" href="{{asset('assets/img/favicon.png')}}" />
-    <title>Soft UI Dashboard Tailwind</title>
+    <title>Booking Application</title>
     <link rel="canonical" href="https://www.creative-tim.com/product/soft-ui-dashboard-tailwind" />
     <meta name="keywords"
         content="creative tim, html dashboard, html css dashboard, web dashboard, tailwind dashboard, tailwind, tailwindcss, tailwind css, css3 dashboard, tailwind admin, Soft UI Dashboard Tailwind, frontend, responsive tailwind dashboard, free dashboard, free admin dashboard, free tailwind admin dashboard">
@@ -41,98 +41,35 @@
     <link href="{{asset('assets/css/nucleo-svg.css')}}" rel="stylesheet" />
 
     <link href="{{asset('assets/css/soft-ui-dashboard-tailwind.min.css?v=1.0.4')}}" rel="stylesheet" />
-    <script>
-        (function (a, s, y, n, c, h, i, d, e) {
-            s.className += ' ' + y;
-            h.start = 1 * new Date;
-            h.end = i = function () {
-                s.className = s.className.replace(RegExp(' ?' + y), '')
-            };
-            (a[n] = a[n] || []).hide = h;
-            setTimeout(function () {
-                i();
-                h.end = null
-            }, c);
-            h.timeout = c;
-        })(window, document.documentElement, 'async-hide', 'dataLayer', 4000, {
-            'GTM-K9BGS8K': true
-        });
 
-    </script>
-    <script>
-        (function (i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r;
-            i[r] = i[r] || function () {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date();
-            a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0];
-            a.async = 1;
-            a.src = g;
-            m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-        ga('create', 'UA-46172202-22', 'auto', {
-            allowLinker: true
-        });
-        ga('set', 'anonymizeIp', true);
-        ga('require', 'GTM-K9BGS8K');
-        ga('require', 'displayfeatures');
-        ga('require', 'linker');
-        ga('linker:autoLink', ["2checkout.com", "avangate.com"]);
-
-    </script>
-    <script>
-        (function (w, d, s, l, i) {
-            w[l] = w[l] || [];
-            w[l].push({
-                'gtm.start': new Date().getTime(),
-                event: 'gtm.js'
-            });
-            var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s),
-                dl = l != 'dataLayer' ? '&l=' + l : '';
-            j.async = true;
-            j.src =
-                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-            f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-NKDMSK6');
-
-    </script>
 </head>
 
 <body class="m-0 font-sans antialiased font-normal bg-white text-start text-base leading-default text-slate-500">
-    <noscript>
-        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NKDMSK6" height="0" width="0"
-            style="display:none;visibility:hidden">
-        </iframe>
-    </noscript>
+   
 
     <nav
         class="absolute top-0 z-30 flex flex-wrap items-center justify-between w-full px-4 py-2 mt-6 mb-4 shadow-none lg:flex-nowrap lg:justify-start">
         <div class="container flex items-center justify-between py-0 flex-wrap-inherit">
             <a class="py-2.375 text-sm mr-4 ml-4 whitespace-nowrap font-bold text-white lg:ml-0"
                 href="../pages/dashboard.html"> Booking Application </a>
-            <button navbar-trigger
-                class="px-3 py-1 ml-2 leading-none transition-all bg-transparent border border-transparent border-solid rounded-lg shadow-none cursor-pointer text-lg ease-soft-in-out lg:hidden"
-                type="button" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="inline-block mt-2 align-middle bg-center bg-no-repeat bg-cover w-6 h-6 bg-none">
-                    <span bar1
-                        class="w-5.5 rounded-xs duration-350 relative my-0 mx-auto block h-px bg-white transition-all"></span>
-                    <span bar2
-                        class="w-5.5 rounded-xs mt-1.75 duration-350 relative my-0 mx-auto block h-px bg-white transition-all"></span>
-                    <span bar3
-                        class="w-5.5 rounded-xs mt-1.75 duration-350 relative my-0 mx-auto block h-px bg-white transition-all"></span>
-                </span>
-            </button>
+            
             <div navbar-menu
-                class="items-center flex-grow transition-all ease-soft duration-350 lg-max:bg-white lg-max:max-h-0 lg-max:overflow-hidden basis-full rounded-xl lg:flex lg:basis-auto">
-                <ul class="flex flex-col pl-0 mx-auto mb-0 list-none lg:flex-row xl:ml-auto">
-                    
-                </ul>
-
+                class="items-center justify-end flex-grow transition-all ease-soft duration-350 lg-max:bg-white lg-max:max-h-0 lg-max:overflow-hidden basis-full rounded-xl lg:flex lg:basis-auto">
 
                 <ul class="hidden pl-0 mb-0 list-none lg:block lg:flex-row">
-                    
+                    <li>
+                         <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+
+                            <a class="block px-0 py-2 font-semibold transition-all ease-nav-brand text-sm text-white" href="{{route('logout')}}" onclick="event.preventDefault(); this.closest('form').submit();">
+                                <span class="hidden sm:inline">
+                                    <i class="fa fa-user mr-1"></i>
+                                    {{ __('Log Out') }}
+                                </span>
+                            </a>
+
+                            </form>
+                    </li>
                 </ul>
             </div>
         </div>

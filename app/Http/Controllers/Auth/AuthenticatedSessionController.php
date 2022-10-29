@@ -35,15 +35,11 @@ class AuthenticatedSessionController extends Controller
         // return redirect()->intended(RouteServiceProvider::HOME);
         
         if(auth()->user()->hasRole('customer')){
-            return redirect()->route('info.index');
+            return redirect()->route('customer.index');
         }
 
         if(auth()->user()->hasRole('business owner')){
             return redirect()->route('info.index');
-        }
-
-        if(auth()->user()->hasRole('business owner')){
-            return redirect()->route('admin.index');
         }
     }
 

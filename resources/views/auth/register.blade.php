@@ -29,7 +29,7 @@
                                 <x-form.input :value="old('first_name')" name="first_name" label="First Name"
                                     required />
                                 <x-form.input :value="old('last_name')" name="last_name" label="Last Name" required />
-                                <x-form.input type="file" :value="old('avatar')" name="avatar" label="avatar" required />
+                                <x-form.input type="file" :value="old('avatar')" name="avatar" label="avatar" />
                                
 
                                 <div class="my-4">
@@ -69,7 +69,7 @@
                                     </div>
                                     
                                     <div class="" id="identification">
-                                        <x-form.input type="file" :value="old('identification')" name="identification" label="Identification (Valid ID)" required />
+                                        <x-form.input type="file" :value="old('identification')" name="identification" label="Identification (Valid ID)" />
                                     </div>
                                 </div>
                                 
