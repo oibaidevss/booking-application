@@ -51,7 +51,7 @@ Route::prefix('business')->middleware(['auth', 'role:business owner'])->group(fu
 });
 
 
-Route::prefix('admin')->middleware(['role:admin'])->group(function () {
+Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     
     Route::get('/',  function () {
         return view('dashboard');

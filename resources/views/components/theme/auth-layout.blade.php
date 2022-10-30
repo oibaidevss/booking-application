@@ -52,7 +52,7 @@
         <div class="container flex items-center justify-between py-0 flex-wrap-inherit">
             <a class="py-2.375 text-sm mr-4 ml-4 whitespace-nowrap font-bold text-white lg:ml-0"
                 href="../pages/dashboard.html"> Booking Application </a>
-            
+            @auth
             <div navbar-menu
                 class="items-center justify-end flex-grow transition-all ease-soft duration-350 lg-max:bg-white lg-max:max-h-0 lg-max:overflow-hidden basis-full rounded-xl lg:flex lg:basis-auto">
 
@@ -72,6 +72,7 @@
                     </li>
                 </ul>
             </div>
+            @endauth
         </div>
     </nav>
     <main class="mt-0 transition-all duration-200 ease-soft-in-out">

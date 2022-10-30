@@ -18,7 +18,7 @@
                 <div class="w-full max-w-full px-3 mx-auto mt-0 md:flex-0 shrink-0 md:w-7/12 lg:w-5/12 xl:w-4/12">
                     <div
                         class="relative z-0 flex flex-col min-w-0 break-words bg-white border-0 shadow-soft-xl rounded-2xl bg-clip-border">
-                        <div class="p-6 mb-0 text-center bg-white border-b-0 rounded-t-2xl">
+                        <div class="pt-6 mb-0 text-center bg-white border-b-0 rounded-t-2xl">
                             <h5>Login</h5>
                         </div>
                         
@@ -38,6 +38,10 @@
                                         <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="remember">
                                         <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
                                     </label>
+                                </div>
+
+                                <div class="mt-4">
+                                    <p class="text-sm text-gray-600 ">No account yet? <a class="hover:text-gray-900" href="{{ route('register') }}">Register Here </a></p>
                                 </div>
 
                                 <div class="flex items-center justify-between align-center mt-4">

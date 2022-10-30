@@ -64,12 +64,12 @@
                 <div
                     class="relative flex flex-col min-w-0 break-words bg-white border-0 shadow-soft-xl rounded-2xl bg-clip-border">
                     <div class="p-6 px-4 pb-0 mb-0 bg-white border-b-0 rounded-t-2xl">
-                        <h6 class="mb-0">Billing Information</h6>
+                        <h6 class="mb-0">Room Information</h6>
                     </div>
                     <div class="flex-auto p-4 pt-6">
                         <ul class="flex flex-col pl-0 mb-0 rounded-lg">
                             @foreach ($hotel->rooms as $room)
-
+                            
                             <li class="">
                                 <div class=" p-6 mb-2 border-0 rounded-t-inherit rounded-xl bg-gray-50">
                                     <div class="relative flex">

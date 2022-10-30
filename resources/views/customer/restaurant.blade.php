@@ -32,7 +32,7 @@
                                 <div class="flex items-center justify-between">
                                     <a href="{{ route('customer.restaurant.show', $restaurant) }}"
                                         class="inline-block px-8 py-2 mb-0 font-bold text-center uppercase align-middle transition-all bg-transparent border border-solid rounded-lg shadow-none cursor-pointer leading-pro ease-soft-in text-xs hover:scale-102 active:shadow-soft-xs tracking-tight-soft border-fuchsia-500 text-fuchsia-500 hover:border-fuchsia-500 hover:bg-transparent hover:text-fuchsia-500 hover:opacity-75 hover:shadow-none active:bg-fuchsia-500 active:text-white active:hover:bg-transparent active:hover:text-fuchsia-500">View
-                                        Restaurants</a>
+                                        Tables</a>
                                 </div>
                             </div>
                         </div>

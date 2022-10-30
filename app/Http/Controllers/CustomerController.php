@@ -21,13 +21,15 @@ class CustomerController extends Controller
 
     public function hotel() {
         return view('customer.hotel', [
-            'hotels' => Hotel::with('rooms')->where('status', 1)->get()
+            'hotels' => Hotel::with('rooms')->where('status', 1)->get(),
         ]);
     }
 
     public function showHotel(Hotel $hotel){
         $hotel = $hotel->with('rooms')->first();
-        return view('customer.hotel.show', ['hotel' => $hotel]);
+        return view('customer.hotel.show', [
+            'hotel' => $hotel
+        ]);
     }
 
     public function restaurant() {

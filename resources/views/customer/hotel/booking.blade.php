@@ -14,6 +14,7 @@
                     @csrf
 
                     <input type="hidden" name="room_id" value={{ isset($_GET['room']) ? $_GET['room']:'' }}>
+                    <input type="hidden" name="hotel_id" value={{ isset($_GET['hotel']) ? $_GET['hotel']:'' }}>
 
                     <input type="hidden" name="user_id" value={{ auth()->user()->id }}>
 

@@ -29,6 +29,7 @@ class BookingController extends Controller
         return request()->validate([
             'start_date' => ['required', Rule::unique('hotel_bookings', 'start_date')->ignore($hotelBooking)],
             'end_date' => 'required',
+            'hotel_id' => 'required',
             'room_id' => 'required',
             'user_id' => 'required',
         ]);

@@ -18,7 +18,8 @@
                 <div class="w-full max-w-full px-3 mx-auto mt-0 md:flex-0 shrink-0 md:w-7/12 lg:w-5/12 xl:w-4/12">
                     <div
                         class="relative z-0 flex flex-col min-w-0 break-words bg-white border-0 shadow-soft-xl rounded-2xl bg-clip-border">
-                        <div class="p-6 mb-0 text-center bg-white border-b-0 rounded-t-2xl">
+
+                        <div class="pt-6 mb-0 text-center bg-white border-b-0 rounded-t-2xl">
                             <h5>Register</h5>
                         </div>
                         
@@ -34,7 +35,7 @@
 
                                 <div class="my-4">
 
-                                    <a id="trigger" href="#" class="mb-1 ml-1 font-normal cursor-pointer select-none text-sm text-slate-700" onclick="
+                                    <a id="trigger" href="#" class="underline font-bold mb-4 ml-1 font-normal cursor-pointer select-none text-sm text-slate-700" onclick="
                                         event.preventDefault();
     
                                         let el = document.getElementById('business');
@@ -52,7 +53,7 @@
     
                                     ">Register as Business?</a>
     
-                                    <div class="hidden" id="business">
+                                    <div class="hidden mt-2" id="business">
                                         <x-form.field>
                                                 <x-form.label name="Business Type" />
                                                 <div class="mb-2">
@@ -68,7 +69,7 @@
                                         </x-form.field>
                                     </div>
                                     
-                                    <div class="" id="identification">
+                                    <div class="mt-2" id="identification">
                                         <x-form.input type="file" :value="old('identification')" name="identification" label="Identification (Valid ID)" />
                                     </div>
                                 </div>
@@ -89,7 +90,7 @@
 
                                 <x-form.button class="button">Submit</x-form.button>
                                 <p class="mt-4 mb-0 leading-normal text-sm">Already have an account? <a
-                                        href="../pages/sign-in.html" class="font-bold text-slate-700">Sign in</a>
+                                        href="{{ route('login') }}" class="font-bold text-slate-700">Sign in</a>
                                 </p>
                             </form>
                         </div>
