@@ -13,12 +13,12 @@
                 <div class="flex flex-wrap -mx-3">
                     {{-- @dd($hotels) --}}
                     @foreach ($hotels as $hotel)
-                    <div class="w-full max-w-full px-3 mb-6 md:w-6/12 md:flex-none xl:mb-0 xl:w-3/12">
+                    <div class="w-full max-w-full px-3 mt-6 mb-6 md:w-6/12 md:flex-none xl:mb-0 xl:w-3/12">
                         <div
                             class="relative flex flex-col min-w-0 break-words bg-transparent border-0 shadow-none rounded-2xl bg-clip-border">
                             <div class="relative">
                                 <a class="block shadow-xl rounded-2xl">
-                                    <img src="../assets/img/home-decor-1.jpg" alt="img-blur-shadow"
+                                    <img src="{{asset('/assets/img/home-decor-1.jpg')}}" alt="img-blur-shadow"
                                         class="max-w-full shadow-soft-2xl rounded-2xl">
                                 </a>
                             </div>
