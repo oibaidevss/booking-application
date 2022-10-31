@@ -16,7 +16,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="flex-auto p-4 pt-6">
+                    <div class="flex-auto p-4 pt-6 relative">
 
 
                         <div
@@ -56,7 +56,10 @@
                                     {{ $hotel->email }}</p>
                             </div>
                         </div>
-                        <p class="mt-2">{!! $hotel->description !!}</p>
+
+                        <img class="w-full my-4 rounded-2xl" src="{{ ($hotel->picture) ? asset("/storage/pictures/hotel/$hotel->id/" . $hotel->picture):asset('/assets/img/home-decor-1.jpg') }}" alt="img-blur-shadow"
+
+                        <p class="mt-4">{!! $hotel->description !!}</p>
                     </div>
                 </div>
             </div>

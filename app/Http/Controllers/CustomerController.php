@@ -26,7 +26,6 @@ class CustomerController extends Controller
     }
 
     public function showHotel(Hotel $hotel){
-        $hotel = $hotel->with('rooms')->first();
         return view('customer.hotel.show', [
             'hotel' => $hotel
         ]);

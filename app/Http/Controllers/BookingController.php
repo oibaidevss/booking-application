@@ -16,9 +16,7 @@ class BookingController extends Controller
     }
 
     public function createHotelBooking(Request $request){
-
         HotelBooking::create(array_merge($this->validateBooking()));
-
         return back()->with('success', 'Successfully Booked!');
     }
 
@@ -27,7 +25,7 @@ class BookingController extends Controller
         $hotelBooking ??= new HotelBooking();
 
         return request()->validate([
-            'start_date' => ['required', Rule::unique('hotel_bookings', 'start_date')->ignore($hotelBooking)],
+            'start_date' => 'required',
             'end_date' => 'required',
             'hotel_id' => 'required',
             'room_id' => 'required',
