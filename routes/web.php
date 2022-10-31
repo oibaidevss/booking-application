@@ -38,8 +38,9 @@ Route::prefix('customer')->middleware(['auth', 'verified', 'role:customer'])->gr
     Route::get('/hotels/{hotel}', [CustomerController::class, 'showHotel'])->name('customer.hotel.show');
     Route::get('/restaurants/{restaurant}', [CustomerController::class, 'showRestaurant'])->name('customer.restaurant.show');
     Route::get('/hotel/booking', [BookingController::class, 'hotel'])->name('customer.hotel.booking');
-    Route::post('/hotel/booking', [BookingController::class, 'createHotelBooking'])->name('customer.hotel.booking.store');
-
+    Route::post('/hotel/booking', [BookingController::class, 'bookHotel'])->name('customer.hotel.booking.store');
+    
+    Route::get('/bookings', [CustomerController::class, 'myBookings'])->name('customer.bookings');
 });
 
 Route::prefix('business')->middleware(['auth', 'role:business owner'])->group(function () {

@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\HotelBooking;
 use App\Models\Restaurant;
 use App\Models\Hotel;
 
@@ -49,5 +50,9 @@ class User extends Authenticatable
 
     public function restaurant() {
         return $this->hasOne(Restaurant::class);
+    }
+
+    public function bookings() {
+        return $this->hasMany(HotelBooking::class);
     }
 }

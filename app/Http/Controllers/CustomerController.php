@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 use App\Models\Hotel;
 use App\Models\Restaurant;
 
@@ -35,6 +36,14 @@ class CustomerController extends Controller
         return view('customer.restaurant', [
             'restaurants' => Restaurant::with('tables')->where('status', 1)->paginate(8)->withQueryString()
         ]);
+    }
+
+    function myBookings(){
+
+        $user = User::with('bookings')->where('id', auth()->user()->id)->first();
+
+        return view('customer.bookings', ['user' => $user]);
+
     }
     
 
