@@ -78,7 +78,8 @@ class RoomController extends Controller
             'room_number' => 'required',
             'floor' => 'required',
             'description' => 'required',
-            'hotel_id' => 'required'
+            'hotel_id' => 'required',
+            'picture' => 'required'
         ]);
     }
 }

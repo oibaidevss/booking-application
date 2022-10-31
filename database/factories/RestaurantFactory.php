@@ -23,7 +23,8 @@ class RestaurantFactory extends Factory
             'number' => fake()->phonenumber(),
             'location' => fake()->address(),
             'description' => fake()->sentence(),
-            'business_permit' => fake()->image(),
+            'business_permit' => '',
+            'picture' => '',
             'status' => 1,
             'user_id' => User::factory(),
         ];

@@ -19,10 +19,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="flex-auto p-4">
+                    <div class="flex-auto p-4 mt-4">
                         
-                        <form action="{{ route('info.update', $business->id) }}"
-                            method="POST">
+                        <form action="{{ route('info.update', $business) }}"
+                            method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PATCH')
 
@@ -30,6 +30,12 @@
                             <x-form.input :value="$business->email" name="email" label="Email" required />
                             <x-form.input :value="$business->number" name="number" label="Number" required />
                             <x-form.input :value="$business->location" name="location" label="Location" required />
+                                
+                            <x-form.input :value="$business->picture" name="picture" label="Picture" type="file" />
+                           
+                            <x-form.input name="business_permit" label="Business Permit" type="file" />
+                            
+                            <a href="{{ asset( '/storage/permits/'. $business->id . '/' . $business->business_permit )}}"><i class="fa fa-download"></i>{{ $business->business_permit }} Download Permit</a>
 
                             <x-form.field>
                                 <x-form.label name="description" />
@@ -51,7 +57,7 @@
             </div>
 
             @if (auth()->user()->business_type == "hotel")      
-            <div class="w-full px-3 mb-6 lg:mb-0 lg:w-7/12 lg:flex-none">
+            <div class="w-full px-3 mt-4 mb-6 lg:mb-0 lg:w-7/12 lg:flex-none">
                 <div
                     class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
                     <div class="p-6 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
@@ -172,7 +178,7 @@
         
             
             @if (auth()->user()->business_type == "restaurant")
-            <div class="w-full px-3 mb-6 lg:mb-0 lg:w-7/12 lg:flex-none">
+            <div class="w-full px-3 mt-2 mb-6 lg:mb-0 lg:w-7/12 lg:flex-none">
                 <div
                     class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
                     <div class="p-6 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent">

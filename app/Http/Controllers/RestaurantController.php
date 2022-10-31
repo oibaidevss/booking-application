@@ -101,6 +101,7 @@ class RestaurantController extends Controller
             'number' => 'required',
             'location' => 'required',
             'description' => 'required',
+            'picture' => '',
         ]);
     }
 }

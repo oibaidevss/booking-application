@@ -24,6 +24,7 @@
                             <x-form.input :value="old('number')" name="number" label="Number" required />
                             <x-form.input :value="old('location')" name="location" label="Location" required />
 
+                            <x-form.input :value="old('picture')" type="file" name="picture" label="Picture" required />
                             <x-form.input :value="old('business_permit')" type="file" name="business_permit" label="Business Permit" required />
 
                             <x-form.field>

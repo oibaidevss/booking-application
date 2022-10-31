@@ -21,7 +21,7 @@ class CustomerController extends Controller
 
     public function hotel() {
         return view('customer.hotel', [
-            'hotels' => Hotel::with('rooms')->where('status', 1)->get(),
+            'hotels' => Hotel::with('rooms')->where('status', 1)->paginate(8)->withQueryString(),
         ]);
     }
 
@@ -34,7 +34,7 @@ class CustomerController extends Controller
 
     public function restaurant() {
         return view('customer.restaurant', [
-            'restaurants' => Restaurant::with('tables')->where('status', 1)->get()
+            'restaurants' => Restaurant::with('tables')->where('status', 1)->paginate(8)->withQueryString()
         ]);
     }
     

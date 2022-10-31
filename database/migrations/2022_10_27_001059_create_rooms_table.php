@@ -23,6 +23,7 @@ return new class extends Migration
             $table->enum('room_type', ['single', 'double', 'family'])->default('single');
             $table->foreignId('hotel_id')->constrained()->cascadeOnDelete();
 
+            $table->string('picture')->nullable();
             
             $table->timestamps();
         });

@@ -40,6 +40,10 @@
                     </div>
                     @endforeach
                 </div>
+                <div
+                class="flex mt-6 justify-center p-4">
+                {{ $hotels->links() }}
+                </div>
             </div>
         </div>
     </div>

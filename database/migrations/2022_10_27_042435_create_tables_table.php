@@ -17,9 +17,12 @@ return new class extends Migration
             $table->id();
 
             $table->string('table_number');
+            
             $table->text('description')->nullable();
 
             $table->foreignId('restaurant_id')->constrained()->cascadeOnDelete();
+
+            $table->string('picture')->nullable();
 
             $table->timestamps();
         });

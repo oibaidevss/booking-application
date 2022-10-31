@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use App\Models\Restaurant;
@@ -40,11 +41,21 @@ class BusinessController extends Controller
         $user = auth()->user();
 
         if( $user->business_type == 'hotel' ){  
-            Hotel::create(array_merge($this->validateHotel(), ['user_id' => $user->id]));
+           $hotel =  Hotel::create(array_merge($this->validateHotel(), ['user_id' => $user->id]));
+           if($request->hasFile('picture')){
+                $picture = $request->picture->getClientOriginalName();
+                $request->picture->storeAs('pictures', $picture, 'public');
+                $hotel->update(['picture'=>$picture]);
+           }
         }
             
         if( $user->business_type == 'restaurant' ){
-            Restaurant::create(array_merge($this->validateRestaurant(), ['user_id' => $user->id]));
+            $restaurant =  Restaurant::create(array_merge($this->validateRestaurant(), ['user_id' => $user->id]));
+            if($request->hasFile('picture')){
+                $picture = $request->picture->getClientOriginalName();
+                $request->picture->storeAs('pictures', $picture, 'public');
+                $restaurant->update(['picture'=>$picture]);
+           }
         }
 
         return redirect()->route('info.edit', $user->id);
@@ -72,7 +83,7 @@ class BusinessController extends Controller
         $user = auth()->user();
 
         if( $user->business_type == 'hotel' ){  
-            $business = Hotel::where('user_id', $user->id)->with('rooms')->first();
+            $business = Hotel::where('user_id', $user->id)->with('rooms')->first();         
             if($business != null){
                 return view('business-owner.edit', [ 'business' => $business ]);
             }else{
@@ -98,21 +109,93 @@ class BusinessController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update()
-    {
+    public function update(Request $request, $id)
+    {   
+
         $user = auth()->user();
 
+        $permit = '';
+        $picture = '';
+
         if( $user->business_type == 'hotel' ){  
-            $hotel = Hotel::where('user_id', $user->id)->first();
-            $attributes = $this->validateHotel($hotel);
-            $hotel->update($attributes);
+            
+            $hotel = Hotel::find($id);
+
+
+
+            $request->validate([
+                'name' => 'required',
+                'email' => 'required',
+                'number' => 'required',    
+                'description' => 'required',
+                'location' => 'required',
+            ]);
+
+            
+            if($request->hasFile('picture')){
+                $picture = $request->picture->getClientOriginalName();
+                $request->picture->storeAs("pictures/hotel/$id", $picture, 'public');
+            }
+    
+            if($request->hasFile('business_permit')){
+                $permit = $request->business_permit->getClientOriginalName();
+                $request->business_permit->storeAs("permits/hotel/$id", $permit, 'public');
+            }
+            
+            $hotel->picture = $request->hasFile('picture') ? $picture : $hotel->picture;
+            $hotel->business_permit = $request->hasFile('business_permit') ? $permit : $hotel->picture;
+            
+            $hotel->name = $request->name;
+            $hotel->email = $request->email;
+            $hotel->business_permit = $request->business_permit;
+            $hotel->number = $request->number;
+            $hotel->description = $request->description;
+            $hotel->location = $request->location;
+            
+            $hotel->update();
         }
 
+
+
         if( $user->business_type == 'restaurant' ){  
-            $restaurant = Restaurant::where('user_id', $user->id)->first();
-            $attributes = $this->validateRestaurant($restaurant);
-            $restaurant->update($attributes);
+           
+
+            $restaurant = restaurant::find($id);
+
+            $request->validate([
+                'name' => 'required',
+                'email' => 'required',
+                'number' => 'required',    
+                'description' => 'required',
+                'location' => 'required',
+                'business_permit' => '',
+                'picture' => '',
+            ]);
+            
+            if($request->hasFile('picture')){
+                $picture = $request->picture->getClientOriginalName();
+                $request->picture->storeAs("pictures/restaurant/$id", $picture, 'public');
+            }
+    
+            if($request->hasFile('business_permit')){
+                $permit = $request->business_permit->getClientOriginalName();
+                $request->business_permit->storeAs("permits/restaurant/$id", $permit, 'public');
+            }
+            
+            $restaurant->picture = $request->hasFile('picture') ? $picture : $restaurant->picture;
+            $restaurant->business_permit = $request->hasFile('business_permit') ? $permit : $restaurant->picture;
+            
+            $restaurant->name = $request->name;
+            $restaurant->email = $request->email;
+            $restaurant->business_permit = $request->business_permit;
+            $restaurant->number = $request->number;
+            $restaurant->description = $request->description;
+            $restaurant->location = $request->location;
+            
+            $restaurant->update();
         }
+
+
 
         return back()->with('sucess', 'You have successfully updated your business.');
     }

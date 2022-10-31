@@ -48,6 +48,7 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
             'business_type' => $request->business_type, 
         ]);
+        
         if($request->hasFile('avatar')){
             $avatar = $request->avatar->getClientOriginalName();
             $request->avatar->storeAs('avatars', $avatar, 'public');

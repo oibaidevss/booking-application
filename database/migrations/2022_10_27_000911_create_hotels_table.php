@@ -22,11 +22,13 @@ return new class extends Migration
             $table->string('location')->nullable();
             $table->longText('description')->nullable();
 
-            $table->string('business_permit');
+            $table->string('picture')->nullable();
+            $table->string('business_permit')->nullable();
 
             $table->tinyInteger('status')->default(0); // idetify kung verified business
 
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+
 
             $table->timestamps();
         });
