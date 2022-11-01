@@ -41,6 +41,7 @@ Route::prefix('customer')->middleware(['auth', 'verified', 'role:customer'])->gr
     Route::post('/hotel/booking', [BookingController::class, 'bookHotel'])->name('customer.hotel.booking.store');
     
     Route::get('/bookings', [CustomerController::class, 'myBookings'])->name('customer.bookings');
+    Route::match(['put', 'patch'], '/bookings/cancel/{booking}', [CustomerController::class, 'cancelBooking'])->name('customer.bookings.cancel');
 });
 
 Route::prefix('business')->middleware(['auth', 'role:business owner'])->group(function () {

@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\Hotel;
+use App\Models\HotelBooking;
 use App\Models\Restaurant;
+use App\Models\Hotel;
+use App\Models\User;
 
 
 
@@ -44,6 +45,16 @@ class CustomerController extends Controller
 
         return view('customer.bookings', ['user' => $user]);
 
+    }
+
+    function cancelBooking($id) {
+        $booking = HotelBooking::find($id);
+
+        $booking->update([
+            'status' => 'canceled'
+        ]);
+
+        return back()->with('success', 'Your booking was successfully canceled');
     }
     
 

@@ -41,9 +41,18 @@ class DatabaseSeeder extends Seeder
             'business_type' => 'hotel'
          ])->assignRole('business owner');
 
-         \App\Models\Hotel::factory()->create([
+         $hotel = \App\Models\Hotel::factory()->create([
             'user_id' => $business_owner_hotel->id
          ]);
+
+         for ($i=1; $i <= 10; $i++) { 
+            # code...
+            \App\Models\Room::factory()->create([
+               'room_number' => $i,
+               'floor' => $i,
+               'hotel_id' => $hotel->id
+            ]);
+         }
 
          $business_owner_restaurant = \App\Models\User::factory()->create([
             'first_name' => 'Jane',

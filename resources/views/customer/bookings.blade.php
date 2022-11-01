@@ -7,7 +7,7 @@
 
     <div class="w-full px-6 py-6 mx-auto">
         <div class="flex flex-wrap -mx-3">
-            <div class="w-full max-w-full px-3 lg:w-1/3 lg:flex-none">
+            <div class="w-full max-w-full px-3 lg:w-1/2 lg:flex-none">
                 <color:div
                     class="relative flex flex-col h-full min-w-0 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
                     <div class="p-4 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
@@ -37,10 +37,19 @@
                                     <div class="flex items-center leading-normal text-sm">
                                         Room Number {{ App\Models\Room::where('id', $booking->room_id)->first()->room_number }}
                                         <button
-                                            class="inline-block px-0 py-3 mb-0 ml-6 font-bold leading-normal text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer ease-soft-in bg-150 text-sm active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25 text-slate-700"><i
-                                                class="mr-1 fas fa-file-pdf text-lg" aria-hidden="true"></i> PDF</button>
+                                            class="px-2 py-1 text-white border border-solid rounded-lg bg-gradient-to-tl {{ $booking->status == 'canceled' ? 'from-red-500 to-rose-400' : 'from-blue-600 to-rose-400' }} border-fuchsia-300 ml-2 capitalize pointer-events-none">{{ $booking->status }}</button>
+                                        @if($booking->status != 'canceled')
+                                        <form action="{{ route('customer.bookings.cancel', $booking->id) }}" method="POST">
+                                            @csrf
+                                            @method('PATCH')
+
+                                            <button type="submit"
+                                            class="px-2 py-1 text-white border border-solid rounded-lg bg-gradient-to-tl from-red-500 to-rose-400 border-fuchsia-300 capitalize">cancel booking</button>
+                                        </form>
+                                        
+                                        @endif
                                     </div>
-                                </li>
+                                    </li>
                             @endforeach
                            
                         </ul>

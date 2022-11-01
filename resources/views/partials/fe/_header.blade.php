@@ -52,5 +52,22 @@
             </div>
         </div>
     </div>
-</div>
 
+    @if(Session::has('error'))
+    <div alert class="relative p-4 pr-12 mb-4 text-white border border-solid rounded-lg bg-gradient-to-tl from-red-500 to-rose-400 border-fuchsia-300 session-alert">
+      {{ Session::get('error') }}
+      <button onclick="document.getElementsByClassName('session-alert')[0].style.display = 'none'" alert-close type="button" class=" mr-4 box-content absolute top-0 right-0 p-4 text-sm text-white bg-transparent border-0 rounded w-4 h-4 z-2">
+        <span aria-hidden="true" class="text-center cursor-pointer">&#10005;</span>
+      </button>
+    </div>
+    @endif
+
+    @if(Session::has('success'))
+    <div alert class="relative p-4 pr-12 mb-4 text-white border border-solid rounded-lg bg-gradient-to-tl from-blue-600 to-cyan-400 border-fuchsia-300 session-alert">
+      {{ Session::get('success') }}
+      <button onclick="document.getElementsByClassName('session-alert')[0].style.display = 'none'" alert-close type="button" class=" mr-4 box-content absolute top-0 right-0 p-4 text-sm text-white bg-transparent border-0 rounded w-4 h-4 z-2">
+        <span aria-hidden="true" class="text-center cursor-pointer">&#10005;</span>
+      </button>
+    </div>
+    @endif
+</div>
