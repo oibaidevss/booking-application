@@ -49,7 +49,26 @@ Route::prefix('business')->middleware(['auth', 'role:business owner'])->group(fu
     Route::resource('info', BusinessController::class);
     Route::resource('room', BusinessHotelController::class);
     Route::resource('table', BusinessRestaurantController::class);
-  
+    
+    Route::get('bookings', function(){
+        $hotel = \App\Models\Hotel::where('user_id', auth()->user()->id)->first();
+        $bookings = \App\Models\HotelBooking::where('hotel_id', $hotel->id)->get();
+
+        return view('business-owner.bookings', [ 'bookings' => $bookings ]);
+    })->name('business.bookings');
+
+    Route::match(['put', 'patch'], '/bookings/approved/{booking}', function($booking){
+        
+        $booking = App\Models\HotelBooking::find($booking);
+
+        $booking->update([
+            'status' => 'approved'
+        ]);
+
+        return back()->with('success', 'Your booking was successfully canceled');
+        
+    })->name('business.bookings.approved');
+
 });
 
 
