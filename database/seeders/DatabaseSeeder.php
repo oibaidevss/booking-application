@@ -65,13 +65,14 @@ class DatabaseSeeder extends Seeder
             'user_id' => $business_owner_restaurant->id
          ]);
 
-         $customers = \App\Models\User::factory(2)->create(
-            ['business_type' => 'none']
+         $customer = \App\Models\User::factory()->create(
+            [  
+               'email' => 'customer@example.com',
+               'business_type' => 'none'
+            ]
          );
 
-         foreach ($customers as $key => $customer) {
-            $customer->assignRole('customer');
-         }
+         $customer->assignRole('customer');
 
          $owners = \App\Models\User::factory(10)->create(
             ['business_type' => 'hotel']

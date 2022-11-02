@@ -27,7 +27,19 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    // return view('dashboard');
+    if(auth()->user()->hasRole('customer')){
+        return redirect()->route('customer.index');
+    }
+
+    if(auth()->user()->hasRole('business owner')){
+        return redirect()->route('info.index');
+    }
+
+    if(auth()->user()->hasRole('admin')){
+        return "Construction On-going.";
+    }
+
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::prefix('customer')->middleware(['auth', 'verified', 'role:customer'])->group(function () {
