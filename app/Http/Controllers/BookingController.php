@@ -35,7 +35,7 @@ class BookingController extends Controller
         }
 
         HotelBooking::create(array_merge($this->validateBooking()));
-        return redirect()->route('customer.bookings')->with('success', 'Successfully Booked!');
+        return redirect()->route('customer.bookings')->with('success', "You're booking will be cancelled in the next 24 hours if you are not able to pay within these hours ");
 
     }
 

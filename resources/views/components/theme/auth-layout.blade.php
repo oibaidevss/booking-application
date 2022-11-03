@@ -58,17 +58,22 @@
 
                 <ul class="hidden pl-0 mb-0 list-none lg:block lg:flex-row">
                     <li>
-                         <form method="POST" action="{{ route('logout') }}">
-                            @csrf
+                        <div class="relative flex flex-wrap p-1 list-none bg-transparent rounded-xl"> 
+                             
+                            <a class="block px-0 py-2 font-semibold transition-all ease-nav-brand text-sm text-white mr-4" href="{{ route('customer.bookings') }}"> My Bookings </a>
 
-                            <a class="block px-0 py-2 font-semibold transition-all ease-nav-brand text-sm text-white" href="{{route('logout')}}" onclick="event.preventDefault(); this.closest('form').submit();">
-                                <span class="hidden sm:inline">
-                                    <i class="fa fa-user mr-1"></i>
-                                    {{ __('Log Out') }}
-                                </span>
-                            </a>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+
+                                <a class="block px-0 py-2 font-semibold transition-all ease-nav-brand text-sm text-white" href="{{route('logout')}}" onclick="event.preventDefault(); this.closest('form').submit();">
+                                    <span class="hidden sm:inline">
+                                        <i class="fa fa-user mr-1"></i>
+                                        {{ __('Log Out') }}
+                                    </span>
+                                </a>
 
                             </form>
+                        </div>
                     </li>
                 </ul>
             </div>

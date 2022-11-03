@@ -38,7 +38,7 @@ class RegisteredUserController extends Controller
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'number' => ['required', 'string', 'email', 'max:12', 'unique:users'],
+            'number' => ['required', 'string', 'numeric', 'min:11', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
         
@@ -53,20 +53,22 @@ class RegisteredUserController extends Controller
         
         if($request->hasFile('avatar')){
             $avatar = $request->avatar->getClientOriginalName();
-            $request->avatar->storeAs('avatars', $avatar, 'public');
+            $request->avatar->storeAs("avatars/$user->id", $avatar, 'public');
             $user->update(['avatar'=>$avatar]);
         }
         
         if($request->hasFile('identification')){
             $identification = $request->identification->getClientOriginalName();
-            $request->identification->storeAs('identifications', $identification, 'public');
+            $request->identification->storeAs("identifications/$user->id", $identification, 'public');
             $user->update(['identification'=>$identification]);
         }
+        
+        $user->business_type == 'none' ? $user->assignRole('customer') : $user->assignRole('business owner');
+
         event(new Registered($user));
         
         Auth::login($user);
 
-        $user->business_type == 'none' ? $user->assignRole('customer') : $user->assignRole('business owner') ;
 
         if(auth()->user()->hasRole('customer')){
             return redirect()->route('customer.index');

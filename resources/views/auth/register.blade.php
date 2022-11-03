@@ -75,6 +75,7 @@
                                 </div>
                                 
                                 <x-form.input :value="old('email')" name="email" label="Email" required />
+                                <x-form.input :value="old('number')" name="number" label="Number" required />
                                 <x-form.input type="password" name="password" label="Password" required />
                                 <x-form.input type="password" name="password_confirmation" label="Confirm Password" required />
 
