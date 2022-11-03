@@ -18,6 +18,18 @@ class BookingController extends Controller
 
     public function bookHotel(Request $request){
 
+        $allBookings = HotelBooking::where([
+            'hotel_id' => $request->hotel_id, 
+            'room_id' => $request->room_id
+        ])->get();
+        
+        foreach($allBookings as $booking){
+            if($booking->start_date){
+                return back()->with("error", "Somebody has already book this room on $request->start_date. Please choose another date.");
+            }
+        }
+
+
         $bookings = HotelBooking::where('user_id', auth()->user()->id)->get();
 
         foreach($bookings as $booking){
