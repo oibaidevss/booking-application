@@ -45,7 +45,7 @@
                                                 $user = \App\Models\User::where('id', $booking->user_id)->first()@endphp
 
                                                 <div>
-                                                    <img src="{{ $user->avatar == null ? asset("assets/img/team-2.jpg") : asset("avatars/$user->avatar") }}"
+                                                    <img src="{{ $user->avatar == null ? asset("assets/img/team-2.jpg") : asset("public/avatars/$user->id/$user->avatar") }}"
                                                         class="inline-flex items-center justify-center mr-4 text-white transition-all duration-200 ease-soft-in-out text-sm h-9 w-9 rounded-xl"
                                                         alt="user1">
                                                 </div>
