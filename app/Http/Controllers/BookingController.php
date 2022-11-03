@@ -23,8 +23,10 @@ class BookingController extends Controller
             'room_id' => $request->room_id
         ])->get();
         
+        
+        
         foreach($allBookings as $booking){
-            if($booking->start_date){
+            if($booking->start_date === Carbon::parse($request->start_date)->toFormattedDateString()){
                 return back()->with("error", "Somebody has already book this room on $request->start_date. Please choose another date.");
             }
         }
