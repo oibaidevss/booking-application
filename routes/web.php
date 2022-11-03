@@ -23,7 +23,10 @@ use App\Http\Controllers\RoomController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('front-end.welcome');
+});
+Route::get('/about', function () {
+    return view('front-end.about');
 });
 
 Route::get('/dashboard', function () {
@@ -36,9 +39,6 @@ Route::get('/dashboard', function () {
         return redirect()->route('info.index');
     }
 
-    if(auth()->user()->hasRole('admin')){
-        return "Construction On-going.";
-    }
 
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -87,12 +87,13 @@ Route::prefix('business')->middleware(['auth', 'role:business owner'])->group(fu
 Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     
     Route::get('/',  function () {
-        return view('dashboard');
+        return view('admin.index');
     })->name('admin.index');
 
     Route::resource('hotels', HotelController::class);
-    Route::get('hotels/rooms/create', [RoomController::class, 'create'])->name('rooms.create');
     Route::resource('restaurants', RestaurantController::class);
+    
+    Route::get('hotels/rooms/create', [RoomController::class, 'create'])->name('rooms.create');
 });
 
 
