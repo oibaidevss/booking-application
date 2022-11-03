@@ -12,7 +12,7 @@
                 <div
                     class="text-base ease-soft-in-out h-18.5 w-18.5 relative inline-flex items-center justify-center rounded-xl text-white transition-all duration-200">
                     @if(auth()->user()->avatar)
-                        <img class="w-full shadow-soft-sm rounded-xl" src="{{asset('/public/avatars/'.auth()->users()->id.'.'.Auth::user()->avatar)}}" alt="profile_image" style="width: 80px;height: 80px; padding: 10px; margin: 0px; ">
+                        <img class="w-full shadow-soft-sm rounded-xl" src="{{asset('/public/avatars/'.auth()->user()->id.'.'.Auth::user()->avatar)}}" alt="profile_image" style="width: 80px;height: 80px; padding: 10px; margin: 0px; ">
                     @else
                         <img src="{{asset('assets/img/bruce-mars.jpg')}}" alt="profile_image" class="w-full shadow-soft-sm rounded-xl">
                     @endif
