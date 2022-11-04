@@ -38,8 +38,6 @@ Route::get('/dashboard', function () {
     if(auth()->user()->hasRole('business owner')){
         return redirect()->route('info.index');
     }
-
-
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::prefix('customer')->middleware(['auth', 'verified', 'role:customer'])->group(function () {
@@ -56,7 +54,7 @@ Route::prefix('customer')->middleware(['auth', 'verified', 'role:customer'])->gr
     Route::match(['put', 'patch'], '/bookings/cancel/{booking}', [CustomerController::class, 'cancelBooking'])->name('customer.bookings.cancel');
 });
 
-Route::prefix('business')->middleware(['auth', 'role:business owner'])->group(function () {
+Route::prefix('business')->middleware(['auth', 'verified', 'role:business owner'])->group(function () {
     
     Route::resource('info', BusinessController::class);
     Route::resource('room', BusinessHotelController::class);
@@ -84,7 +82,7 @@ Route::prefix('business')->middleware(['auth', 'role:business owner'])->group(fu
 });
 
 
-Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
+Route::prefix('admin')->middleware(['auth', 'verified', 'role:admin'])->group(function () {
     
     Route::get('/',  function () {
         return view('admin.index');
