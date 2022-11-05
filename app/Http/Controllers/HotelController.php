@@ -94,6 +94,17 @@ class HotelController extends Controller
         return back()->with('success', 'Post Deleted!');
     }
 
+
+    public function verify(Hotel $hotel)
+    {
+        
+        $hotel->status = 1; 
+        $hotel->save();
+
+        return back()->with('success', $hotel->name . ' is now verified!');
+
+    }
+
     protected function validateHotel(?Hotel $hotel = null): array
     {
         $hotel ??= new Hotel();

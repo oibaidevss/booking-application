@@ -42,13 +42,22 @@
 
                                         </th>
                                     <th
-                                        class="px-6 py-3 font-semibold capitalize align-middle bg-transparent border-b border-gray-200 border-solid shadow-none tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                                    </th>
+                                        class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
+
+                                        Actions
+
+                                        </th>
+                                    
                                 </tr>
                             </thead>
                             <tbody>
 
                                 @foreach ($users as $user)
+
+                                @php
+                                    $business = \App\Models\Hotel::where('user_id', $user->id)->first();
+                                @endphp
+
                                 <tr>
                                     <td
                                         class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
@@ -79,8 +88,16 @@
                                     </td>
                                     <td
                                         class="p-2 leading-normal text-center align-middle bg-transparent border-b text-xs whitespace-nowrap shadow-transparent">
-                                        <p class="mb-0 leading-tight text-xs text-slate-400">
-                                            {{ $user->business_type != 'none' ? 'Business Owner - ' . ucwords($user->business_type) : 'Customer' }}
+                                        <p class="mb-0 leading-tight text-xs text-slate-400 text-left">
+                                            
+                                            @if($user->business_type === 'hotel')
+                                                <i class="fa fa-hotel"></i> Hotel
+                                            @elseif($user->business_type === 'restaurant')
+                                                <i class='fa fa-utensils'></i> restaurant
+                                            @elseif($user->business_type === 'none')
+                                                <i class='fa fa-user'></i> Customer
+                                            @endif
+
                                         </p>
                                     </td>
                                     <td
@@ -96,9 +113,6 @@
 
                                             @if ($user->business_type === 'hotel')
                                                
-                                                @php
-                                                    $business = \App\Models\Hotel::where('user_id', $user->id)->first();
-                                                @endphp
                                                 
                                                 @if($business->business_permit != '')
                                                     <a target="_blank" href="{{URL::to('/')}}/storage/permits/hotel/{{$business->id}}/{{ $business->business_permit }}" target="_blank">
@@ -110,8 +124,8 @@
                                         </span>
                                     </td>
                                     <td
-                                        class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                        <div class="align-center flex items-center">
+                                        class="p-2 align-middle bg-transparent text-center border-b whitespace-nowrap shadow-transparent">
+                                        <div class="align-center flex items-center ">
                                             <a href="{{ route('users.edit', $user->id) }}"
                                                 class="font-semibold leading-tight text-xs text-slate-400 px-1"> Edit
                                             </a>
@@ -124,13 +138,32 @@
                                                 <button
                                                     class="font-semibold leading-tight text-xs text-slate-400 px-1">Delete</button>
                                             </form>
+                                            
+                                            @if ($user->business_type != 'none')
+                                                @if ($user->business_type == 'hotel')
+                                                    @if ( $business->status == false )
+                                                        
+                                                        <form method="POST" action="{{ route('hotels.verify', $business) }}">
+                                                            @csrf
+                                                            @method('PATCH')
+                                                            
+                                                            <button
+                                                            class="font-semibold leading-tight text-xs text-slate-400 px-1">Verify</button>
+                                                        </form>
+                                                    @endif
+                                                @endif
+                                            @endif
                                         </div>
                                     </td>
                                 </tr>
                                 @endforeach
 
                             </tbody>
+
                         </table>
+                        <div class="p-6">
+                            {{ $users->links() }}
+                        </div>
                     </div>
                 </div>
             </div>

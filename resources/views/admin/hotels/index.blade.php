@@ -43,7 +43,9 @@
                             <p class="mb-0 leading-tight text-xs text-slate-400">{{ count($hotel->rooms) }}</p>
                         </td>
                         <td class="p-2 leading-normal text-center align-middle bg-transparent border-b text-xs whitespace-nowrap shadow-transparent">
-                            <span class="bg-gradient-to-tl from-green-600 to-lime-400 text-xs rounded-full inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white px-1 py-1">Available</span>
+                            <span class="bg-gradient-to-tl {{ $hotel->status ? 'from-green-600 to-lime-400' : 'from-red-500 to-rose-400'  }} text-xs rounded-2 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white px-4 py-2">
+                                {{ $hotel->status ? 'Verified' : 'Unverified'  }}
+                            </span>
                         </td>
                         <td class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                             <span class="font-semibold leading-tight text-xs text-slate-400">{{ \Carbon\Carbon::parse( $hotel->created_at )->diffForHumans() }}</span>
