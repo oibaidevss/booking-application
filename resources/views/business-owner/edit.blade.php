@@ -35,8 +35,6 @@
                            
                             <x-form.input name="business_permit" label="Business Permit" type="file" />
                             
-                            <a href="{{ asset( '/storage/permits/'. $business->id . '/' . $business->business_permit )}}"><i class="fa fa-download"></i>{{ $business->business_permit }} Download Permit</a>
-
                             <x-form.field>
                                 <x-form.label name="description" />
                                 <div class="mb-2">

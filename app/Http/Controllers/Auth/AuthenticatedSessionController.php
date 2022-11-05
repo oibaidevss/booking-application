@@ -41,6 +41,10 @@ class AuthenticatedSessionController extends Controller
         if(auth()->user()->hasRole('business owner')){
             return redirect()->route('info.index');
         }
+
+        if(auth()->user()->hasRole('admin')){
+            return redirect()->route('admin.index');
+        }
     }
 
     public function redirectTo() {

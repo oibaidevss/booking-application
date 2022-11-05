@@ -19,8 +19,12 @@
                 </div>
                 <div class="flex-none w-auto max-w-full px-3 my-auto">
                     <div class="h-full">
-                        <h5 class="mb-1">{{ ucwords(auth()->user()->last_name) }}, {{ ucwords(auth()->user()->first_name) }}</h5>
+                        <h5 class="mb-1">{{ ucwords(auth()->user()->first_name) }} {{ ucwords(auth()->user()->last_name) }}</h5>
+                        @role('admin')
+                        <p class="mb-0 font-semibold leading-normal text-sm">Administrator</p>
+                        @else
                         <p class="mb-0 font-semibold leading-normal text-sm">Business Owner</p>
+                        @endrole
                     </div>
                 </div>
                 <div class="w-full max-w-full px-3 mx-auto mt-4 sm:my-auto sm:mr-0 md:w-1/2 md:flex-none lg:w-4/12">

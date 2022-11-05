@@ -10,6 +10,7 @@ use App\Http\Controllers\BusinessController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -88,6 +89,7 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'role:admin'])->group(fu
         return view('admin.index');
     })->name('admin.index');
 
+    Route::resource('users', UserController::class);
     Route::resource('hotels', HotelController::class);
     Route::resource('restaurants', RestaurantController::class);
     

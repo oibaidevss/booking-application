@@ -114,14 +114,10 @@ class BusinessController extends Controller
 
         $user = auth()->user();
 
-        $permit = '';
-        $picture = '';
 
         if( $user->business_type == 'hotel' ){  
             
             $hotel = Hotel::find($id);
-
-
 
             $request->validate([
                 'name' => 'required',
@@ -134,20 +130,23 @@ class BusinessController extends Controller
             
             if($request->hasFile('picture')){
                 $picture = $request->picture->getClientOriginalName();
-                $request->picture->storeAs("pictures/hotel/$id", $picture, 'public');
+                $ext = $request->business_permit->getClientOriginalExtension();
+                $filename = $id . "_business_permit." . $ext;
+                $request->picture->storeAs("pictures/hotel/$id", $filename, 'public');
+                $hotel->picture = $filename;
             }
     
             if($request->hasFile('business_permit')){
                 $permit = $request->business_permit->getClientOriginalName();
-                $request->business_permit->storeAs("permits/hotel/$id", $permit, 'public');
+                $ext = $request->business_permit->getClientOriginalExtension();
+                $business_permit = $id . "_business_permit." . $ext;
+                $request->business_permit->storeAs("permits/hotel/$id", $business_permit, 'public');
+                $hotel->business_permit =  $business_permit;
             }
             
-            $hotel->picture = $request->hasFile('picture') ? $picture : $hotel->picture;
-            $hotel->business_permit = $request->hasFile('business_permit') ? $permit : $hotel->picture;
             
             $hotel->name = $request->name;
             $hotel->email = $request->email;
-            $hotel->business_permit = $request->business_permit;
             $hotel->number = $request->number;
             $hotel->description = $request->description;
             $hotel->location = $request->location;
