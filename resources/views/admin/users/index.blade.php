@@ -147,7 +147,7 @@
                                                             @csrf
                                                             @method('PATCH')
                                                             
-                                                            <button
+                                                            <button type="submit"
                                                             class="font-semibold leading-tight text-xs text-slate-400 px-1">Verify</button>
                                                         </form>
                                                     @endif

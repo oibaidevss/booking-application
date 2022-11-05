@@ -95,11 +95,13 @@ class HotelController extends Controller
     }
 
 
-    public function verify(Hotel $hotel)
+    public function verify($id)
     {
-        
+        $hotel = Hotel::find($id);
+
         $hotel->status = 1; 
-        $hotel->save();
+        
+        $hotel->update();
 
         return back()->with('success', $hotel->name . ' is now verified!');
 
