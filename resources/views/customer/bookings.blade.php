@@ -38,7 +38,7 @@
                                         Room Number {{ App\Models\Room::where('id', $booking->room_id)->first()->room_number }}
                                         <button
                                             class="px-2 py-1 text-white border border-solid rounded-lg bg-gradient-to-tl {{ $booking->status == 'canceled' ? 'from-red-500 to-rose-400' : 'from-blue-600 to-rose-400' }} border-fuchsia-300 ml-2 capitalize pointer-events-none">{{ $booking->status }}</button>
-                                        @if($booking->status != 'canceled')
+                                        @if($booking->status == 'pending')
                                         <form action="{{ route('customer.bookings.cancel', $booking->id) }}" method="POST">
                                             @csrf
                                             @method('PATCH')
