@@ -25,11 +25,28 @@ class BookingController extends Controller
         ])->get();
         
         
-        
         foreach($allBookings as $booking){
-            if($booking->start_date === Carbon::parse($request->start_date)->toFormattedDateString()){
-                return back()->with("error", "Somebody has already book this room on $request->start_date. Please choose another date.");
+            if($booking->status != 'canceled'){
+
+                if( Carbon::parse($booking->start_date)->toFormattedDateString() === Carbon::parse($request->start_date)->toFormattedDateString() ){
+                    return back()->with("error", "Somebody has already book this room on ".Carbon::parse($request->start_date)->toDayDateTimeString()." Please choose another date.");
+                }
+
+
+                $start_time = Carbon::parse($booking->start_date);
+                $end_time = Carbon::parse($booking->end_date);
+                
+                $booking_start_time = Carbon::parse($request->start_date);
+                
+                $total = $end_time->diffInHours($start_time);
+                $check = $end_time->diffInHours($booking_start_time);
+
+
+                if( ($total - $check) > 0 ){
+                    return back()->with("error", "Somebody has already book this room on ".Carbon::parse($request->start_date)->toDayDateTimeString()." Please choose another date.");
+                }
             }
+
         }
 
 
@@ -37,9 +54,10 @@ class BookingController extends Controller
 
         foreach($bookings as $booking){
             
-            if($booking->start_date == Carbon::parse($request->start_date)->toFormattedDateString() && $booking->status != 'canceled'){
+            if(Carbon::parse($booking->start_date)->toFormattedDateString() == Carbon::parse($request->start_date)->toFormattedDateString() && $booking->status != 'canceled'){
                 return back()->with("error", "You've already added a booking with the same date.");
             }
+
         }
 
         $start_date = Carbon::parse($request->start_date);

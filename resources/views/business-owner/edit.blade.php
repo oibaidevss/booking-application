@@ -33,7 +33,7 @@
                                 
                             <x-form.input :value="$business->picture" name="picture" label="Picture" type="file" />
                            
-                            <x-form.input name="business_permit" label="Business Permit" type="file" />
+                            <x-form.input :value="$business->business_permit" name="business_permit" label="Business Permit" type="file" />
                             
                             <x-form.field>
                                 <x-form.label name="description" />

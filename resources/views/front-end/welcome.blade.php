@@ -87,7 +87,7 @@
                         @if($hotel->picture == null)
                         <img class="w-100" src="{{ asset('front-end/img/luxe.jpg')}}" alt="Image">
                         @else
-                        <img class="w-100" src="{{ asset("storage/pictures/$hotel->id/$hotel->picture") }}" alt="Image">
+                        <img class="w-100" src="{{ asset("storage/pictures/hotel/$hotel->id/$hotel->picture") }}" alt="Image">
                         @endif
                         <div class="carousel-caption">
                             <div class="container">

@@ -131,7 +131,7 @@ class BusinessController extends Controller
             if($request->hasFile('picture')){
                 $picture = $request->picture->getClientOriginalName();
                 $ext = $request->business_permit->getClientOriginalExtension();
-                $filename = $id . "_business_permit." . $ext;
+                $filename = $id . "_picture." . $ext;
                 $request->picture->storeAs("pictures/hotel/$id", $filename, 'public');
                 $hotel->picture = $filename;
             }

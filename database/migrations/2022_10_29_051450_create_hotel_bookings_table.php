@@ -18,8 +18,8 @@ return new class extends Migration
             $table->foreignId('hotel_id')->constrained()->cascadeOnDelete();
             $table->foreignId('room_id')->constrained()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->date('start_date');
-            $table->date('end_date');
+            $table->dateTime('start_date');
+            $table->dateTime('end_date');
             $table->enum('status', ['pending', 'approved', 'canceled'])->default('pending');
             $table->timestamps();
         });

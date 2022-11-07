@@ -30,6 +30,9 @@
                                             class="pr-6 pl-2 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
                                             Check In/Out Date</th>
                                         <th
+                                            class="pr-6 pl-2 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
+                                            Total Hours</th>
+                                        <th
                                             class="px-6 py-3 font-semibold capitalize align-middle bg-transparent border-b border-gray-200 border-solid shadow-none tracking-none whitespace-nowrap text-slate-400 opacity-70">
                                         </th>
                                     </tr>
@@ -76,6 +79,17 @@
                                             class="pl-2 py-2 text-left align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                                             <span class="block font-semibold leading-tight text-xs text-slate-400">Check In - <strong>{{ $booking->start_date }}</strong></span>
                                             <span class="block font-semibold leading-tight text-xs text-slate-400">Check Out - <strong>{{ $booking->end_date }}</strong></span>
+                                        </td>
+                                        <td
+                                            class="pl-2 py-2 text-left align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                            
+                                            @php
+                                                $start_time = carbon\Carbon::parse($booking->start_date);
+                                                $end_time = carbon\Carbon::parse($booking->end_date);
+                                                $total = $end_time->diffInHours($start_time);//you also find difference in hours using diffInHours()
+                                            @endphp      
+
+                                            {{  $total }}
                                         </td>
                                         <td
                                             class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">

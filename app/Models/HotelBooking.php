@@ -21,11 +21,11 @@ class HotelBooking extends Model
     ];
 
     public function getStartDateAttribute($value){
-        return Carbon::parse($value)->toFormattedDateString();
+        return Carbon::parse($value)->toDayDateTimeString();
     }
 
     public function getEndDateAttribute($value){
-        return Carbon::parse($value)->toFormattedDateString();
+        return Carbon::parse($value)->toDayDateTimeString();
     }
 
     public function room(){
