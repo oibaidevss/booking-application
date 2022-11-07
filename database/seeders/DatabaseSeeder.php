@@ -75,13 +75,16 @@ class DatabaseSeeder extends Seeder
          $customer->assignRole('customer');
 
          $owners = \App\Models\User::factory(10)->create(
-            ['business_type' => 'hotel']
+            [
+               'business_type' => 'hotel',
+            ]
          );
 
          foreach ($owners as $key => $owner) {
             $owner->assignRole('business owner');
             \App\Models\Hotel::factory()->create([
-               'user_id' => $owner->id
+               'user_id' => $owner->id,
+               'status' => 0
             ]);
          }
 
@@ -92,10 +95,19 @@ class DatabaseSeeder extends Seeder
          foreach ($owners as $key => $owner) {
             $owner->assignRole('business owner');
             \App\Models\Restaurant::factory()->create([
-               'user_id' => $owner->id
+               'user_id' => $owner->id,
+               'status' => 0
             ]);
          }
 
+        $customers = \App\Models\User::factory(10)->create(
+            [  
+               'business_type' => 'none'
+            ]
+         );
 
+         foreach ($customers as $key => $customer) {
+            $owner->assignRole('customer');
+         }
     }
 }
