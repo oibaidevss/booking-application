@@ -57,7 +57,11 @@
                 <a href="/" class="nav-item nav-link active">Home</a>
                 <a href="/about" class="nav-item nav-link">About</a>
             </div>
+            @auth
+            <a href="{{ route('login') }}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block"> Account <i class="fa fa-user ms-3"></i></a>
+            @else
             <a href="{{ route('login') }}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Sign in/Sign up<i class="fa fa-arrow-right ms-3"></i></a>
+            @endauth
         </div>
     </nav>
     <!-- Navbar End -->
@@ -67,45 +71,39 @@
     <div class="container-fluid p-0 wow fadeIn" data-wow-delay="0.1s">
         <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img class="w-100" src="{{ asset('front-end/img/luxe.jpg')}}" alt="Image">
-                    <div class="carousel-caption">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-7">
-                                    <h1 class="display-2 text-light mb-5 animated slideInDown">Luxe Hotel</h1>
-                                    <a href="{{ route('login') }}" class="btn btn-primary py-sm-3 px-sm-5">Book Now!</a>
+
+                @php
+                    $hotels = App\Models\Hotel::with('bookings')->orderBy('id', 'asc')->get();
+                    $sorted = []; 
+                @endphp
+                
+                @foreach ($hotels as $key => $hotel)    
+                    
+                    @php
+                        $count = count($hotel->bookings);
+                    @endphp
+
+                    <div class="carousel-item {{ $key == 0 ? 'active':'' }}">   
+                        @if($hotel->picture == null)
+                        <img class="w-100" src="{{ asset('front-end/img/luxe.jpg')}}" alt="Image">
+                        @else
+                        <img class="w-100" src="{{ asset("storage/pictures/$hotel->id/$hotel->picture") }}" alt="Image">
+                        @endif
+                        <div class="carousel-caption">
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-7">
+                                        <h1 class="display-2 text-light mb-5 animated slideInDown">{{ $hotel->name }}</h1>
+                                        <a href="{{ route('login') }}" class="btn btn-primary py-sm-3 px-sm-5">Book Now!</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="carousel-item">
-                    <img class="w-100" src="{{ asset('front-end/img/cucina.jpg')}}" alt="Image">
-                    <div class="carousel-caption">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-7">
-                                    <h1 class="display-2 text-light mb-5 animated slideInDown">Cucina Higala</h1>
-                                    <a href="" class="btn btn-primary py-sm-3 px-sm-5">Book Now!</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img class="w-100" src="{{ asset('front-end/img/high.webp')}}" alt="Image">
-                    <div class="carousel-caption">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-7">
-                                    <h1 class="display-2 text-light mb-5 animated slideInDown">High Ridge</h1>
-                                    <a href="" class="btn btn-primary py-sm-3 px-sm-5">Book Now!</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    
+
+                @endforeach
+                
             </div>
 
             <button class="carousel-control-prev" type="button" data-bs-target="#header-carousel"

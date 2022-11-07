@@ -19,10 +19,10 @@
 
                     <div class="flex w-full">
                         <div class="w-1/2 px-2">
-                            <x-form.input class="w-50" :value="old('start_date')" type="date" name="start_date" label="Check In" required />
+                            <x-form.input class="w-50" :value="old('start_date')" type="datetime-local" name="start_date" label="Check In" required />
                         </div>
                         <div class="w-1/2 px-2">
-                            <x-form.input class="w-50" :value="old('end_date')" type="date" name="end_date" label="Check Out" required />
+                            <x-form.input class="w-50" :value="old('end_date')" type="datetime-local" name="end_date" label="Check Out" required />
                         </div>
                     </div>
                         
@@ -32,6 +32,9 @@
 
 
                 </form>
+
+
+                <svg id="gantt"></svg>
 
             </div>
         </div>

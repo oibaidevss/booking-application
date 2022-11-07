@@ -18,6 +18,7 @@ class BookingController extends Controller
 
     public function bookHotel(Request $request){
 
+                
         $allBookings = HotelBooking::where([
             'hotel_id' => $request->hotel_id, 
             'room_id' => $request->room_id
