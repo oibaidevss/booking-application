@@ -15,7 +15,7 @@ class RestaurantController extends Controller
      */
     public function index()
     {
-        return view('admin.restaurants.index', ['restaurants' => Restaurant::with('tables')->get()]);
+        return view('admin.restaurants.index', ['restaurants' => Restaurant::with('tables')->paginate(10)]);
     }
 
     /**
@@ -88,6 +88,18 @@ class RestaurantController extends Controller
     {
         $restaurant->delete();
         return back()->with('success', 'Restaurant Deleted!');
+    }
+
+    public function verify($id)
+    {
+        $restaurant = Restaurant::find($id);
+
+        $restaurant->status = 1; 
+        
+        $restaurant->update();
+
+        return back()->with('success', $restaurant->name . ' is now verified!');
+
     }
 
     protected function validateRestaurant(?Restaurant $restaurants = null): array

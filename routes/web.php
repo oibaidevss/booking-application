@@ -94,6 +94,7 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'role:admin'])->group(fu
     Route::resource('restaurants', RestaurantController::class);
     
     Route::match(['put', 'patch'], 'hotels/verify/{business}', [HotelController::class, 'verify'])->name('hotels.verify');
+    Route::match(['put', 'patch'], 'restaurants/verify/{business}', [RestaurantController::class, 'verify'])->name('restaurants.verify');
 
     Route::get('hotels/rooms/create', [RoomController::class, 'create'])->name('rooms.create');
 });

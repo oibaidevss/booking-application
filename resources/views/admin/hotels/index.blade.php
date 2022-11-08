@@ -61,6 +61,17 @@
 
                                     <button class="font-semibold leading-tight text-xs text-slate-400 px-1">Delete</button>
                                 </form>
+
+                                 @if ( $hotel->status == false )
+                                                        
+                                    <form method="POST" action="{{ route('hotels.verify', $hotel) }}">
+                                        @csrf
+                                        @method('PATCH')
+                                        
+                                        <button type="submit"
+                                        class="font-semibold leading-tight text-xs text-slate-400 px-1">Verify</button>
+                                    </form>
+                                @endif
                             </div>
                         </td>
                     </tr>
@@ -68,6 +79,9 @@
 
             </tbody>
             </table>
+            <div class="p-6">
+                {{ $hotels->links() }}
+            </div>
         </div>
         </div>
     </div>
