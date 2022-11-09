@@ -33,6 +33,9 @@
                                             class="pr-6 pl-2 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
                                             Total Hours</th>
                                         <th
+                                            class="pr-6 pl-2 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
+                                            Remarks</th>
+                                        <th
                                             class="px-6 py-3 font-semibold capitalize align-middle bg-transparent border-b border-gray-200 border-solid shadow-none tracking-none whitespace-nowrap text-slate-400 opacity-70">
                                         </th>
                                     </tr>
@@ -45,6 +48,22 @@
                                             else:
                                             $last = 'border-b';
                                         endif;
+
+                                        $totalHours = Carbon\Carbon::parse($booking->start_date)->diffInHours(Carbon\Carbon::parse($booking->end_date)); // total hours from start date to end date
+                                       
+
+                                        $start_is_past = Carbon\Carbon::parse($booking->start_date)->isPast();
+                                        $end_is_past = Carbon\Carbon::parse($booking->end_date)->isPast();
+
+                                        if ( $start_is_past && $end_is_past ){
+                                            $booking->remark = "completed";
+                                        }else if( $start_is_past && !$end_is_past ){
+                                             $booking->remark = "In Progress";
+                                        }else if( !$start_is_past && !$end_is_past ){
+                                             $booking->remark = "Booked";
+                                        }
+
+                                         
                                     @endphp     
                                     <tr>
                                         <td
@@ -92,14 +111,13 @@
                                         </td>
                                         <td
                                             class="pl-2 py-2 text-left align-middle bg-transparent {{ $last }} whitespace-nowrap shadow-transparent">
-                                            
-                                            @php
-                                                $start_time = carbon\Carbon::parse($booking->start_date);
-                                                $end_time = carbon\Carbon::parse($booking->end_date);
-                                                $total = $end_time->diffInHours($start_time); //you also find difference in hours using diffInHours()
-                                            @endphp      
+                                              
 
-                                            {{  $total }}
+                                            {{  $totalHours }}
+                                        </td>
+                                        <td
+                                            class="pl-2 py-2 text-left align-middle bg-transparent {{ $last }} whitespace-nowrap shadow-transparent text-sm">
+                                            {{ ucwords($booking->remark) }}
                                         </td>
                                         <td
                                             class="p-2 align-middle bg-transparent {{ $last }} whitespace-nowrap shadow-transparent">

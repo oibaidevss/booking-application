@@ -39,19 +39,7 @@ class BookingController extends Controller
                     return back()->with("error", "Somebody has already book this room on ".Carbon::parse($request->start_date)->toDayDateTimeString()." Please choose another date.");
                 }
 
-
-                $start_time = Carbon::parse($booking->start_date);
-                $end_time = Carbon::parse($booking->end_date);
                 
-                $booking_start_time = Carbon::parse($request->start_date);
-                
-                $total = $end_time->diffInHours($start_time);
-                $check = $end_time->diffInHours($booking_start_time);
-
-
-                if( ($total - $check) > 0 ){
-                    return back()->with("error", "Somebody has already book this room on ".Carbon::parse($request->start_date)->toDayDateTimeString()." Please choose another date.");
-                }
             }
 
         }

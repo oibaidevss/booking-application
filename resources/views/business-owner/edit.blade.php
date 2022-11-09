@@ -121,15 +121,13 @@
                                             
                                             foreach($bookings as $booking){
 
-                                                    $d1 = Carbon\Carbon::parse($booking->end_date)->diffInHours(Carbon\Carbon::parse($booking->start_date));
-                                                    $d2 = Carbon\Carbon::parse($booking->end_date)->diffInHours(Carbon\Carbon::now());
+                                                    $d1 = Carbon\Carbon::parse($booking->start_date)->diffInHours(Carbon\Carbon::parse($booking->end_date));
+                                                    $d2 = Carbon\Carbon::parse($booking->start_date)->diffInHours(Carbon\Carbon::now());
 
                                                     if ( ($d1 - $d2) > 0 ) {
                                                          $room->availabilty = "occupied";
                                                     }
                                             }
-
-
 
                                         @endphp  
                                         <tr>
