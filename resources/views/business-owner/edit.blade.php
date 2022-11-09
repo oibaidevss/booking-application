@@ -107,9 +107,34 @@
                                 </thead>
                                 <tbody>
                                     @foreach($business->rooms as $room)
+                                        @php
+                                            if($loop->last):
+                                                $last = '';
+                                                else:
+                                                $last = 'border-b';
+                                            endif;
+
+                                            $bookings = App\Models\HotelBooking::where('room_id', $room->id)->get();
+
+                                            $room->availabilty = "available";
+
+                                            
+                                            foreach($bookings as $booking){
+
+                                                    $d1 = Carbon\Carbon::parse($booking->end_date)->diffInHours(Carbon\Carbon::parse($booking->start_date));
+                                                    $d2 = Carbon\Carbon::parse($booking->end_date)->diffInHours(Carbon\Carbon::now());
+
+                                                    if ( ($d1 - $d2) > 0 ) {
+                                                         $room->availabilty = "occupied";
+                                                    }
+                                            }
+
+
+
+                                        @endphp  
                                         <tr>
                                             <td
-                                                class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                                class="p-2 align-middle bg-transparent {{ $last }} whitespace-nowrap shadow-transparent">
                                                 <div class="flex px-2 py-1">
 
                                                     <div class="flex flex-col justify-center">
@@ -119,23 +144,29 @@
                                                 </div>
                                             </td>
                                             <td
-                                                class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                                class="p-2 align-middle bg-transparent {{ $last }} whitespace-nowrap shadow-transparent">
                                                 <p class="mb-0 font-semibold leading-tight text-xs">Floor
                                                     {{ $room->floor }} </p>
                                             </td>
                                             <td
-                                                class="p-2 leading-normal text-center align-middle bg-transparent border-b text-xs whitespace-nowrap shadow-transparent">
+                                                class="p-2 leading-normal text-center align-middle bg-transparent {{ $last }} text-xs whitespace-nowrap shadow-transparent">
                                                  <p class="mb-0 font-semibold leading-tight text-xs">{{ $room->room_type }} </p>
                                             </td>
 
                                             <td
-                                                class="p-2 leading-normal text-center align-middle bg-transparent border-b text-xs whitespace-nowrap shadow-transparent">
+                                                class="p-2 leading-normal text-center align-middle bg-transparent {{ $last }} text-xs whitespace-nowrap shadow-transparent">
+
                                                 <span
-                                                    class="bg-gradient-to-tl from-{{ ($room->status) ? 'green':'red'}}-600 to-{{ ($room->status) ? 'lime':'rose'}}-400 text-xs rounded-1.8 p-2 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white">{{ ($room->status) ? 'available':'occupied' }}</span>
+                                                    class="bg-gradient-to-tl from-{{ ($room->availabilty == "available") ? 'green':'red'}}-600 to-{{ ($room->availabilty == "available") ? 'lime':'rose'}}-400 text-xs rounded-1.8 p-2 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white">
+
+                                                    {{  $room->availabilty  }}
+                                                    
+
+                                                </span>
                                             </td>
 
                                             <td
-                                                class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                                class="p-2 align-middle bg-transparent {{ $last }} whitespace-nowrap shadow-transparent">
                                                 <div class="flex flex-wrap -mx-3">
                                                 
                                                 <a href="{{ route('room.edit', $room) }}"

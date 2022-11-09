@@ -38,7 +38,8 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user =  Hotel::create(array_merge($this->validateUser()));
+        return redirect()->route('users.index');
     }
 
     /**

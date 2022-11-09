@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->dateTime('start_date');
             $table->dateTime('end_date');
-            $table->enum('status', ['pending', 'approved', 'canceled'])->default('pending');
+            $table->enum('status', ['pending', 'approved', 'canceled', 'completed'])->default('pending');
             $table->timestamps();
         });
     }

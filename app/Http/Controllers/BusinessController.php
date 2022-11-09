@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
+use App\Models\HotelBooking;
 use App\Models\Restaurant;
 use App\Models\Hotel;
 
