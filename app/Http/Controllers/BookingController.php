@@ -16,6 +16,13 @@ class BookingController extends Controller
             return redirect()->route('customer.index');
     }
 
+    public function restaurant(){
+        if (isset($_GET['restaurant']) && isset($_GET['table']))
+            return view('customer.restaurant.booking');
+        else
+            return redirect()->route('customer.index');
+    }
+
     public function bookHotel(Request $request){
 
                 

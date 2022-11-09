@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -26,7 +27,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.users.create');
     }
 
     /**
@@ -59,7 +60,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+        return view('admin.users.edit', ['user' => $user]);
     }
 
     /**
@@ -69,9 +71,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id)
     {
-        //
+        $user = User::find($id);
+        $attributes = $this->validateUser($user);
+        $user->update($attributes);
+        return back()->with('sucess', 'You have successfully updated a user.');
+
     }
 
     /**
@@ -84,5 +90,20 @@ class UserController extends Controller
     {
         $user->delete();
         return back()->with('success', 'Restaurant Deleted!');
+    }
+
+    protected function validateUser(?User $user = null): array
+    {
+        $user ??= new User();
+
+        $validate = request()->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => ['required', Rule::unique('users', 'email')->ignore($user)],
+            'number' => ['required', Rule::unique('users', 'number')->ignore($user)],
+        ]);
+
+        return $validate;
+
     }
 }
