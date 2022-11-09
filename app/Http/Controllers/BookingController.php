@@ -36,10 +36,18 @@ class BookingController extends Controller
             if($booking->status != 'canceled'){
 
                 if( Carbon::parse($booking->start_date)->toFormattedDateString() === Carbon::parse($request->start_date)->toFormattedDateString() ){
-                    return back()->with("error", "Somebody has already book this room on ".Carbon::parse($request->start_date)->toDayDateTimeString()." Please choose another date.");
+                    return back()->with("error", "Somebody has already booked this room. Please choose another date or try another room.");
                 }
 
-                
+                $start_date = Carbon::parse($booking->start_date);
+                $end_date = Carbon::parse($booking->end_date);
+
+                $check = Carbon::parse($request->start_date)->between($start_date, $end_date);
+
+                if( $check ) {
+                    return back()->with("error", "Your booking has overlap to someone elses booking. Please try another schedule or choose another room.");
+                }
+              
             }
 
         }
