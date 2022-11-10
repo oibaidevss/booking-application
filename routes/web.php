@@ -44,15 +44,22 @@ Route::get('/dashboard', function () {
 Route::prefix('customer')->middleware(['auth', 'verified', 'role:customer'])->group(function () {
     
     Route::get('/', [CustomerController::class, 'index'])->name('customer.index');
-    Route::get('/restaurants', [CustomerController::class, 'restaurant'])->name('customer.restaurants');
+   
     Route::get('/hotels', [CustomerController::class, 'hotel'])->name('customer.hotels');
     Route::get('/hotels/{hotel}', [CustomerController::class, 'showHotel'])->name('customer.hotel.show');
+    
+    Route::get('/restaurants', [CustomerController::class, 'restaurant'])->name('customer.restaurants');
     Route::get('/restaurants/{restaurant}', [CustomerController::class, 'showRestaurant'])->name('customer.restaurant.show');
+    
     Route::get('/hotel/booking', [BookingController::class, 'hotel'])->name('customer.hotel.booking');
     Route::post('/hotel/booking', [BookingController::class, 'bookHotel'])->name('customer.hotel.booking.store');
     
+    Route::get('/restaurant/booking', [BookingController::class, 'restaurant'])->name('customer.restaurant.booking');
+    Route::post('/restaurant/booking', [BookingController::class, 'bookRestaurant'])->name('customer.restaurant.booking.store');
+
     Route::get('/bookings', [CustomerController::class, 'myBookings'])->name('customer.bookings');
-    Route::match(['put', 'patch'], '/bookings/cancel/{booking}', [CustomerController::class, 'cancelBooking'])->name('customer.bookings.cancel');
+    Route::match(['put', 'patch'], '/bookings/hotel/cancel/{booking}', [CustomerController::class, 'cancelHotelBooking'])->name('customer.hotel.bookings.cancel');
+    Route::match(['put', 'patch'], '/bookings/restaurant/cancel/{booking}', [CustomerController::class, 'cancelRestaurantBooking'])->name('customer.restaurant.bookings.cancel');
 });
 
 Route::prefix('business')->middleware(['auth', 'verified', 'role:business owner'])->group(function () {
