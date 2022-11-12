@@ -69,15 +69,30 @@ Route::prefix('business')->middleware(['auth', 'verified', 'role:business owner'
     Route::resource('table', BusinessRestaurantController::class);
     
     Route::get('bookings', function(){
-        $hotel = \App\Models\Hotel::where('user_id', auth()->user()->id)->first();
-        $bookings = \App\Models\HotelBooking::where('hotel_id', $hotel->id)->get();
+
+        if(auth()->user()->business_type == "hotel"){
+            $hotel = \App\Models\Hotel::where('user_id', auth()->user()->id)->first();
+            $bookings = \App\Models\HotelBooking::where('hotel_id', $hotel->id)->get();
+        }
+
+        if(auth()->user()->business_type == "restaurant"){
+            $restaurant = \App\Models\Restaurant::where('user_id', auth()->user()->id)->first();
+            $bookings = \App\Models\RestaurantBooking::where('restaurant_id', $restaurant->id)->get();
+        }
+
+
 
         return view('business-owner.bookings', [ 'bookings' => $bookings ]);
     })->name('business.bookings');
 
     Route::match(['put', 'patch'], '/bookings/approved/{booking}', function($booking){
-        
-        $booking = App\Models\HotelBooking::find($booking);
+        if(auth()->user()->business_type == "hotel"){
+            $booking = App\Models\HotelBooking::find($booking);
+        }
+
+        if(auth()->user()->business_type == "restaurant"){
+            $booking = App\Models\RestaurantBooking::find($booking);
+        }
 
         $booking->update([
             'status' => 'approved'
