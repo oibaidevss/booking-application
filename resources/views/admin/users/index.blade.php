@@ -90,6 +90,8 @@
                                                 <i class="fa fa-hotel"></i> Hotel
                                             @elseif($user->business_type === 'restaurant')
                                                 <i class='fa fa-utensils'></i> restaurant
+                                            @elseif($user->business_type === 'tourist_spot')
+                                                <i class='fa fa-map'></i> Tourist Spot
                                             @elseif($user->business_type === 'none')
                                                 <i class='fa fa-user'></i> Customer
                                             @endif

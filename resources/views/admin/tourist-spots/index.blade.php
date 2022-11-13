@@ -35,7 +35,9 @@
                             </div>
                         </td>
                         <td class="p-2 leading-normal text-center align-middle bg-transparent border-b text-xs whitespace-nowrap shadow-transparent">
-                            <p class="mb-0 leading-tight text-xs text-slate-400"></p>
+                            <p class="mb-0 leading-tight text-xs text-slate-400">
+                                {{ $spot->capacity }}
+                            </p>
                         </td>
                         <td class="p-2 leading-normal text-center align-middle bg-transparent border-b text-xs whitespace-nowrap shadow-transparent">
                             <span class="bg-gradient-to-tl {{ $spot->status ? 'from-green-600 to-lime-400' : 'from-red-500 to-rose-400'  }} text-xs rounded-2 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white px-4 py-2">

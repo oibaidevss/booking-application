@@ -9,12 +9,13 @@
                 name="user_id" id="user_id">  
                     
                     @foreach ($owners as $user)
-                        @if(!$user->relationLoaded('touristspot'))
-                        <option :value="$user->id">
-                            {{ $user->first_name }} {{ $user->last_name }}
-                        </option>
+                        @if($user->touristspot == '')
+                            <option value="{{ $user->id }}">
+                                {{ $user->first_name }} {{ $user->last_name }}
+                            </option>
                         @endif
                     @endforeach
+                    
                 </select>
             </div>
 
