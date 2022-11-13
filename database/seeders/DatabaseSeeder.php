@@ -16,9 +16,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
-
-       
 
          // Reset cached roles and permissions
          app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
@@ -61,53 +58,28 @@ class DatabaseSeeder extends Seeder
             'business_type' => 'restaurant'
          ])->assignRole('business owner');
 
-         \App\Models\Restaurant::factory()->create([
+         $restaurant = \App\Models\Restaurant::factory()->create([
             'user_id' => $business_owner_restaurant->id
          ]);
 
-         $customer = \App\Models\User::factory()->create(
-            [  
-               'email' => 'customer@example.com',
-               'business_type' => 'none'
-            ]
-         );
-
-         $customer->assignRole('customer');
-
-         $owners = \App\Models\User::factory(10)->create(
-            [
-               'business_type' => 'hotel',
-            ]
-         );
-
-         foreach ($owners as $key => $owner) {
-            $owner->assignRole('business owner');
-            \App\Models\Hotel::factory()->create([
-               'user_id' => $owner->id,
-               'status' => 0
+         for ($i=1; $i <= 10; $i++) { 
+            # code...
+            \App\Models\Table::factory()->create([
+               'table_number' => $i,
+               'restaurant_id' => $restaurant->id
             ]);
          }
 
-         $owners = \App\Models\User::factory(10)->create(
-            ['business_type' => 'restaurant']
-         );
+         $business_owner_spot = \App\Models\User::factory()->create([
+            'first_name' => 'Mark',
+            'last_name' => 'Doe',
+            'email' => 'mark.doe@example.com',
+            'business_type' => 'tourist_spot'
+         ])->assignRole('business owner');
 
-         foreach ($owners as $key => $owner) {
-            $owner->assignRole('business owner');
-            \App\Models\Restaurant::factory()->create([
-               'user_id' => $owner->id,
-               'status' => 0
-            ]);
-         }
+         $spot = \App\Models\TouristSpot::factory()->create([
+            'user_id' => $business_owner_spot->id
+         ]);
 
-        $customers = \App\Models\User::factory(10)->create(
-            [  
-               'business_type' => 'none'
-            ]
-         );
-
-         foreach ($customers as $key => $customer) {
-            $owner->assignRole('customer');
-         }
     }
 }

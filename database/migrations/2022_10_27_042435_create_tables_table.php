@@ -20,6 +20,8 @@ return new class extends Migration
             
             $table->text('description')->nullable();
 
+            $table->tinyInteger('status')->default(1);
+
             $table->foreignId('restaurant_id')->constrained()->cascadeOnDelete();
 
             $table->string('picture')->nullable();

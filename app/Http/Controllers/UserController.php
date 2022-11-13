@@ -2,6 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Providers\RouteServiceProvider;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\Controller;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -38,7 +44,40 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $user =  Hotel::create(array_merge($this->validateUser()));
+        
+        $request->validate([
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'number' => ['required', 'string', 'numeric', 'min:11', 'unique:users'],
+            'password' => 'required|confirmed|min:6',
+        ]);
+        
+        $user = User::create([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'number' => $request->number,
+            'password' => Hash::make($request->password),
+            'business_type' => $request->business_type, 
+        ]);
+
+        if($request->hasFile('avatar')){
+            $avatar = $request->avatar->getClientOriginalName();
+            $request->avatar->storeAs("avatars/$user->id", $avatar, 'public');
+            $user->update(['avatar'=>$avatar]);
+        }
+        
+        if($request->hasFile('identification')){
+            $identification = $request->identification->getClientOriginalName();
+            $request->identification->storeAs("identifications/$user->id", $identification, 'public');
+            $user->update(['identification'=>$identification]);
+        }
+        
+        $user->business_type == 'none' ? $user->assignRole('customer') : $user->assignRole('business owner');
+
+        event(new Registered($user));
+      
         return redirect()->route('users.index');
     }
 
@@ -102,6 +141,8 @@ class UserController extends Controller
             'last_name' => 'required',
             'email' => ['required', Rule::unique('users', 'email')->ignore($user)],
             'number' => ['required', Rule::unique('users', 'number')->ignore($user)],
+            'business_type' => 'required',
+            'password' => 'required|confirmed|min:6',
         ]);
 
         return $validate;

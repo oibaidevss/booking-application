@@ -114,5 +114,16 @@ text-center xl:p-2.5";
         <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Restaurants</span>
     </a>
 </li>
+<li class="mt-0.5 w-full">
+    <a class="{{ Route::current()->getName() == 'spots.index' ? $active : $notActive }}"
+        href="{{ route('spots.index') }}">
+        <div class="{{ Route::current()->getName() == 'spots.index' ? $activeIcon : $notActiveIcon }}">
+            <span class="{{ Route::current()->getName() == 'spots.index' ? 'text-white' : 'text-black' }}">
+                <i class="fa fa-map"></i>
+            </span>
+        </div>
+        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Tourist Spots</span>
+    </a>
+</li>
 
 @endrole

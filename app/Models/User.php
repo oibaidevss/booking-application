@@ -10,6 +10,7 @@ use Spatie\Permission\Traits\HasRoles;
 use App\Models\ResetaurantBooking;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\HotelBooking;
+use App\Models\TouristSpot;
 use App\Models\Restaurant;
 use App\Models\Hotel;
 
@@ -51,6 +52,10 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function restaurant() {
         return $this->hasOne(Restaurant::class);
+    }
+
+    public function touristspot() {
+        return $this->hasOne(TouristSpot::class);
     }
 
     public function hotelBookings() {

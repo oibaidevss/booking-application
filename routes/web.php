@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\BusinessRestaurantController;
 use App\Http\Controllers\BusinessHotelController;
+use App\Http\Controllers\TouristSpotController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\BusinessController;
@@ -31,13 +32,16 @@ Route::get('/about', function () {
 });
 
 Route::get('/dashboard', function () {
-    // return view('dashboard');
     if(auth()->user()->hasRole('customer')){
         return redirect()->route('customer.index');
     }
 
     if(auth()->user()->hasRole('business owner')){
         return redirect()->route('info.index');
+    }
+
+    if(auth()->user()->hasRole('admin')){
+        return redirect()->route('admin.index');
     }
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -114,6 +118,7 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'role:admin'])->group(fu
     Route::resource('users', UserController::class);
     Route::resource('hotels', HotelController::class);
     Route::resource('restaurants', RestaurantController::class);
+    Route::resource('spots', TouristSpotController::class);
     
     Route::match(['put', 'patch'], 'hotels/verify/{business}', [HotelController::class, 'verify'])->name('hotels.verify');
     Route::match(['put', 'patch'], 'restaurants/verify/{business}', [RestaurantController::class, 'verify'])->name('restaurants.verify');

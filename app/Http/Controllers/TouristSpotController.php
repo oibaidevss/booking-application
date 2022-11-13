@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Validation\Rule;
 use App\Models\TouristSpot;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class TouristSpotController extends Controller
 {
@@ -14,7 +16,8 @@ class TouristSpotController extends Controller
      */
     public function index()
     {
-        //
+        $spots = TouristSpot::paginate(10);
+        return view('admin.tourist-spots.index', ['spots'=> $spots]);
     }
 
     /**
@@ -24,7 +27,8 @@ class TouristSpotController extends Controller
      */
     public function create()
     {
-        //
+        $owners = User::with('touristspot')->where('business_type', 'tourist_spot')->get();
+        return view('admin.tourist-spots.create', ['owners' => $owners]);
     }
 
     /**
@@ -35,7 +39,8 @@ class TouristSpotController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        TouristSpot::create(array_merge($this->validateSpot()));
+        return redirect()->route('spots.index');
     }
 
     /**
@@ -67,9 +72,11 @@ class TouristSpotController extends Controller
      * @param  \App\Models\TouristSpot  $touristSpot
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TouristSpot $touristSpot)
+    public function update(TouristSpot $spot)
     {
-        //
+        $attributes = $this->validateSpot($spot);
+        $spot->update($attributes);
+        return back()->with('success', 'Tourist Spot Updated.');
     }
 
     /**
@@ -78,8 +85,33 @@ class TouristSpotController extends Controller
      * @param  \App\Models\TouristSpot  $touristSpot
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TouristSpot $touristSpot)
+    public function destroy(TouristSpot $spot)
     {
-        //
+        $spot->delete();
+        return back()->with('success', 'Tourist Spot Deleted.');
+    }
+
+    public function verify($id)
+    {
+        $spot = TouristSpot::find($id);
+        $spot->status = 1; 
+        $spot->update();
+        return back()->with('success', $spot->name . ' is now verified.');
+    }
+
+    protected function validateSpot(?TouristSpot $spot = null): array
+    {
+        $spot ??= new TouristSpot();
+
+        return request()->validate([
+            'name' => 'required',
+            'email' => ['required', Rule::unique('hotels', 'email')->ignore($spot)],
+            'number' => 'required',
+            'location' => 'required',
+            'description' => 'required',
+            'user_id' => 'required',
+            'picture' => '',
+            'capacity' => '',
+        ]);
     }
 }
