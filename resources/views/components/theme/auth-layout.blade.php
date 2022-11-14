@@ -51,7 +51,7 @@
         class="absolute top-0 z-30 flex flex-wrap items-center justify-between w-full px-4 py-2 mt-6 mb-4 shadow-none lg:flex-nowrap lg:justify-start">
         <div class="container flex items-center justify-between py-0 flex-wrap-inherit">
             <a class="py-2.375 text-sm mr-4 ml-4 whitespace-nowrap font-bold text-white lg:ml-0"
-                href="../pages/dashboard.html"> Booking Application </a>
+                href="{{ url('/') }}"> Booking Application </a>
             @auth
             <div navbar-menu
                 class="items-center justify-end flex-grow transition-all ease-soft duration-350 lg-max:bg-white lg-max:max-h-0 lg-max:overflow-hidden basis-full rounded-xl lg:flex lg:basis-auto">

@@ -1,4 +1,6 @@
 {{-- Header --}}
+
+{{-- @dd(Route::current()->uri) --}}
 <div class="w-full px-6 mx-auto">
     <div class="relative flex items-center p-0 mt-6 overflow-hidden bg-center bg-cover min-h-75 rounded-2xl"
         style="background-image: url('{{asset('assets/img/curved-images/curved0.jpg')}}'); background-position-y: 50%">
@@ -11,6 +13,7 @@
             <div class="flex-none w-auto max-w-full px-3">
                 <div
                     class="text-base ease-soft-in-out h-18.5 w-18.5 relative inline-flex items-center justify-center rounded-xl text-white transition-all duration-200">
+                    
                     @if(auth()->user()->avatar)
                         <img class="w-full shadow-soft-sm rounded-xl" src="{{asset('/public/avatars/'.auth()->user()->id.'/'.Auth::user()->avatar)}}" alt="profile_image" style="width: 80px;height: 80px; padding: 10px; margin: 0px; ">
                     @else
@@ -31,19 +34,21 @@
                         role="tablist">
                         <li class="z-30 flex-auto text-center">
                             <a class="z-30 block w-full px-0 py-1 mb-0 transition-all border-0 rounded-lg ease-soft-in-out bg-inherit text-slate-700"
-                                nav-link="" active="" href="{{ route('customer.hotels') }}" role="tab" aria-selected="true">
+                                href="{{ route('customer.hotels') }}" 
+                                ">
                                 <span class="ml-1">Hotels</span>
                             </a>
                         </li>
                         <li class="z-30 flex-auto text-center">
                             <a class="z-30 block w-full px-0 py-1 mb-0 transition-all border-0 rounded-lg ease-soft-in-out bg-inherit text-slate-700"
-                                nav-link="" href="{{ route('customer.restaurants') }}" role="tab" aria-selected="false">
+                                href="{{ route('customer.restaurants') }}"
+                                >
                                 <span class="ml-1">Restaurants</span>
                             </a>
                         </li>
                         <li class="z-30 flex-auto text-center">
                             <a class="z-30 block w-full px-0 py-1 mb-0 transition-colors border-0 rounded-lg ease-soft-in-out bg-inherit text-slate-700"
-                                nav-link="" href="#" role="tab" aria-selected="false">
+                                 href="{{ route('customer.spots') }}" ">
                                 <span class="ml-1">Tourist Spots</span>
                             </a>
                         </li>

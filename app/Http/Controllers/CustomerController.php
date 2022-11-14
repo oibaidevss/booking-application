@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\RestaurantBooking;
+use App\Models\TouristSpot;
 use Illuminate\Http\Request;
 use App\Models\HotelBooking;
 use App\Models\Restaurant;
@@ -31,6 +32,18 @@ class CustomerController extends Controller
     public function showHotel(Hotel $hotel){
         return view('customer.hotel.show', [
             'hotel' => $hotel
+        ]);
+    }
+
+    public function spot() {
+        return view('customer.spot', [
+            'spots' => TouristSpot::where('status', 1)->paginate(8)->withQueryString(),
+        ]);
+    }
+
+    public function showSpot($id){
+        return view('customer.tourist-spot.show', [
+            'spot' => TouristSpot::find($id)
         ]);
     }
 

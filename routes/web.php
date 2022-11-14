@@ -54,6 +54,9 @@ Route::prefix('customer')->middleware(['auth', 'verified', 'role:customer'])->gr
     
     Route::get('/restaurants', [CustomerController::class, 'restaurant'])->name('customer.restaurants');
     Route::get('/restaurants/{restaurant}', [CustomerController::class, 'showRestaurant'])->name('customer.restaurant.show');
+
+    Route::get('/spots', [CustomerController::class, 'spot'])->name('customer.spots');
+    Route::get('/spots/{spot}', [CustomerController::class, 'showSpot'])->name('customer.spot.show');
     
     Route::get('/hotel/booking', [BookingController::class, 'hotel'])->name('customer.hotel.booking');
     Route::post('/hotel/booking', [BookingController::class, 'bookHotel'])->name('customer.hotel.booking.store');

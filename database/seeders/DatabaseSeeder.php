@@ -80,6 +80,13 @@ class DatabaseSeeder extends Seeder
          $spot = \App\Models\TouristSpot::factory()->create([
             'user_id' => $business_owner_spot->id
          ]);
+         
+         $customer = \App\Models\User::factory()->create([
+            'first_name' => 'Customer',
+            'last_name' => 'Nick',
+            'email' => 'customer@example.com',
+            'business_type' => 'none'
+         ])->assignRole('customer');
 
     }
 }
