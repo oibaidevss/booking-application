@@ -17,15 +17,30 @@
                     <input type="hidden" name="hotel_id" value={{ isset($_GET['hotel']) ? $_GET['hotel']:0 }}>
                     <input type="hidden" name="user_id" value={{ auth()->user()->id }}>
 
-                    <div class="flex w-full">
+                    <div class="flex w-full hidden">
                         <div class="w-1/2 px-2">
-                            <x-form.input class="w-50" :value="old('start_date')" type="datetime-local" name="start_date" label="Check In" required />
+                            <x-form.input class="w-50" :value="old('start_date')" type="text" name="start_date" label="Check In" required />
                         </div>
                         <div class="w-1/2 px-2">
-                            <x-form.input class="w-50" :value="old('end_date')" type="datetime-local" name="end_date" label="Check Out" required />
+                            <x-form.input class="w-50" :value="old('end_date')" type="text" name="end_date" label="Check Out" required />
                         </div>
                     </div>
-                        
+                    <div class="px-2">
+                        <x-form.input type="text" name="daterange" label="Date Range (Check in and check out date.)" required />
+                    </div>
+
+                    <script>
+                        $(function() {
+                            $('input[name="daterange"]').daterangepicker({
+                                timePicker: true,
+                                minDate: new Date()
+                            }, function(start, end, label) {
+                                $('input[name="start_date"]').val(start)
+                                $('input[name="end_date"]').val(end)
+                            });
+                        });
+                    </script>
+
                     <div class="mt-4 px-2">
                         <x-form.button class="button">Submit</x-form.button>
                     </div>
