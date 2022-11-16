@@ -83,7 +83,7 @@
                                             if ( $booking_date ){
                                                 $booking->remark = "completed";
                                             }else if( !$booking_date ){
-                                                $booking->remark = "In Progress";
+                                                $booking->remark = "";
                                             }
 
                                         }else{
