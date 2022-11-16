@@ -12,19 +12,24 @@ use carbon\Carbon;
 class RestaurantBooking extends Model
 {
     use HasFactory;
+
     protected $guarded= [];
     protected $dates = [
-        'start_date', 
-        'end_date'
+        'booking_date',
+        'dine_in_time',
+        'dine_out_time',
     ];
 
-    public function getStartDateAttribute($value){
-        return Carbon::parse($value)->toDayDateTimeString();
+    public function getBookingDateAttribute($value){
+        return Carbon::parse($value)->toFormattedDateString();
+    }
+    public function getDineInTimeAttribute($value){
+        return Carbon::parse($value)->toTimeString();
+    }
+    public function getDineOutTimeAttribute($value){
+        return Carbon::parse($value)->toTimeString();
     }
 
-    public function getEndDateAttribute($value){
-        return Carbon::parse($value)->toDayDateTimeString();
-    }
 
     public function table(){
         return $this->belongsTo(Table::class);

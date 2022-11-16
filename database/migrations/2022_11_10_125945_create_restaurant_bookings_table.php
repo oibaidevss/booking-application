@@ -18,8 +18,10 @@ return new class extends Migration
             $table->foreignId('restaurant_id')->constrained()->cascadeOnDelete();
             $table->foreignId('table_id')->constrained()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->dateTime('start_date');
-            $table->dateTime('end_date');
+            $table->dateTime('booking_date');
+            $table->string('dine_in_time');
+            $table->string('dine_out_time');
+            $table->integer('number_of_persons');
             $table->enum('status', ['pending', 'approved', 'canceled', 'completed'])->default('pending');
             $table->timestamps();
         });

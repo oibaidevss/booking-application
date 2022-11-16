@@ -79,7 +79,7 @@
                                 <li
                                     class="relative flex justify-between px-4 py-2 pl-0 mb-2 bg-white border-0 rounded-t-inherit text-inherit rounded-xl">
                                     <div class="flex flex-col">
-                                        <h6 class="mb-1 font-semibold leading-normal text-sm text-slate-700">{{ $booking->start_date }} - {{ $booking ->end_date }}
+                                        <h6 class="mb-1 font-semibold leading-normal text-sm text-slate-700">{{ $booking->booking_date }} - ({{ $booking->dine_in_time }} - {{ $booking->dine_out_time }})
                                         </h6>
                                         <span class="leading-tight text-xs">{{ App\Models\Restaurant::where('id', $booking->restaurant_id)->first()->name }}</span>
                                     </div>

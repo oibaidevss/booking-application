@@ -30,7 +30,14 @@
                                             Status</th>
                                         <th
                                             class="pr-6 pl-2 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                                            Check In/Out Date</th>
+                                            
+                                            @if(auth()->user()->business_type == 'hotel')    
+                                            Check In/Out Date
+                                            @elseif(auth()->user()->business_type == 'restaurant')
+                                            Dine In Date & Time
+                                            @endif
+
+                                        </th>
                                         <th
                                             class="pr-6 pl-2 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
                                             Total Hours</th>
@@ -51,18 +58,35 @@
                                             $last = 'border-b';
                                         endif;
 
-                                        $totalHours = Carbon\Carbon::parse($booking->start_date)->diffInHours(Carbon\Carbon::parse($booking->end_date)); // total hours from start date to end date
-                                       
+                                        if(auth()->user()->business_type == 'hotel'){
 
-                                        $start_is_past = Carbon\Carbon::parse($booking->start_date)->isPast();
-                                        $end_is_past = Carbon\Carbon::parse($booking->end_date)->isPast();
+                                            $totalHours = Carbon\Carbon::parse($booking->start_date)->diffInHours(Carbon\Carbon::parse($booking->end_date)); // total hours from start date to end date
+                                        
 
-                                        if ( $start_is_past && $end_is_past ){
-                                            $booking->remark = "completed";
-                                        }else if( $start_is_past && !$end_is_past ){
-                                             $booking->remark = "In Progress";
-                                        }else if( !$start_is_past && !$end_is_past ){
-                                             $booking->remark = "Booked";
+                                            $start_is_past = Carbon\Carbon::parse($booking->start_date)->isPast();
+                                            $end_is_past = Carbon\Carbon::parse($booking->end_date)->isPast();
+
+                                            if ( $start_is_past && $end_is_past ){
+                                                $booking->remark = "completed";
+                                            }else if( $start_is_past && !$end_is_past ){
+                                                $booking->remark = "In Progress";
+                                            }else if( !$start_is_past && !$end_is_past ){
+                                                $booking->remark = "Booked";
+                                            }
+                                        
+                                        }elseif(auth()->user()->business_type == 'restaurant'){
+                                            
+                                            $totalHours = Carbon\Carbon::parse($booking->dine_in_time)->diffInHours(Carbon\Carbon::parse($booking->dine_out_time));
+                                            
+                                            $booking_date =  Carbon\Carbon::parse($booking->booking_date)->isPast();
+
+                                            if ( $booking_date ){
+                                                $booking->remark = "completed";
+                                            }else if( !$booking_date ){
+                                                $booking->remark = "In Progress";
+                                            }
+
+                                        }else{
                                         }
 
                                          
@@ -108,8 +132,18 @@
                                         </td>
                                         <td
                                             class="pl-2 py-2 text-left align-middle bg-transparent {{ $last }} whitespace-nowrap shadow-transparent">
+
+                                            @if(auth()->user()->business_type == 'hotel') 
                                             <span class="block font-semibold leading-tight text-xs text-slate-400">Check In - <strong>{{ $booking->start_date }}</strong></span>
                                             <span class="block font-semibold leading-tight text-xs text-slate-400">Check Out - <strong>{{ $booking->end_date }}</strong></span>
+                                            @elseif(auth()->user()->business_type == 'restaurant')
+
+                                            <span class="block font-semibold leading-tight text-xs text-slate-400">
+                                                <strong>{{ $booking->booking_date }}</strong> - ({{ $booking->dine_in_time }} {{ $booking->dine_out_time }})
+                                            </span>
+
+                                            @endif
+
                                         </td>
                                         <td
                                             class="pl-2 py-2 text-left align-middle bg-transparent {{ $last }} whitespace-nowrap shadow-transparent">

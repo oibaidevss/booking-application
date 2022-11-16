@@ -17,29 +17,27 @@
                     <input type="hidden" name="restaurant_id" value={{ isset($_GET['restaurant']) ? $_GET['restaurant']:0 }}>
                     <input type="hidden" name="user_id" value={{ auth()->user()->id }}>
 
-                   <div class="flex w-full hidden">
-                        <div class="w-1/2 px-2">
-                            <x-form.input class="w-50" :value="old('start_date')" type="text" name="start_date" label="Check In" required />
-                        </div>
-                        <div class="w-1/2 px-2">
-                            <x-form.input class="w-50" :value="old('end_date')" type="text" name="end_date" label="Check Out" required />
-                        </div>
-                    </div>
+                    <input type="hidden" name="booking_date" >
+
                     <div class="px-2">
-                        <x-form.input type="text" name="daterange" label="Date Range (Check in and check out date.)" required />
+                        <x-form.input type="text" name="date" label="Select Date" required />
                     </div>
 
-                    <script>
-                        $(function() {
-                            $('input[name="daterange"]').daterangepicker({
-                                timePicker: true,
-                                minDate: new Date()
-                            }, function(start, end, label) {
-                                $('input[name="start_date"]').val(start)
-                                $('input[name="end_date"]').val(end)
-                            });
-                        });
-                    </script>
+                    <div class="flex w-full">
+
+                        <div class="w-1/2 px-2">
+                            <x-form.input type="time" min="09:00" max="20:00" name="dine_in_time" label="Dine In Time" required />
+                        </div>
+
+                        <div class="w-1/2 px-2">
+                            <x-form.input type="time" min="09:00" max="20:00" name="dine_out_time" label="Dine Out Time" required />
+                        </div>
+
+                    </div>
+
+                    <div class="w-1/5 px-2">
+                         <x-form.input type="text" name="number_of_persons" label="How many persons are coming? " required />
+                    </div>
                         
                     <div class="mt-4 px-2">
                         <x-form.button class="button">Submit</x-form.button>
@@ -48,8 +46,16 @@
 
                 </form>
 
-
-                <svg id="gantt"></svg>
+                 <script>
+                    $(function() {
+                        $('input[name="date"]').daterangepicker({
+                            singleDatePicker: true,
+                            minDate: new Date()
+                        }, function(date) {
+                            $('input[name="booking_date"]').val(date);
+                        });
+                    });
+                </script>
 
             </div>
         </div>
