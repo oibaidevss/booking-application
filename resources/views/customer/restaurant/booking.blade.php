@@ -17,26 +17,25 @@
                     <input type="hidden" name="restaurant_id" value={{ isset($_GET['restaurant']) ? $_GET['restaurant']:0 }}>
                     <input type="hidden" name="user_id" value={{ auth()->user()->id }}>
 
-                    <input type="hidden" name="booking_date" >
-
                     <div class="px-2">
-                        <x-form.input type="text" name="date" label="Select Date" required />
+                        <x-form.input type="text" value="{{old('booking_date')}}" name="booking_date" label="How many persons are coming? " required />
                     </div>
 
+                    
                     <div class="flex w-full">
 
                         <div class="w-1/2 px-2">
-                            <x-form.input type="time" min="09:00" max="20:00" name="dine_in_time" label="Dine In Time" required />
+                            <x-form.input type="time" value="09:00" min="09:00" max="20:00" name="dine_in_time" label="Dine In Time" required />
                         </div>
 
                         <div class="w-1/2 px-2">
-                            <x-form.input type="time" min="09:00" max="20:00" name="dine_out_time" label="Dine Out Time" required />
+                            <x-form.input type="time" value="10:00" min="09:00" max="20:00" name="dine_out_time" label="Dine Out Time" required />
                         </div>
 
                     </div>
 
                     <div class="w-1/5 px-2">
-                         <x-form.input type="text" name="number_of_persons" label="How many persons are coming? " required />
+                         <x-form.input type="text" value="{{old('number_of_persons')}}" name="number_of_persons" label="How many persons are coming? " required />
                     </div>
                         
                     <div class="mt-4 px-2">
@@ -48,7 +47,7 @@
 
                  <script>
                     $(function() {
-                        $('input[name="date"]').daterangepicker({
+                        $('input[name="booking_date"]').daterangepicker({
                             singleDatePicker: true,
                             minDate: new Date()
                         }, function(date) {

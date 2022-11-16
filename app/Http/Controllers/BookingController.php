@@ -78,6 +78,37 @@ class BookingController extends Controller
 
     public function bookRestaurant(Request $request){
 
+        $bookings = RestaurantBooking::where([
+            'restaurant_id' => $request->restaurant_id, 
+            'table_id' => $request->table_id
+        ])->get();
+
+        // dd($bookings);
+
+        foreach($bookings as $booking){
+            
+            if($booking->status != 'canceled'){
+                if( Carbon::parse($booking->booking_date)->toFormattedDateString() === Carbon::parse($request->booking_date)->toFormattedDateString() ){
+                    return back()->with("error", "Somebody has already booked this table. Please choose another date or try another table.");
+                }
+
+                $check_in_time  = Carbon::parse($booking->check_in_time);
+                $check_out_time = Carbon::parse($booking->check_out_time);
+
+                $check = Carbon::parse($request->check_in_time)->between($check_in_time, $check_out_time);
+                
+                if ( Carbon::parse($booking->booking_date)->toFormattedDateString() === Carbon::parse($request->booking_date)->toFormattedDateString() && $check ) {
+
+                    return back()->with("error", "Your booking has overlap to someone elses booking. Please try another schedule or choose another table.");
+
+                }
+
+
+
+            }
+        }
+
+
         RestaurantBooking::create(array_merge($this->validateRestaurantBooking()));
         return redirect()->route('customer.bookings')->with('success', "You're booking will be cancelled in the next 24 hours if you are not able to pay within these hours ");
     }
@@ -104,7 +135,7 @@ class BookingController extends Controller
         $validate = request()->validate([
             'booking_date'  => 'required|date|after:today',
             'dine_in_time'  => 'required|date_format:H:i',
-            'dine_out_time' => 'required|date_format:H:i',
+            'dine_out_time' => 'required|date_format:H:i|after:dine_in_time',
             'number_of_persons' => 'required',
             'restaurant_id' => 'required',
             'table_id'      => 'required',
