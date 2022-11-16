@@ -43,6 +43,9 @@
                                             Total Hours</th>
                                         <th
                                             class="pr-6 pl-2 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
+                                            Number of People</th>
+                                        <th
+                                            class="pr-6 pl-2 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
                                             Remarks</th>
                                         <th
                                             class="px-6 py-3 font-semibold capitalize align-middle bg-transparent border-b border-gray-200 border-solid shadow-none tracking-none whitespace-nowrap text-slate-400 opacity-70">
@@ -150,6 +153,10 @@
                                               
 
                                             {{  $totalHours }}
+                                        </td>
+                                        <td
+                                            class="pl-2 py-2 text-left align-middle bg-transparent {{ $last }} whitespace-nowrap shadow-transparent">
+                                            {{  $booking->number_of_persons }}
                                         </td>
                                         <td
                                             class="pl-2 py-2 text-left align-middle bg-transparent {{ $last }} whitespace-nowrap shadow-transparent text-sm">
