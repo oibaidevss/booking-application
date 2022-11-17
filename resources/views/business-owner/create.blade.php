@@ -23,6 +23,9 @@
                             <x-form.input :value="old('email')" name="email" label="Email" required />
                             <x-form.input :value="old('number')" name="number" label="Number" required />
                             <x-form.input :value="old('location')" name="location" label="Location" required />
+                            
+                            <x-form.input :value="old('lat')" name="lat" label="lat" required />
+                            <x-form.input :value="old('long')" name="long" label="long" required />
 
                             <x-form.input :value="old('picture')" type="file" name="picture" label="Picture" required />
                             <x-form.input :value="old('business_permit')" type="file" name="business_permit" label="Business Permit" required />

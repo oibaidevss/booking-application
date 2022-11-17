@@ -42,6 +42,23 @@
                         <img class="w-full my-4 rounded-2xl" src="{{ ($spot->picture) ? asset("/storage/pictures/spot/$spot->id/" . $spot->picture):asset('/assets/img/home-decor-1.jpg') }}" alt="img-blur-shadow" />
 
                         <p class="mt-4">{!! $spot->description !!}</p>
+
+                         @php
+                           $centerPoint = [
+                            'lat' => $spot->lat,
+                            'long' => $spot->long,
+                            ];
+                       @endphp
+
+                        <x-maps-google 
+                            :zoomLevel="20"
+                            :centerPoint="$centerPoint"
+                            :markers="[
+                                [
+                                    'lat' => $spot->lat, 
+                                    'long' => $spot->long
+                                ]
+                            ]"></x-maps-google>
                     </div>
                 </div>
             </div>

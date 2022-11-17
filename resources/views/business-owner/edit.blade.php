@@ -30,7 +30,10 @@
                             <x-form.input :value="$business->email" name="email" label="Email" required />
                             <x-form.input :value="$business->number" name="number" label="Number" required />
                             <x-form.input :value="$business->location" name="location" label="Location" required />
-                                
+                            
+                            <x-form.input :value="old('lat')" name="lat" label="lat" required />
+                            <x-form.input :value="old('long')" name="long" label="long" required />
+
                             <x-form.input :value="$business->picture" name="picture" label="Picture" type="file" />
                            
                             <x-form.input :value="$business->business_permit" name="business_permit" label="Business Permit" type="file" />

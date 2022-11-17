@@ -88,6 +88,7 @@ class BookingController extends Controller
         foreach($bookings as $booking){
             
             if($booking->status != 'canceled'){
+                
                 if( Carbon::parse($booking->booking_date)->toFormattedDateString() === Carbon::parse($request->booking_date)->toFormattedDateString() ){
                     return back()->with("error", "Somebody has already booked this table. Please choose another date or try another table.");
                 }
@@ -97,7 +98,7 @@ class BookingController extends Controller
 
                 $check = Carbon::parse($request->check_in_time)->between($check_in_time, $check_out_time);
                 
-                if ( Carbon::parse($booking->booking_date)->toFormattedDateString() === Carbon::parse($request->booking_date)->toFormattedDateString() && $check ) {
+                if ( $check ) {
 
                     return back()->with("error", "Your booking has overlap to someone elses booking. Please try another schedule or choose another table.");
 

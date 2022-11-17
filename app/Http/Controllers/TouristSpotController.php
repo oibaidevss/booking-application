@@ -108,6 +108,8 @@ class TouristSpotController extends Controller
             'email' => ['required', Rule::unique('hotels', 'email')->ignore($spot)],
             'number' => 'required',
             'location' => 'required',
+            'lat' => 'required',
+            'long' => 'required',
             'description' => 'required',
             'user_id' => 'required',
             'picture' => '',

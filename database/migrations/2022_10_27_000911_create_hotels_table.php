@@ -20,6 +20,10 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('number')->nullable();
             $table->string('location')->nullable();
+
+            $table->string('lat')->nullable();
+            $table->string('long')->nullable();
+            
             $table->longText('description')->nullable();
 
             $table->string('picture')->nullable();

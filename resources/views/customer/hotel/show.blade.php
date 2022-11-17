@@ -57,9 +57,30 @@
                             </div>
                         </div>
 
-                        <img class="w-full my-4 rounded-2xl" src="{{ ($hotel->picture) ? asset("/storage/pictures/hotel/$hotel->id/" . $hotel->picture):asset('/assets/img/home-decor-1.jpg') }}" alt="img-blur-shadow"
+                        <img class="w-full my-4 rounded-2xl" src="{{ ($hotel->picture) ? asset("/storage/pictures/hotel/$hotel->id/" . $hotel->picture):asset('/assets/img/home-decor-1.jpg') }}" alt="img-blur-shadow" />
 
                         <p class="mt-4">{!! $hotel->description !!}</p>
+                        
+
+                       @php
+                           $centerPoint = [
+                            'lat' => $hotel->lat,
+                            'long' => $hotel->long,
+                            ];
+                       @endphp
+
+                        <x-maps-google 
+                            :zoomLevel="20"
+                            :centerPoint="$centerPoint"
+                            :markers="[
+                                [
+                                    'lat' => $hotel->lat, 
+                                    'long' => $hotel->long
+                                ]
+                            ]"></x-maps-google>
+
+
+
                     </div>
                 </div>
             </div>

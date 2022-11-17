@@ -112,6 +112,8 @@ class RestaurantController extends Controller
             'email' => ['required', Rule::unique('restaurants', 'email')->ignore($restaurants)],
             'number' => 'required',
             'location' => 'required',
+            'lat' => 'required',
+            'long' => 'required',
             'description' => 'required',
             'picture' => '',
         ]);

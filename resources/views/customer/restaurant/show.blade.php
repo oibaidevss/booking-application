@@ -60,6 +60,23 @@
                         <img class="w-full my-4 rounded-2xl" src="{{ ($restaurant->picture) ? asset("/storage/pictures/restaurant/$restaurant->id/" . $restaurant->picture):asset('/assets/img/home-decor-1.jpg') }}" alt="img-blur-shadow"
 
                         <p class="mt-4">{!! $restaurant->description !!}</p>
+
+                         @php
+                           $centerPoint = [
+                            'lat' => $restaurant->lat,
+                            'long' => $restaurant->long,
+                            ];
+                       @endphp
+
+                        <x-maps-google 
+                            :zoomLevel="20"
+                            :centerPoint="$centerPoint"
+                            :markers="[
+                                [
+                                    'lat' => $restaurant->lat, 
+                                    'long' => $restaurant->long
+                                ]
+                            ]"></x-maps-google>
                     </div>
                 </div>
             </div>
