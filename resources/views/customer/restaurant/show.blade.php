@@ -61,16 +61,13 @@
 
                         <p class="mt-4">{!! $restaurant->description !!}</p>
 
-                         @php
-                           $centerPoint = [
-                            'lat' => $restaurant->lat,
-                            'long' => $restaurant->long,
-                            ];
-                       @endphp
 
                         <x-maps-google 
                             :zoomLevel="20"
-                            :centerPoint="$centerPoint"
+                            :centerPoint="[
+                            'lat' => $restaurant->lat,
+                            'long' => $restaurant->long,
+                            ]"
                             :markers="[
                                 [
                                     'lat' => $restaurant->lat, 
