@@ -62,7 +62,7 @@
                         <p class="mt-4">{!! $restaurant->description !!}</p>
 
                         @if ($restaurant->lat != '' && $restaurant->long != '')
-                        <x-maps-google 
+                        <x-maps-leaflet 
                             :zoomLevel="20"
                             :centerPoint="[
                             'lat' => $restaurant->lat,
@@ -73,7 +73,7 @@
                                     'lat' => $restaurant->lat, 
                                     'long' => $restaurant->long
                                 ]
-                            ]"></x-maps-google>
+                            ]"></x-maps-leaflet>
                         @endif
                     </div>
                 </div>

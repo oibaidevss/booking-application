@@ -45,7 +45,7 @@
 
                         
                         @if ($spot->lat != '' && $spot->long != '')
-                        <x-maps-google 
+                        <x-maps-leaflet 
                             :zoomLevel="20"
                             :centerPoint="[
                             'lat' => $spot->lat,
@@ -56,7 +56,7 @@
                                     'lat' => $spot->lat, 
                                     'long' => $spot->long
                                 ]
-                            ]"></x-maps-google>
+                            ]"></x-maps-leaflet>
                             @endif
                     </div>
                 </div>
