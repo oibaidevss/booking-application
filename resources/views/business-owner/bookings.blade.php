@@ -100,12 +100,19 @@
                                             <div class="flex px-2 py-1">
 
                                                 @php 
-                                                $user = \App\Models\User::where('id', $booking->user_id)->first()@endphp
+                                                $user = \App\Models\User::where('id', $booking->user_id)->first()
+                                                @endphp
 
                                                 <div>
+                                                    @if (auth()->user()->avatar != '')
                                                     <img src="{{ asset('/storage/avatars/'.auth()->user()->id.'/'.Auth::user()->avatar)}}"
-                                                        class="inline-flex items-center justify-center mr-4 text-white transition-all duration-200 ease-soft-in-out text-sm h-9 w-9 rounded-xl"
-                                                        alt="user1">
+                                                    class="inline-flex items-center justify-center mr-4 text-white transition-all duration-200 ease-soft-in-out text-sm h-9 w-9 rounded-xl"
+                                                    alt="{{ auth()->user()->first_name }}">
+                                                    @else
+                                                    <img src="{{ asset('/assets/img/marie.jpg')}}"
+                                                    class="inline-flex items-center justify-center mr-4 text-white transition-all duration-200 ease-soft-in-out text-sm h-9 w-9 rounded-xl"
+                                                    alt="{{ auth()->user()->first_name }}">
+                                                    @endif
                                                 </div>
                                                 <div class="flex flex-col justify-center">
                                                     <h6 class="mb-0 leading-normal text-sm">{{ $user->first_name }} {{ $user->last_name }}</h6>
@@ -121,7 +128,7 @@
                                         <td
                                             class="p-2 leading-normal text-center align-middle bg-transparent {{ $last }} text-sm whitespace-nowrap shadow-transparent">
                                             @if ($user->identification != null )
-                                            <a href={{ $user->identification }}> <i class="fa fa-download"></i> </a>
+                                            <a target="_blank" href={{ asset('/storage/identifications/'. $user->id . '/' . $user->identification) }}> <i class="fa fa-download"></i> </a>
                                             @else
                                             <p class="mb-0 font-semibold leading-tight text-xs">Missing Identification</p>
                                             @endif
@@ -129,9 +136,17 @@
                                         <td
                                             class="p-2 leading-normal text-center align-middle bg-transparent {{ $last }} text-sm whitespace-nowrap shadow-transparent">
                                             <p class="mb-0 font-semibold leading-tight text-xs">
-                                                <span class="bg-gradient-to-tl  from-green-600 to-lime-400 text-xs rounded-2 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white px-4 py-2">
+                                                @if($booking->status === 'pending')
+                                                <span 
+                                                class="bg-gradient-to-tl  from-red-600 to-rose-400 text-xs rounded-2 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white px-4 py-2">
                                                 {{ ucwords($booking->status) }}</p>
                                                 </span>
+                                                @else
+                                                <span 
+                                                class="bg-gradient-to-tl  from-green-400 to-blue-500 text-xs rounded-2 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white px-4 py-2">
+                                                {{ ucwords($booking->status) }}</p>
+                                                </span>
+                                                @endif
                                         </td>
                                         <td
                                             class="pl-2 py-2 text-left align-middle bg-transparent {{ $last }} whitespace-nowrap shadow-transparent">
@@ -171,7 +186,7 @@
 
                                                 
                                                 <button type="submit"
-                                                class="px-2 py-1 text-white border border-solid rounded-lg bg-gradient-to-tl from-blue-600 to-rose-400 border-fuchsia-300 capitalize text-xs">Approve</button>
+                                                class="bg-gradient-to-tl  from-green-400 to-blue-500 text-xs rounded-2 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white px-4 py-2">Approve</button>
                                             </form>
                                             @endif
                                         </td>
