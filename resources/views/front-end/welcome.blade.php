@@ -74,16 +74,24 @@
 
                 @php
                     $hotels = App\Models\Hotel::with('bookings')->orderBy('id', 'asc')->get();
-                    $sorted = []; 
-                @endphp
-                
-                @foreach ($hotels as $key => $hotel)    
-                    
-                    @php
-                        $count = count($hotel->bookings);
-                    @endphp
+                    $sorted = [];
 
-                    <div class="carousel-item {{ $key == 0 ? 'active':'' }}">   
+                    foreach ($hotels as $key => $hotel){
+                        if(count($hotel->bookings) != 0){
+                            $sorted[count($hotel->bookings)] = $hotel;
+                        }
+                    }
+
+                    $limit = 5;
+                    $count = 1;
+                @endphp
+
+                
+                @foreach ($sorted as $hotel)    
+                     @if( $count >= $limit )
+                        @break
+                     @endif
+                    <div class="carousel-item {{ $count == 1 ? 'active':'' }}">   
                         @if($hotel->picture == null)
                         <img class="w-100" src="{{ asset('front-end/img/luxe.jpg')}}" alt="Image">
                         @else
@@ -101,7 +109,7 @@
                         </div>
                     </div>
                     
-
+                    {{ $count++ }}
                 @endforeach
                 
             </div>
