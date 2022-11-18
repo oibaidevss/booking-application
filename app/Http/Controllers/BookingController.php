@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\RestaurantBooking;
+use App\Models\TouristSpotBooking;
+use App\Models\TouristSpot;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use App\Models\HotelBooking;
@@ -22,6 +24,15 @@ class BookingController extends Controller
             return view('customer.restaurant.booking');
         else
             return redirect()->route('customer.index');
+    }
+
+    public function spot(TouristSpot $touristSpot){
+
+        if ($touristSpot)
+            return view('customer.tourist-spot.booking', ['spot' => $touristSpot]);
+        else
+            return redirect()->route('customer.index');
+
     }
 
     public function bookHotel(Request $request){
@@ -114,6 +125,12 @@ class BookingController extends Controller
         return redirect()->route('customer.bookings')->with('success', "You're booking will be cancelled in the next 24 hours if you are not able to pay within these hours ");
     }
 
+    public function bookSpot(Request $request){
+        // dd($request);
+        TouristSpotBooking::create(array_merge($this->validateTouristSpotBooking()));
+        return redirect()->route('customer.bookings')->with('success', "You're booking will be cancelled in the next 24 hours if you are not able to pay within these hours ");
+    }
+
     protected function validateHotelBooking(?HotelBooking $hotelBooking = null): array
     {
         $hotelBooking ??= new HotelBooking();
@@ -141,6 +158,21 @@ class BookingController extends Controller
             'restaurant_id' => 'required',
             'table_id'      => 'required',
             'user_id'       => 'required',
+        ]);
+
+        return $validate;
+
+    }
+
+    protected function validateTouristSpotBooking(?TouristSpotBooking $touristSpotBooking = null): array
+    {
+        $touristSpotBooking ??= new TouristSpotBooking();
+
+        $validate = request()->validate([
+            'booking_date'      => 'required|date',
+            'number_of_persons' => 'required',
+            'tourist_spot_id'   => 'required',
+            'user_id'           => 'required',
         ]);
 
         return $validate;

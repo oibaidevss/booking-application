@@ -35,12 +35,15 @@
                                             Check In/Out Date
                                             @elseif(auth()->user()->business_type == 'restaurant')
                                             Dine In Date & Time
+                                            @else
+                                            Date
                                             @endif
-
                                         </th>
+                                        @if(auth()->user()->business_type != 'tourist_spot')
                                         <th
                                             class="pr-6 pl-2 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
                                             Total Hours</th>
+                                        @endif
                                         <th
                                             class="pr-6 pl-2 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
                                             Number of People</th>
@@ -90,6 +93,7 @@
                                             }
 
                                         }else{
+
                                         }
 
                                          
@@ -152,23 +156,32 @@
                                             class="pl-2 py-2 text-left align-middle bg-transparent {{ $last }} whitespace-nowrap shadow-transparent">
 
                                             @if(auth()->user()->business_type == 'hotel') 
+                                            
                                             <span class="block font-semibold leading-tight text-xs text-slate-400">Check In - <strong>{{ $booking->start_date }}</strong></span>
                                             <span class="block font-semibold leading-tight text-xs text-slate-400">Check Out - <strong>{{ $booking->end_date }}</strong></span>
+                                            
                                             @elseif(auth()->user()->business_type == 'restaurant')
 
                                             <span class="block font-semibold leading-tight text-xs text-slate-400">
                                                 <strong>{{ $booking->booking_date }}</strong> - ({{ $booking->dine_in_time }} {{ $booking->dine_out_time }})
                                             </span>
+                                            
+                                            @else
+                                            
+                                            <span class="block font-semibold leading-tight text-xs text-slate-400">
+                                                <strong>{{ $booking->booking_date }}</strong>
+                                            </span>
 
                                             @endif
 
                                         </td>
+                                        @if(auth()->user()->business_type != 'tourist_spot')
                                         <td
                                             class="pl-2 py-2 text-left align-middle bg-transparent {{ $last }} whitespace-nowrap shadow-transparent">
                                               
-
                                             {{  $totalHours }}
                                         </td>
+                                        @endif
                                         <td
                                             class="pl-2 py-2 text-left align-middle bg-transparent {{ $last }} whitespace-nowrap shadow-transparent">
                                             {{  $booking->number_of_persons }}

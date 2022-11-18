@@ -8,6 +8,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use App\Models\ResetaurantBooking;
+use App\Models\TouristSpotBooking;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\HotelBooking;
 use App\Models\TouristSpot;
@@ -64,5 +65,9 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function restaurantBookings() {
         return $this->hasMany(RestaurantBooking::class);
+    }
+
+    public function touristSpotBookings() {
+        return $this->hasMany(TouristSpotBooking::class);
     }
 }

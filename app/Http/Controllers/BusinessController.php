@@ -7,6 +7,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use App\Models\HotelBooking;
 use App\Models\Restaurant;
+use App\Models\TouristSpot;
 use App\Models\Hotel;
 
 class BusinessController extends Controller
@@ -101,6 +102,16 @@ class BusinessController extends Controller
             }
             return view('business-owner.edit', [ 'business' => $business ]);
         }
+
+        if( $user->business_type == 'tourist_spot' ){ 
+            $business = TouristSpot::where('user_id', $user->id)->first();
+            if($business != null){
+                return view('business-owner.edit', [ 'business' => $business ]);
+            }else{
+                return redirect()->route('info.create');
+            }
+            return view('business-owner.edit', [ 'business' => $business ]);
+        }
     }
 
     /**
@@ -115,95 +126,56 @@ class BusinessController extends Controller
 
         $user = auth()->user();
 
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'number' => 'required',    
+            'description' => 'required',
+            'location' => 'required',
+            'lat' => ['required','regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
+            'long' => ['required','regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/'],
+            'picture' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+            'business_permit' => 'file'
+        ]);
 
         if( $user->business_type == 'hotel' ){  
-            
-            $hotel = Hotel::find($id);
-
-            $request->validate([
-                'name' => 'required',
-                'email' => 'required',
-                'number' => 'required',    
-                'description' => 'required',
-                'location' => 'required',
-                'lat' => ['required','regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
-                'long' => ['required','regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/'],
-                'picture' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048',
-                'business_permit' => 'file'
-            ]);
-
-            
-            if($request->hasFile('picture')){
-                $picture = $request->picture->getClientOriginalName();
-                $ext = $request->picture->getClientOriginalExtension();
-                $filename = $id . "_picture." . $ext;
-                $request->picture->storeAs("pictures/hotel/$id", $filename, 'public');
-                $hotel->picture = $filename;
-            }
-    
-            if($request->hasFile('business_permit')){
-                $permit = $request->business_permit->getClientOriginalName();
-                $ext = $request->business_permit->getClientOriginalExtension();
-                $business_permit = $id . "_business_permit." . $ext;
-                $request->business_permit->storeAs("permits/hotel/$id", $business_permit, 'public');
-                $hotel->business_permit =  $business_permit;
-            }
-            
-            
-            $hotel->name = $request->name;
-            $hotel->email = $request->email;
-            $hotel->number = $request->number;
-            $hotel->description = $request->description;
-            $hotel->location = $request->location;
-            $hotel->lat = $request->lat;
-            $hotel->long = $request->long;
-            
-            $hotel->update();
+            $business = Hotel::find($id);
         }
-
-
 
         if( $user->business_type == 'restaurant' ){  
-           
-
-            $restaurant = restaurant::find($id);
-
-            $request->validate([
-                'name' => 'required',
-                'email' => 'required',
-                'number' => 'required',    
-                'description' => 'required',
-                'location' => 'required',
-                'lat' => ['required','regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
-                'long' => ['required','regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/'],
-                'picture' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048',
-                'business_permit' => 'file'
-            ]);
-            
-            if($request->hasFile('picture')){
-                $picture = $request->picture->getClientOriginalName();
-                $request->picture->storeAs("pictures/restaurant/$id", $picture, 'public');
-            }
-    
-            if($request->hasFile('business_permit')){
-                $permit = $request->business_permit->getClientOriginalName();
-                $request->business_permit->storeAs("permits/restaurant/$id", $permit, 'public');
-            }
-            
-            $restaurant->picture = $request->hasFile('picture') ? $picture : $restaurant->picture;
-            $restaurant->business_permit = $request->hasFile('business_permit') ? $permit : $restaurant->picture;
-            
-            $restaurant->name = $request->name;
-            $restaurant->email = $request->email;
-            $restaurant->business_permit = $request->business_permit;
-            $restaurant->number = $request->number;
-            $restaurant->description = $request->description;
-            $restaurant->location = $request->location;
-            
-            $restaurant->update();
+            $business = Restaurant::find($id);
+        }
+        
+        if( $user->business_type == 'tourist_spot' ){  
+            $business = TouristSpot::find($id);
         }
 
+        if($request->hasFile('picture')){
+            $picture = $request->picture->getClientOriginalName();
+            $ext = $request->picture->getClientOriginalExtension();
+            $filename = $id . "_picture." . $ext;
+            $request->picture->storeAs("pictures/$user->business_type/$id", $filename, 'public');
+            $business->picture = $filename;
+        }
 
+        if($request->hasFile('business_permit')){
+            $permit = $request->business_permit->getClientOriginalName();
+            $ext = $request->business_permit->getClientOriginalExtension();
+            $business_permit = $id . "_business_permit." . $ext;
+            $request->business_permit->storeAs("permits/$user->business_type/$id", $business_permit, 'public');
+            $business->business_permit =  $business_permit;
+        }
+        
+        
+        $business->name = $request->name;
+        $business->email = $request->email;
+        $business->number = $request->number;
+        $business->description = $request->description;
+        $business->location = $request->location;
+        $business->lat = $request->lat;
+        $business->long = $request->long;
+        
+        $business->update();
 
         return back()->with('sucess', 'You have successfully updated your business.');
     }

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\RestaurantBooking;
-use App\Models\TouristSpot;
 use Illuminate\Http\Request;
+
+use App\Models\TouristSpotBooking;
+use App\Models\RestaurantBooking;
 use App\Models\HotelBooking;
+use App\Models\TouristSpot;
 use App\Models\Restaurant;
 use App\Models\Hotel;
 use App\Models\User;
@@ -61,7 +63,7 @@ class CustomerController extends Controller
 
     function myBookings(){
 
-        $user = User::with(['hotelBookings', 'restaurantBookings'])->where('id', auth()->user()->id)->first();
+        $user = User::with(['hotelBookings', 'restaurantBookings', 'touristSpotBookings'])->where('id', auth()->user()->id)->first();
 
         return view('customer.bookings', ['user' => $user]);
 
@@ -79,6 +81,16 @@ class CustomerController extends Controller
 
     function cancelRestaurantBooking($id) {
         $booking = RestaurantBooking::find($id);
+
+        $booking->update([
+            'status' => 'canceled'
+        ]);
+
+        return back()->with('success', 'Your booking was successfully canceled');
+    }
+
+    function cancelTouristSpotBooking($id) {
+        $booking = TouristSpotBooking::find($id);
 
         $booking->update([
             'status' => 'canceled'

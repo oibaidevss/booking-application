@@ -64,9 +64,13 @@ Route::prefix('customer')->middleware(['auth', 'verified', 'role:customer'])->gr
     Route::get('/restaurant/booking', [BookingController::class, 'restaurant'])->name('customer.restaurant.booking');
     Route::post('/restaurant/booking', [BookingController::class, 'bookRestaurant'])->name('customer.restaurant.booking.store');
 
+    Route::get('/spot/booking/{touristSpot}', [BookingController::class, 'spot'])->name('customer.spot.booking');
+    Route::post('/spot/booking', [BookingController::class, 'bookSpot'])->name('customer.spot.booking.store');
+
     Route::get('/bookings', [CustomerController::class, 'myBookings'])->name('customer.bookings');
     Route::match(['put', 'patch'], '/bookings/hotel/cancel/{booking}', [CustomerController::class, 'cancelHotelBooking'])->name('customer.hotel.bookings.cancel');
     Route::match(['put', 'patch'], '/bookings/restaurant/cancel/{booking}', [CustomerController::class, 'cancelRestaurantBooking'])->name('customer.restaurant.bookings.cancel');
+    Route::match(['put', 'patch'], '/bookings/spot/cancel/{booking}', [CustomerController::class, 'cancelTouristSpotBooking'])->name('customer.spot.bookings.cancel');
 });
 
 Route::prefix('business')->middleware(['auth', 'verified', 'role:business owner'])->group(function () {
@@ -87,7 +91,10 @@ Route::prefix('business')->middleware(['auth', 'verified', 'role:business owner'
             $bookings = \App\Models\RestaurantBooking::where('restaurant_id', $restaurant->id)->get();
         }
 
-
+        if(auth()->user()->business_type == "tourist_spot"){
+            $spot = \App\Models\TouristSpot::where('user_id', auth()->user()->id)->first();
+            $bookings = \App\Models\TouristSpotBooking::where('tourist_spot_id', $spot->id)->get();
+        }
 
         return view('business-owner.bookings', [ 'bookings' => $bookings ]);
     })->name('business.bookings');
