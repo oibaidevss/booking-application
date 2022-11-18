@@ -116,8 +116,6 @@ class HotelController extends Controller
             'email' => ['required', Rule::unique('hotels', 'email')->ignore($hotel)],
             'number' => 'required',
             'location' => 'required',
-            'lat' => 'required',
-            'long' => 'required',
             'description' => 'required',
             'picture' => '',
         ]);

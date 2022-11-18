@@ -31,12 +31,18 @@
                             <x-form.input :value="$business->number" name="number" label="Number" required />
                             <x-form.input :value="$business->location" name="location" label="Location" required />
                             
-                            <x-form.input :value="old('lat')" name="lat" label="lat" required />
-                            <x-form.input :value="old('long')" name="long" label="long" required />
+                            <x-form.input :value="$business->lat" name="lat" label="lat" required />
+                            <x-form.input :value="$business->long" name="long" label="long" required />
+                            
+                            <img src="{{ asset('/storage/pictures/'. auth()->user()->business_type .'/'.$business->id.'/'.$business->picture)}}" class="w-1/2 rounded-3 mt-6 mb-6 object-cover h-[150px]">
 
-                            <x-form.input :value="$business->picture" name="picture" label="Picture" type="file" />
-                           
-                            <x-form.input :value="$business->business_permit" name="business_permit" label="Business Permit" type="file" />
+                            <div id="avatar">
+                                <x-form.input :value="$business->picture" name="picture" label="Picture" type="file" />
+                            </div>
+
+                            <div id="bp">
+                                <x-form.input :value="$business->business_permit" name="business_permit" label="Business Permit" type="file" />
+                            </div>
                             
                             <x-form.field>
                                 <x-form.label name="description" />

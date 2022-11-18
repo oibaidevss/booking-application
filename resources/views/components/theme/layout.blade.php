@@ -30,6 +30,7 @@
     <!-- Popper -->
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <!-- Main Styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <link href="{{ asset("assets/css/soft-ui-dashboard-tailwind.css") }}" rel="stylesheet" />    
   </head>
 

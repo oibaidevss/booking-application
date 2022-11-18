@@ -126,12 +126,16 @@ class BusinessController extends Controller
                 'number' => 'required',    
                 'description' => 'required',
                 'location' => 'required',
+                'lat' => 'required',
+                'long' => 'required',
+                'picture' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+                'business_permit' => 'file'
             ]);
 
             
             if($request->hasFile('picture')){
                 $picture = $request->picture->getClientOriginalName();
-                $ext = $request->business_permit->getClientOriginalExtension();
+                $ext = $request->picture->getClientOriginalExtension();
                 $filename = $id . "_picture." . $ext;
                 $request->picture->storeAs("pictures/hotel/$id", $filename, 'public');
                 $hotel->picture = $filename;
@@ -151,6 +155,8 @@ class BusinessController extends Controller
             $hotel->number = $request->number;
             $hotel->description = $request->description;
             $hotel->location = $request->location;
+            $hotel->lat = $request->lat;
+            $hotel->long = $request->long;
             
             $hotel->update();
         }
