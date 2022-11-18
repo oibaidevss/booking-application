@@ -230,6 +230,10 @@ class BusinessController extends Controller
             'number' => 'required',
             'description' => '',
             'location' => '',
+            'lat' => ['required','regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
+            'long' => ['required','regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/'],
+            'picture' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+            'business_permit' => 'file'
         ]);
     }
 
@@ -245,6 +249,10 @@ class BusinessController extends Controller
             'number' => 'required',
             'description' => '',
             'location' => '',
+            'lat' => ['required','regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
+            'long' => ['required','regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/'],
+            'picture' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+            'business_permit' => 'file'
         ]);
     }
 }
