@@ -57,11 +57,11 @@
                             </div>
                         </div>
 
-                        <img class="w-full my-4 rounded-2xl" src="{{ ($restaurant->picture) ? asset("/storage/pictures/restaurant/$restaurant->id/" . $restaurant->picture):asset('/assets/img/home-decor-1.jpg') }}" alt="img-blur-shadow"
+                        <img class="w-full my-4 rounded-2xl" src="{{ ($restaurant->picture) ? asset("/storage/pictures/restaurant/$restaurant->id/" . $restaurant->picture):asset('/assets/img/home-decor-1.jpg') }}" alt="img-blur-shadow" />
 
                         <p class="mt-4">{!! $restaurant->description !!}</p>
 
-
+                        @if ($restaurant->lat != '' && $restaurant->long != '')
                         <x-maps-google 
                             :zoomLevel="20"
                             :centerPoint="[
@@ -74,6 +74,7 @@
                                     'long' => $restaurant->long
                                 ]
                             ]"></x-maps-google>
+                        @endif
                     </div>
                 </div>
             </div>

@@ -44,7 +44,7 @@
                         <p class="mt-4">{!! $spot->description !!}</p>
 
                         
-
+                        @if ($spot->lat != '' && $spot->long != '')
                         <x-maps-google 
                             :zoomLevel="20"
                             :centerPoint="[
@@ -57,6 +57,7 @@
                                     'long' => $spot->long
                                 ]
                             ]"></x-maps-google>
+                            @endif
                     </div>
                 </div>
             </div>

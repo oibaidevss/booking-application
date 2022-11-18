@@ -62,7 +62,7 @@
                         <p class="mt-4">{!! $hotel->description !!}</p>
                         
 
-
+                        @if ($hotel->lat != '' && $hotel->long != '')
                         <x-maps-google 
                             :zoomLevel="20"
                             :centerPoint="[
@@ -75,7 +75,7 @@
                                     'long' => $hotel->long
                                 ]
                             ]"></x-maps-google>
-
+                        @endif
 
 
                     </div>
