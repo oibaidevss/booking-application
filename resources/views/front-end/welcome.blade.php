@@ -86,6 +86,25 @@
                     $count = 1;
                 @endphp
 
+
+                @if (empty($sorted))
+                    <div class="carousel-item active">   
+                        
+                        <img class="w-100" src="{{ asset('front-end/img/luxe.jpg')}}" alt="Image">
+                        
+                        <div class="carousel-caption">
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-7">
+                                        <h1 class="display-2 text-light mb-5 animated slideInDown">Choose in your own convenience</h1>
+                                        <a href="{{ route('login') }}" class="btn btn-primary py-sm-3 px-sm-5">Book Now!</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                @endif
                 
                 @foreach ($sorted as $hotel)    
                      @if( $count >= $limit )
