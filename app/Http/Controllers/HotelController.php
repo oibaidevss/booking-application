@@ -7,6 +7,9 @@ use App\Models\HotelBooking;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
+use App\Exports\HotelBookingExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 class HotelController extends Controller
 {
     /**
@@ -123,4 +126,9 @@ class HotelController extends Controller
             'picture' => '',
         ]);
     }
+
+    public function export_hotel_bookings(HotelBooking $hotelBooking){
+        return Excel::download(new HotelBookingExport, 'hotel_booking.xlsx');
+    }
+    
 }

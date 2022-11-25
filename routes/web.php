@@ -142,6 +142,8 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'role:admin'])->group(fu
     Route::match(['put', 'patch'], 'spots/verify/{business}', [TouristSpotController::class, 'verify'])->name('spots.verify');
 
     Route::get('hotels/rooms/create', [RoomController::class, 'create'])->name('rooms.create');
+
+    Route::get('hotels/bookings/export',[HotelController::class, 'export_hotel_bookings'])->name('hotel.booking.export');
 });
 
 
