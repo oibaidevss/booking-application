@@ -24,6 +24,8 @@ return new class extends Migration
 
             $table->string('lat')->nullable();
             $table->string('long')->nullable();
+            
+            $table->float('price')->nullable();
 
             $table->longText('description')->nullable();
             $table->string('business_permit')->nullable();

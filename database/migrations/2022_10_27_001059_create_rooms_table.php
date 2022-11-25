@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('floor');
             $table->tinyInteger('status')->default(1);
             $table->text('description')->nullable();
+            $table->float('price')->nullable();
             $table->enum('room_type', ['single', 'double', 'family'])->default('single');
             $table->foreignId('hotel_id')->constrained()->cascadeOnDelete();
 

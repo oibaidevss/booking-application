@@ -101,7 +101,8 @@ class BusinessHotelController extends Controller
             'room_number' => 'required|numeric',
             'floor' => 'required|numeric',
             'description' => 'required',
-            'room_type' => 'required'
+            'room_type' => 'required',
+            'price' => 'required',
         ]);
     }
 }

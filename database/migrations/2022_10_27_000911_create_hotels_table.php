@@ -24,6 +24,8 @@ return new class extends Migration
             $table->string('lat')->nullable();
             $table->string('long')->nullable();
             
+            $table->string('price_range')->nullable();
+
             $table->longText('description')->nullable();
 
             $table->string('picture')->nullable();

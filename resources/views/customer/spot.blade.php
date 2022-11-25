@@ -25,9 +25,13 @@
                                 <p
                                     class="relative z-10 mb-2 leading-normal text-transparent bg-gradient-to-tl from-gray-900 to-slate-800 text-sm bg-clip-text">
                                    </p>
-                                <a href="javascript:;">
-                                    <h5>{{ $spot->name }}</h5>
-                                </a>
+                                <div class="flex justify-between align-center align-middle">
+                                    <a href="javascript:;">
+                                        <h5>{{ $spot->name }}</h5>
+                                    </a>
+
+                                    <p class="text-sm text-lime-500">PHP {{ $spot->price}} </p>
+                                </div>
                                 <p class="mb-6 leading-normal text-sm">{{ $spot->description }}</p>
                                 <div class="flex items-center justify-between">
                                     <a href="{{ route('customer.spot.booking', $spot) }}"

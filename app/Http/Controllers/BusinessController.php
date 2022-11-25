@@ -135,11 +135,13 @@ class BusinessController extends Controller
             'lat' => ['required','regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
             'long' => ['required','regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/'],
             'picture' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048',
-            'business_permit' => 'file'
+            'business_permit' => 'file',
         ]);
+
 
         if( $user->business_type == 'hotel' ){  
             $business = Hotel::find($id);
+            $business->price_range = $request->price_range;
         }
 
         if( $user->business_type == 'restaurant' ){  
@@ -148,6 +150,7 @@ class BusinessController extends Controller
         
         if( $user->business_type == 'tourist_spot' ){  
             $business = TouristSpot::find($id);
+            $business->price = $request->price;
         }
 
         if($request->hasFile('picture')){
@@ -205,7 +208,8 @@ class BusinessController extends Controller
             'lat' => ['required','regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
             'long' => ['required','regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/'],
             'picture' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048',
-            'business_permit' => 'file'
+            'business_permit' => 'file',
+            'price_range' => ''
         ]);
     }
 

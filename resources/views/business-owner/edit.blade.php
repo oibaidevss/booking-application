@@ -34,6 +34,14 @@
                             <x-form.input :value="$business->lat" name="lat" label="lat" required />
                             <x-form.input :value="$business->long" name="long" label="long" required />
                             
+                            @if(auth()->user()->business_type == "hotel")
+                            <x-form.input :value="$business->price_range" type="text" name="price_range" label="Price Range" required />
+                            @endif
+
+                            @if(auth()->user()->business_type == "tourist_spot")
+                            <x-form.input :value="$business->price" type="text" name="price" label="Price" required />
+                            @endif
+
                             <img src="{{ asset('/storage/pictures/'. auth()->user()->business_type .'/'.$business->id.'/'.$business->picture)}}" class="w-1/2 rounded-3 mt-6 mb-6 object-cover h-[150px]">
 
                             <div id="avatar">

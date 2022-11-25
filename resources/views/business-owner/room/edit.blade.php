@@ -21,6 +21,7 @@
 
                             <x-form.input :value="$room->room_number" name="room_number" label="Room Number" required />
                             <x-form.input :value="$room->floor" name="floor" label="Floor" required />
+                            <x-form.input :value="$room->price" name="price" label="Price" required />
                             
                             <x-form.field>
                                 <x-form.label name="Room Type" />

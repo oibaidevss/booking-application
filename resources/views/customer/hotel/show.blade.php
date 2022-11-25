@@ -98,8 +98,12 @@
                                         <span class="mb-2 leading-tight text-xs">Room Type: <span
                                                 class="font-semibold text-slate-700 sm:ml-2">{{ ucwords($room->room_type) }}</span></span>
 
+                                        <span class="mb-2 leading-tight text-xs">Price: <span
+                                                class="font-semibold text-slate-700 sm:ml-2 text-lime-500">PHP {{ ($room->price != null) ? $room->price:"0.00"  }}</span></span>
+
                                         <span class="mb-2 leading-tight text-xs">Room: <span
                                                 class="font-semibold text-slate-700 sm:ml-2">{{ $room->room_number }}</span></span>
+
                                         <span class="mb-2 leading-tight text-xs">Floor: <span
                                                 class="font-semibold text-slate-700 sm:ml-2">{{ $room->floor }}</span></span>
                                     </div>
