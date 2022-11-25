@@ -15,6 +15,12 @@ return new class extends Migration
     {
         Schema::create('spot_feedback', function (Blueprint $table) {
             $table->id();
+
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('tourist_spot_id')->constrained()->cascadeOnDelete();
+
+            $table->longText('feedback');
+
             $table->timestamps();
         });
     }

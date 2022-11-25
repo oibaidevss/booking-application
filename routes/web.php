@@ -8,6 +8,7 @@ use App\Http\Controllers\TouristSpotController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\BusinessController;
+use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\RoomController;
@@ -60,6 +61,7 @@ Route::prefix('customer')->middleware(['auth', 'verified', 'role:customer'])->gr
     
     Route::get('/hotel/booking', [BookingController::class, 'hotel'])->name('customer.hotel.booking');
     Route::post('/hotel/booking', [BookingController::class, 'bookHotel'])->name('customer.hotel.booking.store');
+    Route::post('/hotel/feedback', [FeedbackController::class, 'createHotelFeedback'])->name('customer.hotel.feedback.store');
     
     Route::get('/restaurant/booking', [BookingController::class, 'restaurant'])->name('customer.restaurant.booking');
     Route::post('/restaurant/booking', [BookingController::class, 'bookRestaurant'])->name('customer.restaurant.booking.store');

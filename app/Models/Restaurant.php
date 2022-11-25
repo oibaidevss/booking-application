@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\RestaurantFeedback;
 use App\Models\Table;
 
 class Restaurant extends Model
@@ -15,6 +16,10 @@ class Restaurant extends Model
 
     public function tables(){
         return $this->hasMany(Table::class);
+    }
+
+    public function feedbacks(){
+        return $this->hasMany(RestaurantFeedback::class);
     }
 
     public function user(){

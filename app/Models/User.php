@@ -11,6 +11,7 @@ use App\Models\ResetaurantBooking;
 use App\Models\TouristSpotBooking;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\HotelBooking;
+use App\Models\HotelFeedback;
 use App\Models\TouristSpot;
 use App\Models\Restaurant;
 use App\Models\Hotel;
@@ -69,5 +70,9 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function touristSpotBookings() {
         return $this->hasMany(TouristSpotBooking::class);
+    }
+
+    public function hotelFeedback() {
+        return $this->hasMany(HotelFeedback::class);
     }
 }

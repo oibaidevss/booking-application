@@ -11,6 +11,9 @@ use App\Models\TouristSpot;
 use App\Models\Restaurant;
 use App\Models\Hotel;
 use App\Models\User;
+use App\Models\HotelFeedback;
+use App\Models\RestaurantFeedback;
+use App\Models\SpotFeedback;
 
 
 
@@ -32,9 +35,14 @@ class CustomerController extends Controller
     }
 
     public function showHotel(Hotel $hotel){
+
+        $feedbacks = HotelFeedback::where('hotel_id', $hotel->id)->with('user')->paginate(10);
+
         return view('customer.hotel.show', [
-            'hotel' => $hotel
+            'hotel' => $hotel,
+            'feedbacks' => $feedbacks
         ]);
+
     }
 
     public function spot() {

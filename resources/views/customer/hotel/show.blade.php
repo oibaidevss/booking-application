@@ -81,6 +81,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="w-full max-w-full px-3 mt-6 md:w-7/12 md:flex-none">
                 <div
                     class="relative flex flex-col min-w-0 break-words bg-white border-0 shadow-soft-xl rounded-2xl bg-clip-border">
@@ -126,6 +127,62 @@
                 </div>
             </div>
 
+        </div>
+    </div>
+
+    <div class="w-full px-6 py-6 mx-auto">
+        <div class="w-full max-w-full px-3 mt-6 md:w-5/12 md:flex-none">
+             <div
+                    class="relative flex flex-col h-full min-w-0 mb-6 break-words bg-white border-0 shadow-soft-xl rounded-2xl bg-clip-border">
+
+                    <div class="p-6 px-4 pb-0 mb-0 bg-white border-b-0 rounded-t-2xl">
+                        <div class="flex flex-wrap -mx-3">
+                            <div class="max-w-full px-3 md:w-1/2 md:flex-none">
+                                <h6 class="mb-0">Hotel Feedbacks</h6>
+                            </div>
+                          
+                        </div>
+                    </div>
+
+                    <div class="flex-auto p-4 pt-6 relative">
+
+                        <form action="{{ route('customer.hotel.feedback.store') }}" method="POST" >
+                            @csrf
+
+                            <input type="hidden" name="hotel_id" value="{{$hotel->id}}">
+                            <input type="hidden" name="user_id" value="{{auth()->user()->id}}">
+
+
+                            <div class=" ">
+                                <label class="mb-2 ml-1 font-bold text-xs text-slate-700" for="feedback">Leave a Feedbacks</label>
+                                <div class="mb-2 block">
+
+                                    <textarea class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                                    name="feedback" id="feedback" cols="30" rows="10"></textarea>
+                                </div>
+
+
+                                 <div class="mt-4 px-2">
+                                    <x-form.button class="button">Submit</x-form.button>
+                                </div>
+                            </div>
+                        </form>
+
+
+                        <div class="mt-6">                            
+                            @foreach ($feedbacks as $feedback)
+                                <div class="">
+                                    <p class="mb-2 leading-tight text-xs">{{ $feedback->feedback }}</p>
+                                    <p class="text-sm text-rose-600">{{ $feedback->user->email }}</p>
+                                </div>
+                            @endforeach
+
+                             {{ $feedbacks->links() }}
+                        </div>
+
+                    </div>
+
+            </div>
         </div>
     </div>
 </x-theme.auth-layout>

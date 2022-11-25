@@ -4,8 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Hotel;
+use App\Models\User;
 
 class HotelFeedback extends Model
 {
     use HasFactory;
+    protected $guarded= [];
+
+    public function hotel(){
+        return $this->belongsTo(Hotel::class);
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }
