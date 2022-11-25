@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Hotel;
+use App\Models\HotelBooking;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -50,8 +51,10 @@ class HotelController extends Controller
      */
     public function show(Hotel $hotel)
     {
+        $bookings = HotelBooking::where('hotel_id', $hotel->id)->paginate(10);
         return view('admin.hotels.show', [
-            'hotel' => $hotel
+            'hotel' => $hotel,
+            'bookings' => $bookings
         ]);
     }
 
