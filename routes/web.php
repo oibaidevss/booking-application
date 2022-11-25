@@ -13,6 +13,7 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +49,8 @@ Route::get('/dashboard', function () {
 
 Route::prefix('customer')->middleware(['auth', 'verified', 'role:customer'])->group(function () {
     
+    Route::get('/search', [SearchController::class, 'search'])->name('search');
+
     Route::get('/', [CustomerController::class, 'index'])->name('customer.index');
    
     Route::get('/hotels', [CustomerController::class, 'hotel'])->name('customer.hotels');

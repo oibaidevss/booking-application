@@ -47,6 +47,7 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
+     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body class="m-0 font-sans antialiased font-normal bg-white text-start text-base leading-default text-slate-500">
@@ -85,8 +86,13 @@
             @endauth
         </div>
     </nav>
+
+
     <main class="mt-0 transition-all duration-200 ease-soft-in-out">
+
+        
         {{ $slot }}
+    
 
         <footer class="py-12">
             <div class="container">

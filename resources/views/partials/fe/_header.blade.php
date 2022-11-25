@@ -1,6 +1,3 @@
-{{-- Header --}}
-
-{{-- @dd(Route::current()->uri) --}}
 <div class="w-full px-6 mx-auto">
     <div class="relative flex items-center p-0 mt-6 overflow-hidden bg-center bg-cover min-h-75 rounded-2xl"
         style="background-image: url('{{asset('assets/img/curved-images/curved0.jpg')}}'); background-position-y: 50%">
@@ -75,4 +72,28 @@
       </button>
     </div>
     @endif
+</div>
+
+
+<div class="p-4 mt-4 mx-10">
+    <form action="{{ route('search') }}" method="get" role="search">
+        <div class="flex gap-1 items-center justify center">
+
+            <span class="">
+                <button class="btn btn-info" type="submit" title="Search projects">
+                    <span class="fas fa-search"></span>
+                </button>
+            </span>
+
+        <input type="text" class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow" name="term" placeholder="Search projects" id="term">
+        
+        <a href="{{ route('search') }}" class=" mt-1">
+            <span class="input-group-btn">
+                <button class="btn btn-danger" type="button" title="Refresh page">
+                    <span class="fas fa-sync-alt"></span>
+                </button>
+            </span>
+        </a>
+    </div>
+    </form>
 </div>
