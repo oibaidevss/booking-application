@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use App\Models\Restaurant;
+use App\Models\RestaurantBooking;
 
 class RestaurantController extends Controller
 {
@@ -48,8 +49,10 @@ class RestaurantController extends Controller
      */
     public function show(Restaurant $restaurant)
     {
+        $bookings = RestaurantBooking::where('restaurant_id', $restaurant->id)->paginate(10);
         return view('admin.restaurants.show', [
-            'restaurant' => $restaurant
+            'restaurant' => $restaurant,
+            'bookings' => $bookings
         ]);
     }
 

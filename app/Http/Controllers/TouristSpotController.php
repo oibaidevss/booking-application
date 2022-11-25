@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Validation\Rule;
 use App\Models\TouristSpot;
+use App\Models\TouristSpotBooking;
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -51,7 +52,11 @@ class TouristSpotController extends Controller
      */
     public function show(TouristSpot $touristSpot)
     {
-        //
+        $bookings = TouristSpotBooking::where('tourist_spot_id', $touristSpot->id)->paginate(10);
+        return view('admin.tourist-spots.show', [
+            'touristSpot' => $touristSpot,
+            'bookings' => $bookings
+        ]);
     }
 
     /**

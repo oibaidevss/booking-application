@@ -49,6 +49,7 @@
                         </td>
                         <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                             <div class="align-center flex items-center">
+                                <a href="{{ route('spots.show', $spot->id) }}" class="font-semibold leading-tight text-xs text-slate-400 px-1"> Reports </a>
                                 <a href="{{ route('spots.edit', $spot->id) }}" class="font-semibold leading-tight text-xs text-slate-400 px-1"> Edit </a>
 
                             
