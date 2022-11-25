@@ -8,6 +8,9 @@ use App\Models\TouristSpotBooking;
 use Illuminate\Http\Request;
 use App\Models\User;
 
+use App\Exports\TouristSpotBookingExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 class TouristSpotController extends Controller
 {
     /**
@@ -50,9 +53,11 @@ class TouristSpotController extends Controller
      * @param  \App\Models\TouristSpot  $touristSpot
      * @return \Illuminate\Http\Response
      */
-    public function show(TouristSpot $touristSpot)
+    public function show(TouristSpot $touristSpot, $id)
     {
-        $bookings = TouristSpotBooking::where('tourist_spot_id', $touristSpot->id)->paginate(10);
+        $bookings = TouristSpotBooking::where('tourist_spot_id', $id)->paginate(10);
+        // dd($id);
+
         return view('admin.tourist-spots.show', [
             'touristSpot' => $touristSpot,
             'bookings' => $bookings
@@ -120,5 +125,9 @@ class TouristSpotController extends Controller
             'picture' => '',
             'capacity' => '',
         ]);
+    }
+
+    public function export_spot_bookings(TouristSpotBooking $touristSpotBooking){
+        return Excel::download(new TouristSpotBookingExport, 'restaurant_booking.xlsx');
     }
 }

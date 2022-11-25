@@ -145,6 +145,7 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'role:admin'])->group(fu
 
     Route::get('hotels/bookings/export',[HotelController::class, 'export_hotel_bookings'])->name('hotel.booking.export');
     Route::get('restaurants/bookings/export',[RestaurantController::class, 'export_restaurant_bookings'])->name('restaurant.booking.export');
+    Route::get('spots/bookings/export',[TouristSpotController::class, 'export_spot_bookings'])->name('spot.booking.export');
 });
 
 

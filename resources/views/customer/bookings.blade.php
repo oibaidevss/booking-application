@@ -93,7 +93,7 @@
                                             @method('PATCH')
 
                                             <button type="submit"
-                                            class="px-2 py-1 text-white border border-solid rounded-lg bg-gradient-to-tl from-red-500 to-rose-400 border-fuchsia-300 capitalize">cancel booking</button>
+                                            class="px-2 py-1 text-white border border-solid rounded-lg bg-gradient-to-tl from-red-500 to-rose-400 border-fuchsia-300 capitalize">cancel</button>
                                         </form>
                                         
                                         @endif
