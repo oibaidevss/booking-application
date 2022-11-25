@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Models\TouristSpot;
+use App\Models\User;
 
 class SpotFeedback extends Model
 {
@@ -14,5 +15,9 @@ class SpotFeedback extends Model
 
     public function touristSpots(){
         return $this->belongsTo(TouristSpot::class);
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 }

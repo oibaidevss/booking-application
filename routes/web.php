@@ -65,9 +65,11 @@ Route::prefix('customer')->middleware(['auth', 'verified', 'role:customer'])->gr
     
     Route::get('/restaurant/booking', [BookingController::class, 'restaurant'])->name('customer.restaurant.booking');
     Route::post('/restaurant/booking', [BookingController::class, 'bookRestaurant'])->name('customer.restaurant.booking.store');
+    Route::post('/restaurant/feedback', [FeedbackController::class, 'createRestaurantFeedback'])->name('customer.restaurant.feedback.store');
 
     Route::get('/spot/booking/{touristSpot}', [BookingController::class, 'spot'])->name('customer.spot.booking');
     Route::post('/spot/booking', [BookingController::class, 'bookSpot'])->name('customer.spot.booking.store');
+    Route::post('/spot/feedback', [FeedbackController::class, 'createTouristSpotFeedback'])->name('customer.spot.feedback.store');
 
     Route::get('/bookings', [CustomerController::class, 'myBookings'])->name('customer.bookings');
     Route::match(['put', 'patch'], '/bookings/hotel/cancel/{booking}', [CustomerController::class, 'cancelHotelBooking'])->name('customer.hotel.bookings.cancel');

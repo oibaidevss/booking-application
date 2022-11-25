@@ -52,8 +52,12 @@ class CustomerController extends Controller
     }
 
     public function showSpot($id){
+
+        $feedbacks = SpotFeedback::where('tourist_spot_id', $id)->with('user')->paginate(10);
+        
         return view('customer.tourist-spot.show', [
-            'spot' => TouristSpot::find($id)
+            'spot' => TouristSpot::find($id),
+            'feedbacks' => $feedbacks
         ]);
     }
 
@@ -64,8 +68,11 @@ class CustomerController extends Controller
     }
 
     public function showRestaurant(Restaurant $restaurant){
+        $feedbacks = RestaurantFeedback::where('restaurant_id', $restaurant->id)->with('user')->paginate(10);
+
         return view('customer.restaurant.show', [
-            'restaurant' => $restaurant
+            'restaurant' => $restaurant,
+            'feedbacks' => $feedbacks
         ]);
     }
 

@@ -76,6 +76,54 @@
                             ]"></x-maps-leaflet>
                         @endif
                     </div>
+
+
+                    <div class="p-6 px-4 pb-0 mb-0 bg-white border-b-0 rounded-t-2xl">
+                        <div class="flex flex-wrap -mx-3">
+                            <div class="max-w-full px-3 md:w-1/2 md:flex-none">
+                                <h6 class="mb-0">Restaurant Feedbacks</h6>
+                            </div>
+                          
+                        </div>
+                    </div>
+
+                    <div class="flex-auto p-4 pt-2 relative">
+
+                        <form action="{{ route('customer.restaurant.feedback.store') }}" method="POST" >
+                            @csrf
+
+                            <input type="hidden" name="restaurant_id" value="{{$restaurant->id}}">
+                            <input type="hidden" name="user_id" value="{{auth()->user()->id}}">
+
+
+                            <div class=" ">
+                                <label class="mb-2 ml-1 font-bold text-xs text-slate-700" for="feedback">Leave a Feedbacks</label>
+                                <div class="mb-2 block">
+
+                                    <textarea class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                                    name="feedback" id="feedback" cols="30" rows="10"></textarea>
+                                </div>
+
+
+                                 <div class="mt-4 px-2">
+                                    <x-form.button class="button">Submit</x-form.button>
+                                </div>
+                            </div>
+                        </form>
+
+
+                        <div class="mt-6">                            
+                            @foreach ($feedbacks as $feedback)
+                                <div class="">
+                                    <p class="mb-2 leading-tight text-xs font-bold">{{ $feedback->feedback }}</p>
+                                    <p class="text-sm text-rose-600">{{ $feedback->user->email }}</p>
+                                </div>
+                            @endforeach
+
+                            {{ $feedbacks->links() }}
+                        </div>
+
+                    </div>
                 </div>
             </div>
             <div class="w-full max-w-full px-3 mt-6 md:w-7/12 md:flex-none">
