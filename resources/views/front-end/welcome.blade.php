@@ -74,20 +74,40 @@
 
                 @php
                     $hotels = App\Models\Hotel::with('bookings')->orderBy('id', 'asc')->get();
-                    $sorted = [];
+                    $restaurants = App\Models\Restaurant::with('bookings')->orderBy('id', 'asc')->get();
+                    $spots = App\Models\TouristSpot::with('bookings')->orderBy('id', 'asc')->get();
+                   
+                    $sortedHotels = [];
+                    $sortedRestaurants = [];
+                    $sortedSpots = [];
 
                     foreach ($hotels as $key => $hotel){
                         if(count($hotel->bookings) != 0){
-                            $sorted[count($hotel->bookings)] = $hotel;
+                            $sortedHotels[count($hotel->bookings)] = $hotel;
                         }
                     }
 
+                    foreach ($restaurants as $key => $restaurant){
+                        if(count($restaurant->bookings) != 0){
+                            $sortedRestaurants[count($restaurant->bookings)] = $restaurant;
+                        }
+                    }
+
+                    foreach ($spots as $key => $spot){
+                        if(count($spot->bookings) != 0){
+                            $sortedSpots[count($spot->bookings)] = $spot;
+                        }
+                    }
+
+
                     $limit = 5;
-                    $count = 1;
+                    $h = 1;
+                    $r = 1;
+                    $t = 1;
                 @endphp
 
 
-                @if (empty($sorted))
+                @if (empty($sortedHotels) && empty($sortedRestaurants) && empty($sortedSpots))
                     <div class="carousel-item active">   
                         
                         <img class="w-100" src="{{ asset('front-end/img/luxe.jpg')}}" alt="Image">
@@ -106,8 +126,8 @@
                     </div>
                 @endif
                 
-                @foreach ($sorted as $hotel)    
-                     @if( $count >= $limit )
+                @foreach ($sortedHotels as $hotel)    
+                     @if( $h >= $limit )
                         @break
                      @endif
                     <div class="carousel-item {{ $count == 1 ? 'active':'' }}">   
@@ -128,7 +148,57 @@
                         </div>
                     </div>
                     
-                    {{ $count++ }}
+                    {{ $h++ }}
+                @endforeach
+
+                @foreach ($sortedRestaurants as $restaurant)    
+                     @if( $r >= $limit )
+                        @break
+                     @endif
+                    <div class="carousel-item {{ $count == 1 ? 'active':'' }}">   
+                        @if($restaurant->picture == null)
+                        <img class="w-100" src="{{ asset('front-end/img/luxe.jpg')}}" alt="Image">
+                        @else
+                        <img class="w-100" src="{{ asset("storage/pictures/restaurant/$restaurant->id/$restaurant->picture") }}" alt="Image">
+                        @endif
+                        <div class="carousel-caption">
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-7">
+                                        <h1 class="display-2 text-light mb-5 animated slideInDown">{{ $restaurant->name }}</h1>
+                                        <a href="{{ route('login') }}" class="btn btn-primary py-sm-3 px-sm-5">Book Now!</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {{ $r++ }}
+                @endforeach
+
+                @foreach ($sortedSpots as $touristSpot)    
+                     @if( $t >= $limit )
+                        @break
+                     @endif
+                    <div class="carousel-item {{ $count == 1 ? 'active':'' }}">   
+                        @if($touristSpot->picture == null)
+                        <img class="w-100" src="{{ asset('front-end/img/luxe.jpg')}}" alt="Image">
+                        @else
+                        <img class="w-100" src="{{ asset("storage/pictures/tourist_spot/$touristSpot->id/$touristSpot->picture") }}" alt="Image">
+                        @endif
+                        <div class="carousel-caption">
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-7">
+                                        <h1 class="display-2 text-light mb-5 animated slideInDown">{{ $touristSpot->name }}</h1>
+                                        <a href="{{ route('login') }}" class="btn btn-primary py-sm-3 px-sm-5">Book Now!</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {{ $t++ }}
                 @endforeach
                 
             </div>
