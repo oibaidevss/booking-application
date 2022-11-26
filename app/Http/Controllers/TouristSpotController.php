@@ -128,6 +128,6 @@ class TouristSpotController extends Controller
     }
 
     public function export_spot_bookings(TouristSpotBooking $touristSpotBooking){
-        return Excel::download(new TouristSpotBookingExport, 'restaurant_booking.xlsx');
+        return Excel::download(new TouristSpotBookingExport, 'tourist_spot_booking.xlsx');
     }
 }
