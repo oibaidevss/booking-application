@@ -112,7 +112,7 @@
                                             
                                             @if ($user->business_type != 'none')
                                                 @if ($user->business_type == 'hotel')
-                                                    @if ( $business->status == false )
+                                                    @if ( !$business->status )
                                                         
                                                         <form method="POST" action="{{ route('hotels.verify', $business) }}">
                                                             @csrf
