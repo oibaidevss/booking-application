@@ -19,7 +19,7 @@ class HotelController extends Controller
      */
     public function index()
     {
-        return view('admin.hotels.index', ['hotels' => Hotel::with('rooms')->paginate(10)]);
+        return view('admin.hotels.index', ['hotels' => Hotel::with(['rooms', 'user'])->paginate(10)]);
     }
 
     /**
