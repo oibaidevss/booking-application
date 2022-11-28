@@ -130,7 +130,7 @@
                      @if( $h >= $limit )
                         @break
                      @endif
-                    <div class="carousel-item {{ $count == 1 ? 'active':'' }}">   
+                    <div class="carousel-item {{ $h == 1 ? 'active':'' }}">   
                         @if($hotel->picture == null)
                         <img class="w-100" src="{{ asset('front-end/img/luxe.jpg')}}" alt="Image">
                         @else
@@ -155,7 +155,7 @@
                      @if( $r >= $limit )
                         @break
                      @endif
-                    <div class="carousel-item {{ $count == 1 ? 'active':'' }}">   
+                    <div class="carousel-item ">   
                         @if($restaurant->picture == null)
                         <img class="w-100" src="{{ asset('front-end/img/luxe.jpg')}}" alt="Image">
                         @else
@@ -180,7 +180,7 @@
                      @if( $t >= $limit )
                         @break
                      @endif
-                    <div class="carousel-item {{ $count == 1 ? 'active':'' }}">   
+                    <div class="carousel-item ">   
                         @if($touristSpot->picture == null)
                         <img class="w-100" src="{{ asset('front-end/img/luxe.jpg')}}" alt="Image">
                         @else
