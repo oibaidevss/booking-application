@@ -55,8 +55,10 @@
                                     if($user->business_type == 'tourist_spot'){
                                         $business = \App\Models\TouristSpot::where('user_id', $user->id)->first();
                                     }
+                                    if($user->business_type == 'none') {
+                                        $business = 0;
+                                    }
                                 @endphp
-
                                 <tr>
                                     <td
                                         class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
@@ -119,6 +121,7 @@
                                             </form>
                                             
                                             @if ($user->business_type != 'none')
+
                                                 @if ($user->business_type == 'hotel')
                                                     @if ( !$business->status )
                                                         
@@ -131,6 +134,32 @@
                                                         </form>
                                                     @endif
                                                 @endif
+                                                @if ($user->business_type == 'restaurant')
+                                                    @if ( !$business->status )
+                                                        
+                                                        <form method="POST" action="{{ route('restaurants.verify', $business) }}">
+                                                            @csrf
+                                                            @method('PATCH')
+                                                            
+                                                            <button type="submit"
+                                                            class="font-semibold leading-tight text-xs text-slate-400 px-1">Verify</button>
+                                                        </form>
+                                                    @endif
+                                                @endif
+                                                @if ($user->business_type == 'tourist_spot')
+                                                    @if ( !$business->status )
+                                                        
+                                                        <form method="POST" action="{{ route('spots.verify', $business) }}">
+                                                            @csrf
+                                                            @method('PATCH')
+                                                            
+                                                            <button type="submit"
+                                                            class="font-semibold leading-tight text-xs text-slate-400 px-1">Verify</button>
+                                                        </form>
+                                                    @endif
+                                                @endif
+
+
                                             @endif
                                         </div>
                                     </td>
