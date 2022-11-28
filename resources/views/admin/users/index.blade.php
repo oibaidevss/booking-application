@@ -46,7 +46,15 @@
                                 @foreach ($users as $user)
 
                                 @php
-                                    $business = \App\Models\Hotel::where('user_id', $user->id)->first();
+                                    if($user->business_type == 'hotel'){
+                                        $business = \App\Models\Hotel::where('user_id', $user->id)->first();
+                                    }
+                                    if($user->business_type == 'restaurant'){
+                                        $business = \App\Models\Restaurant::where('user_id', $user->id)->first();
+                                    }
+                                    if($user->business_type == 'tourist_spot'){
+                                        $business = \App\Models\TouristSpot::where('user_id', $user->id)->first();
+                                    }
                                 @endphp
 
                                 <tr>
