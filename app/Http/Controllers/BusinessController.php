@@ -49,6 +49,14 @@ class BusinessController extends Controller
                 $request->picture->storeAs('pictures', $picture, 'public');
                 $hotel->update(['picture'=>$picture]);
            }
+
+           if($request->hasFile('business_permit')){
+                $permit = $request->business_permit->getClientOriginalName();
+                $ext = $request->business_permit->getClientOriginalExtension();
+                $business_permit = $hotel->id . "_business_permit." . $ext;
+                $request->business_permit->storeAs("permits/$user->business_type/$hotel->id", $business_permit, 'public');
+                $hotel->update(['business_permit'=>$business_permit]);
+            }
         }
             
         if( $user->business_type == 'restaurant' ){
@@ -58,6 +66,31 @@ class BusinessController extends Controller
                 $request->picture->storeAs('pictures', $picture, 'public');
                 $restaurant->update(['picture'=>$picture]);
            }
+
+           if($request->hasFile('business_permit')){
+                $permit = $request->business_permit->getClientOriginalName();
+                $ext = $request->business_permit->getClientOriginalExtension();
+                $business_permit = $restaurant->id . "_business_permit." . $ext;
+                $request->business_permit->storeAs("permits/$user->business_type/$restaurant->id", $business_permit, 'public');
+                $restaurant->update(['business_permit'=>$business_permit]);
+            }
+        }
+            
+        if( $user->business_type == 'tourist_spot' ){
+            $spot =  TouristSpot::create(array_merge($this->validateTouristSpot(), ['user_id' => $user->id]));
+            if($request->hasFile('picture')){
+                $picture = $request->picture->getClientOriginalName();
+                $request->picture->storeAs('pictures', $picture, 'public');
+                $spot->update(['picture'=>$picture]);
+           }
+
+           if($request->hasFile('business_permit')){
+                $permit = $request->business_permit->getClientOriginalName();
+                $ext = $request->business_permit->getClientOriginalExtension();
+                $business_permit = $spot->id . "_business_permit." . $ext;
+                $request->business_permit->storeAs("permits/$user->business_type/$spot->id", $business_permit, 'public');
+                $spot->update(['business_permit'=>$business_permit]);
+            }
         }
 
         return redirect()->route('info.edit', $user->id);
@@ -221,6 +254,24 @@ class BusinessController extends Controller
         return request()->validate([
             'name' => 'required',
             'email' => ['required', Rule::unique('restaurants', 'email')->ignore($restaurant)],
+            'business_permit' => 'required',
+            'number' => 'required',
+            'description' => '',
+            'location' => '',
+            'lat' => ['required','regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
+            'long' => ['required','regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/'],
+            'picture' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+            'business_permit' => 'file'
+        ]);
+    }
+
+    protected function validateTouristSpot(?TouristSpot $TouristSpot = null): array
+    {
+        $TouristSpot ??= new TouristSpot();
+
+        return request()->validate([
+            'name' => 'required',
+            'email' => ['required', Rule::unique('tourist_spots', 'email')->ignore($TouristSpot)],
             'business_permit' => 'required',
             'number' => 'required',
             'description' => '',
