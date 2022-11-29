@@ -41,7 +41,7 @@ text-center xl:p-2.5";
             </svg>
         </div>
         <span
-            class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft text-uppercase">{{ ucwords(auth()->user()->business_type) }}</span>
+            class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft text-uppercase">{{  str_replace('_', ' ', ucwords(auth()->user()->business_type)) }}</span>
     </a>
 </li>
 

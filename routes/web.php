@@ -91,20 +91,23 @@ Route::prefix('business')->middleware(['auth', 'verified', 'role:business owner'
     Route::resource('table', BusinessRestaurantController::class);
     
     Route::get('bookings', function(){
-
+        $check = 0;
         if(auth()->user()->business_type == "hotel"){
-            $hotel = \App\Models\Hotel::where('user_id', auth()->user()->id)->first();
-            $bookings = \App\Models\HotelBooking::where('hotel_id', $hotel->id)->get();
+            $check = \App\Models\Hotel::where('user_id', auth()->user()->id)->first();
+            if($check === null) return redirect()->route('info.create');
+            $bookings = \App\Models\HotelBooking::where('hotel_id', $check->id)->get();
         }
-
+        
         if(auth()->user()->business_type == "restaurant"){
-            $restaurant = \App\Models\Restaurant::where('user_id', auth()->user()->id)->first();
-            $bookings = \App\Models\RestaurantBooking::where('restaurant_id', $restaurant->id)->get();
+            $check = \App\Models\Restaurant::where('user_id', auth()->user()->id)->first();
+            if($check === null) return redirect()->route('info.create');
+            $bookings = \App\Models\RestaurantBooking::where('restaurant_id', $check->id)->get();
         }
-
+        
         if(auth()->user()->business_type == "tourist_spot"){
-            $spot = \App\Models\TouristSpot::where('user_id', auth()->user()->id)->first();
-            $bookings = \App\Models\TouristSpotBooking::where('tourist_spot_id', $spot->id)->get();
+            $check = \App\Models\TouristSpot::where('user_id', auth()->user()->id)->first();
+            if($check === null) return redirect()->route('info.create');
+            $bookings = \App\Models\TouristSpotBooking::where('tourist_spot_id', $check->id)->get();
         }
 
         return view('business-owner.bookings', [ 'bookings' => $bookings ]);
