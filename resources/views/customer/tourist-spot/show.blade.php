@@ -40,10 +40,10 @@
                                 </div>
 
                             </div>
-                            <div class="flex flex-col items-center justify-center">
-                                <p
-                                    class="relative z-10 inline-block m-0 font-semibold leading-normal text-transparent bg-gradient-to-tl from-green-600 to-lime-400 text-sm bg-clip-text">
-                                    {{ $spot->email }}</p>
+                            <div class="flex flex-col items-left justify-center">
+                                <p class="relative z-10 inline-block m-0 font-semibold leading-normal text-transparent bg-gradient-to-tl text-slate-400 text-sm bg-clip-text"> <i class="fa fa-envelope"></i> &nbsp {{ $spot->email }}</p>
+
+                                <p class="relative z-10 inline-block m-0 font-semibold leading-normal text-transparent bg-gradient-to-tl text-slate-400 text-sm bg-clip-text"> <i class="fa fa-phone"></i> &nbsp  {{ $spot->number }}</p>
                             </div>
                         </div>
 

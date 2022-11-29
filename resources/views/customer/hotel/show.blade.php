@@ -50,10 +50,10 @@
                                 </div>
 
                             </div>
-                            <div class="flex flex-col items-center justify-center">
-                                <p
-                                    class="relative z-10 inline-block m-0 font-semibold leading-normal text-transparent bg-gradient-to-tl from-green-600 to-lime-400 text-sm bg-clip-text">
-                                    {{ $hotel->email }}</p>
+                            <div class="flex flex-col items-left justify-center">
+                                <p class="relative z-10 inline-block m-0 font-semibold leading-normal text-transparent bg-gradient-to-tl text-slate-400 text-sm bg-clip-text"> <i class="fa fa-envelope"></i> &nbsp {{ $hotel->email }}</p>
+
+                                <p class="relative z-10 inline-block m-0 font-semibold leading-normal text-transparent bg-gradient-to-tl text-slate-400 text-sm bg-clip-text"> <i class="fa fa-phone"></i> &nbsp  {{ $hotel->number }}</p>
                             </div>
                         </div>
 
