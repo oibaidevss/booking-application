@@ -31,8 +31,10 @@
                             <x-form.input :value="$business->number" name="number" label="Number" required />
                             <x-form.input :value="$business->location" name="location" label="Location" required />
                             
-                            <x-form.input :value="$business->lat" name="lat" label="lat" required />
-                            <x-form.input :value="$business->long" name="long" label="long" required />
+                            <p class="pt-2 text-xs text-green-500"> <i class="fa fa-exclamation-circle"></i> You will need to go to the google map in order to obtain longitude and latitude.  </p>
+
+                            <x-form.input :value="$business->lat" name="lat" label="Latitude" required />
+                            <x-form.input :value="$business->long" name="long" label="Longitude" required />
                             
                             @if(auth()->user()->business_type == "hotel")
                             <x-form.input :value="$business->price_range" type="text" name="price_range" label="Price Range" required />

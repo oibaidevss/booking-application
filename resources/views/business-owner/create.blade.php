@@ -24,8 +24,10 @@
                             <x-form.input :value="old('number')" name="number" label="Number" required />
                             <x-form.input :value="old('location')" name="location" label="Location" required />
                             
-                            <x-form.input :value="old('lat')" name="lat" label="lat" required />
-                            <x-form.input :value="old('long')" name="long" label="long" required />
+                            <p class="pt-2 text-xs text-green-500"> <i class="fa fa-exclamation-circle"></i> You will need to go to the google map in order to obtain longitude and latitude.  </p>
+                            
+                            <x-form.input :value="old('lat')" name="lat" label="Latitude" required />
+                            <x-form.input :value="old('long')" name="long" label="Longitude" required />
 
                             <x-form.input :value="old('picture')" type="file" name="picture" label="Picture" required />
 
