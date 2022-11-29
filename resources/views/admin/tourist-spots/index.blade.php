@@ -5,7 +5,9 @@
         <div class="p-6 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent flex justify-between items-center">
             <h6>Spots</h6>
 
-            {{-- <a href="{{ route('spots.create') }}" class="inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all bg-transparent rounded-lg cursor-pointer leading-pro text-xs ease-soft-in shadow-soft-md bg-150 bg-gradient-to-tl from-gray-900 to-slate-800 hover:shadow-soft-xs active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25"> <i class="fas fa-plus" aria-hidden="true"> </i> Create</a> --}}
+            <a 
+            class="inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all bg-transparent rounded-lg cursor-pointer leading-pro text-xs ease-soft-in shadow-soft-md bg-150 bg-gradient-to-tl from-red-500 to-rose-600 hover:shadow-soft-xs active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25"
+            href="{{ route('spots.archives') }}"> <i class="fa fa-archive"></i> Archives</a>
         </div>
         <div class="flex-auto px-0 pt-0 pb-2">
         <div class="p-0 overflow-x-auto">
@@ -63,16 +65,19 @@
                         </td>
                         <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                             <div class="align-center flex items-center">
-                                <a href="{{ route('spots.show', $spot->id) }}" class="font-semibold leading-tight text-xs text-slate-400 px-1"> Reports </a>
-                                <a href="{{ route('spots.edit', $spot->id) }}" class="font-semibold leading-tight text-xs text-slate-400 px-1"> Edit </a>
+                                <a href="{{ route('spots.show', $spot->id) }}" class="font-semibold leading-tight text-xs text-slate-400 px-1 pt-1"> Reports </a>
+                                <a href="{{ route('spots.edit', $spot->id) }}" class="font-semibold leading-tight text-xs text-slate-400 px-1 pt-1"> Edit </a>
 
                             
-                                <form method="POST" action="/admin/spots/{{ $spot->id }}">
+                                <form method="POST" action="{{ route('spots.archives.archive', $spot) }}">
                                     @csrf
-                                    @method('DELETE')
-
-                                    <button class="font-semibold leading-tight text-xs text-slate-400 px-1">Delete</button>
+                                    @method('PATCH')
+                                    
+                                    <button type="submit"
+                                    class="font-semibold leading-tight text-green-500 text-xs text-slate-400 px-1">Archived</button>
                                 </form>
+                                
+                               
                                 @if ( $spot->status == false )
                                  <form method="POST" action="{{ route('spots.verify', $spot) }}">
                                     @csrf

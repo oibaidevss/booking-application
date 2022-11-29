@@ -30,6 +30,7 @@ return new class extends Migration
             $table->longText('description')->nullable();
             $table->string('business_permit')->nullable();
             $table->tinyInteger('status')->default(0); // idetify kung verified ang user
+            $table->tinyInteger('is_archived')->default(0);
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('picture')->nullable();
             $table->timestamps();

@@ -47,6 +47,9 @@ Route::get('/dashboard', function () {
     }
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+
+
+
 Route::prefix('customer')->middleware(['auth', 'verified', 'role:customer'])->group(function () {
     
     Route::get('/search', [SearchController::class, 'search'])->name('search');
@@ -78,6 +81,7 @@ Route::prefix('customer')->middleware(['auth', 'verified', 'role:customer'])->gr
     Route::match(['put', 'patch'], '/bookings/hotel/cancel/{booking}', [CustomerController::class, 'cancelHotelBooking'])->name('customer.hotel.bookings.cancel');
     Route::match(['put', 'patch'], '/bookings/restaurant/cancel/{booking}', [CustomerController::class, 'cancelRestaurantBooking'])->name('customer.restaurant.bookings.cancel');
     Route::match(['put', 'patch'], '/bookings/spot/cancel/{booking}', [CustomerController::class, 'cancelTouristSpotBooking'])->name('customer.spot.bookings.cancel');
+
 });
 
 Route::prefix('business')->middleware(['auth', 'verified', 'role:business owner'])->group(function () {
@@ -140,6 +144,18 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'role:admin'])->group(fu
     Route::resource('hotels', HotelController::class);
     Route::resource('restaurants', RestaurantController::class);
     Route::resource('spots', TouristSpotController::class);
+
+    Route::get('hotel-archives', [HotelController::class, 'archives'])->name('hotels.archives');
+    Route::match(['put', 'patch'], 'hotel-archives/archive/{hotel}', [HotelController::class, 'archive'])->name('hotels.archives.archive');
+    Route::match(['put', 'patch'], 'hotel-archives/restore/{hotel}', [HotelController::class, 'restore'])->name('hotels.archives.restore');
+
+    Route::get('restaurant-archives', [RestaurantController::class, 'archives'])->name('restaurants.archives');
+    Route::match(['put', 'patch'], 'restaurant-archives/archive/{restaurant}', [RestaurantController::class, 'archive'])->name('restaurants.archives.archive');
+    Route::match(['put', 'patch'], 'restaurant-archives/restore/{restaurant}', [RestaurantController::class, 'restore'])->name('restaurants.archives.restore');
+    
+    Route::get('spot-archives', [TouristSpotController::class, 'archives'])->name('spots.archives');
+    Route::match(['put', 'patch'], 'spot-archives/archive/{TouristSpot}', [TouristSpotController::class, 'archive'])->name('spots.archives.archive');
+    Route::match(['put', 'patch'], 'spot-archives/restore/{TouristSpot}', [TouristSpotController::class, 'restore'])->name('spots.archives.restore');
     
     Route::match(['put', 'patch'], 'hotels/verify/{business}', [HotelController::class, 'verify'])->name('hotels.verify');
     Route::match(['put', 'patch'], 'restaurants/verify/{business}', [RestaurantController::class, 'verify'])->name('restaurants.verify');

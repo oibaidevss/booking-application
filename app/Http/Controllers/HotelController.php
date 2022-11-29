@@ -19,7 +19,7 @@ class HotelController extends Controller
      */
     public function index()
     {
-        return view('admin.hotels.index', ['hotels' => Hotel::with(['rooms', 'user'])->paginate(10)]);
+        return view('admin.hotels.index', ['hotels' => Hotel::with(['rooms', 'user'])->where('is_archived', 0)->paginate(10)]);
     }
 
     /**
@@ -98,6 +98,29 @@ class HotelController extends Controller
     {
         $hotel->delete();
         return back()->with('success', 'Post Deleted!');
+    }
+
+
+    public function archives(){
+
+        
+        return view('admin.hotels.archives  ', ['hotels' => Hotel::with(['rooms', 'user'])->where('is_archived', 1)->paginate(10)]);
+
+    }
+
+    public function archive(Hotel $hotel)
+    {
+        $hotel->is_archived = 1;
+        $hotel->update();
+        return back()->with('success', 'Archived');
+    }
+
+    public function restore(Hotel $hotel)
+    {
+
+        $hotel->is_archived = 0;
+        $hotel->update();
+        return back()->with('success', 'Restored');
     }
 
 

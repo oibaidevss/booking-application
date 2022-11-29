@@ -32,6 +32,7 @@ return new class extends Migration
             $table->string('business_permit')->nullable();
 
             $table->tinyInteger('status')->default(0); // idetify kung verified business
+            $table->tinyInteger('is_archived')->default(0);
 
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
 

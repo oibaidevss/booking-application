@@ -20,7 +20,7 @@ class TouristSpotController extends Controller
      */
     public function index()
     {
-        $spots = TouristSpot::paginate(10);
+        $spots = TouristSpot::where('is_archived', 0)->paginate(10);
         return view('admin.tourist-spots.index', ['spots'=> $spots]);
     }
 
@@ -100,6 +100,27 @@ class TouristSpotController extends Controller
         $spot->delete();
         return back()->with('success', 'Tourist Spot Deleted.');
     }
+
+    public function archives(){
+        $spots = TouristSpot::where('is_archived', 1)->paginate(10);
+        return view('admin.tourist-spots.archives', ['spots'=> $spots]);
+    }
+
+    public function archive(TouristSpot $TouristSpot)
+    {
+        $TouristSpot->is_archived = 1;
+        $TouristSpot->update();
+        return back()->with('success', 'Archived');
+    }
+
+    public function restore(TouristSpot $TouristSpot)
+    {
+
+        $TouristSpot->is_archived = 0;
+        $TouristSpot->update();
+        return back()->with('success', 'Restored');
+    }
+
 
     public function verify($id)
     {

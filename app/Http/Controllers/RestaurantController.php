@@ -19,7 +19,7 @@ class RestaurantController extends Controller
      */
     public function index()
     {
-        return view('admin.restaurants.index', ['restaurants' => Restaurant::with('tables')->paginate(10)]);
+        return view('admin.restaurants.index', ['restaurants' => Restaurant::with('tables')->where('is_archived', 0)->paginate(10)]);
     }
 
     /**
@@ -106,6 +106,27 @@ class RestaurantController extends Controller
 
         return back()->with('success', $restaurant->name . ' is now verified!');
 
+    }
+
+    public function archives(){
+
+        return view('admin.restaurants.archives', ['restaurants' => Restaurant::with('tables')->where('is_archived', 1)->paginate(10)]);
+
+    }
+
+    public function archive(Restaurant $restaurant)
+    {
+        $restaurant->is_archived = 1;
+        $restaurant->update();
+        return back()->with('success', 'Archived');
+    }
+
+    public function restore(Restaurant $restaurant)
+    {
+
+        $restaurant->is_archived = 0;
+        $restaurant->update();
+        return back()->with('success', 'Restored');
     }
 
     protected function validateRestaurant(?Restaurant $restaurants = null): array

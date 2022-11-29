@@ -4,6 +4,11 @@
     <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
         <div class="p-6 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent flex justify-between items-center">
             <h6>Hotels</h6>
+
+            <a 
+            class="inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all bg-transparent rounded-lg cursor-pointer leading-pro text-xs ease-soft-in shadow-soft-md bg-150 bg-gradient-to-tl from-red-500 to-rose-600 hover:shadow-soft-xs active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25"
+            href="{{ route('hotels.archives') }}"> <i class="fa fa-archive"></i> Archives</a>
+
         </div>
         <div class="flex-auto px-0 pt-0 pb-2">
         <div class="p-0 overflow-x-auto">
@@ -59,16 +64,17 @@
                         </td>
                         <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                             <div class="align-center flex items-center">
-                                <a href="{{ route('hotels.show', $hotel->id) }}" class="font-semibold leading-tight text-xs text-slate-400 px-1"> Reports </a>
+                                <a href="{{ route('hotels.show', $hotel->id) }}" class="font-semibold leading-tight text-xs text-slate-400 px-1 pt-1"> Reports </a>
 
-                                <a href="{{ route('hotels.edit', $hotel->id) }}" class="font-semibold leading-tight text-xs text-slate-400 px-1"> Edit </a>
+                                <a href="{{ route('hotels.edit', $hotel->id) }}" class="font-semibold leading-tight text-xs text-slate-400 px-1 pt-1"> Edit </a>
 
                             
-                                <form method="POST" action="/admin/hotels/{{ $hotel->id }}">
+                                <form method="POST" action="{{ route('hotels.archives.archive', $hotel) }}">
                                     @csrf
-                                    @method('DELETE')
-
-                                    <button class="font-semibold leading-tight text-xs text-slate-400 px-1">Delete</button>
+                                    @method('PUT')
+                                    
+                                    <button type="submit"
+                                    class="font-semibold leading-tight text-red-500 text-xs text-slate-400 px-1">Archive</button>
                                 </form>
 
                                  @if ( $hotel->status == false )
