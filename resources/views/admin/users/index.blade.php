@@ -122,7 +122,8 @@
                                             
                                             @if ($user->business_type != 'none')
 
-                                                @if ($user->business_type == 'hotel')
+                                                @if ($user->business_type == 'hotel' && $business )
+
                                                     @if ( !$business->status )
                                                         
                                                         <form method="POST" action="{{ route('hotels.verify', $business) }}">
@@ -134,7 +135,8 @@
                                                         </form>
                                                     @endif
                                                 @endif
-                                                @if ($user->business_type == 'restaurant')
+
+                                                @if ($user->business_type == 'restaurant' && $business )
                                                     @if ( !$business->status )
                                                         
                                                         <form method="POST" action="{{ route('restaurants.verify', $business) }}">
@@ -146,7 +148,8 @@
                                                         </form>
                                                     @endif
                                                 @endif
-                                                @if ($user->business_type == 'tourist_spot')
+
+                                                @if ($user->business_type == 'tourist_spot' && $business )
                                                     @if ( !$business->status )
                                                         
                                                         <form method="POST" action="{{ route('spots.verify', $business) }}">
