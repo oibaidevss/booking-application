@@ -24,7 +24,9 @@ class RestaurantBookingExport implements FromCollection, WithMapping, WithHeadin
     {
         return [
             $booking->table->table_number,
+            $booking->user->first_name . ' ' . $booking->user->last_name,
             $booking->user->email,
+            $booking->user->number,
             $booking->booking_date,
             $booking->dine_in_time,
             $booking->dine_out_time,
@@ -37,7 +39,9 @@ class RestaurantBookingExport implements FromCollection, WithMapping, WithHeadin
     public function headings():array{
         return[
             'TABLE',
+            'NAME',
             'EMAIL',
+            'PHONENUMBER',
             'BOOKING DATE',
             'DINE IN TIME',
             'DINE OUT TIME',

@@ -25,7 +25,9 @@ class HotelBookingExport implements FromCollection, WithMapping, WithHeadings
     {
         return [
             $booking->room->room_number,
+            $booking->user->first_name . ' ' . $booking->user->last_name,
             $booking->user->email,
+            $booking->user->number,
             $booking->start_date,
             $booking->end_date,
             $booking->status,
@@ -36,7 +38,9 @@ class HotelBookingExport implements FromCollection, WithMapping, WithHeadings
     public function headings():array{
         return[
             'ROOM',
+            'NAME',
             'EMAIL',
+            'PHONENUMBER',
             'START DATE',
             'END DATE',
             'STATUS',

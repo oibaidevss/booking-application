@@ -23,7 +23,9 @@ class TouristSpotBookingExport implements FromCollection, WithMapping, WithHeadi
     public function map($booking): array
     {
         return [
+            $booking->user->first_name . ' ' . $booking->user->last_name,
             $booking->user->email,
+            $booking->user->number,
             $booking->booking_date,
             $booking->number_of_persons,
             $booking->status,
@@ -33,7 +35,9 @@ class TouristSpotBookingExport implements FromCollection, WithMapping, WithHeadi
 
     public function headings():array{
         return[
+            'NAME',
             'EMAIL',
+            'PHONENUMBER',
             'BOOKING DATE',
             'NUMBER OF PEOPLE',
             'STATUS',
