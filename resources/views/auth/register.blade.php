@@ -30,6 +30,22 @@
                                 <x-form.input :value="old('first_name')" name="first_name" label="First Name"
                                     required />
                                 <x-form.input :value="old('last_name')" name="last_name" label="Last Name" required />
+                                <x-form.input :value="old('birth_date')" name="birth_date" label="Birth Date" required type="date" />
+
+                                <x-form.field>
+                                    <x-form.label name="gender" />
+                                        <div class="mb-2">
+                                            <select 
+                                            class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                                            name="gender" id="gender">
+                                            <option value="">Select</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                        </select>
+                                    </div>
+                                </x-form.field>
+
+                                <x-form.input :value="old('address')" name="address" label="Address" required />
                                 <x-form.input type="file" :value="old('avatar')" name="avatar" label="avatar" />
                                
 
