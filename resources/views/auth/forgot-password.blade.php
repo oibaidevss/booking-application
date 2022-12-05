@@ -23,7 +23,7 @@
                             <h5>Forgot Password</h5>
                         </div>
 
-                        <div class="pt-6 mb-0 text-center bg-white border-b-0 rounded-t-2xl text-xs">
+                        <div class="pt-6 px-5 mb-0 text-center bg-white border-b-0 rounded-t-2xl text-xs">
                             {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
                         </div>
                 
