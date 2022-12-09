@@ -30,7 +30,8 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@admin.com',
             'business_type' => 'none'
          ])->assignRole('admin');
-
+         
+         // Business Owner - Hotel
          $business_owner_hotel = \App\Models\User::factory()->create([
             'first_name' => 'John',
             'last_name' => 'Doe',
@@ -38,10 +39,14 @@ class DatabaseSeeder extends Seeder
             'business_type' => 'hotel'
          ])->assignRole('business owner');
 
+         // Hotel
          $hotel = \App\Models\Hotel::factory()->create([
+            'min_price' => rand(000, 999),
+            'max_price' => rand(0000, 9999),
             'user_id' => $business_owner_hotel->id
          ]);
 
+         // Rooms
          for ($i=1; $i <= 10; $i++) { 
             # code...
             \App\Models\Room::factory()->create([
@@ -88,5 +93,29 @@ class DatabaseSeeder extends Seeder
             'business_type' => 'none'
          ])->assignRole('customer');
 
+            
+         // Create Multiple Business Owners for Hotel
+         for ($i=0; $i <= 10; $i++) { 
+
+            $u = \App\Models\User::factory()->create([
+               'business_type' => 'hotel'
+            ])->assignRole('business owner'); // Create Hotel
+
+            $h = \App\Models\Hotel::factory()->create([
+               'user_id' => $u->id,
+               'min_price' => rand(000, 999),
+               'max_price' => rand(0000, 9999),
+            ]);
+
+            for ($x=1; $x <= 10; $x++) { 
+               # code...
+               \App\Models\Room::factory()->create([
+                  'room_number' => $x,
+                  'floor' => $x,
+                  'hotel_id' => $h->id
+               ]);
+            }
+         }
+         
     }
 }

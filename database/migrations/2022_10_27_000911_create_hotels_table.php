@@ -26,6 +26,9 @@ return new class extends Migration
             
             $table->string('price_range')->nullable();
 
+            $table->string('min_price')->nullable(); // Minimum Price
+            $table->string('max_price')->nullable(); // Maximum Price
+
             $table->longText('description')->nullable();
 
             $table->string('picture')->nullable();

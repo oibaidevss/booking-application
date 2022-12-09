@@ -29,9 +29,24 @@ class CustomerController extends Controller
     }
 
     public function hotel() {
+
+        if(isset($_GET['sort']) ) {
+            if( $_GET['sort'] == 'min' ){
+                $hotels = Hotel::with('rooms')->where('status', 1)->orderBy('min_price', 'asc')->paginate(8)->withQueryString();
+            }  elseif ( $_GET['sort'] == 'max' ){
+                $hotels = Hotel::with('rooms')->where('status', 1)->orderBy('max_price', 'desc')->paginate(8)->withQueryString();
+            } else{
+                $hotels = Hotel::with('rooms')->where('status', 1)->paginate(8)->withQueryString();
+            }
+        } else{
+            $hotels = Hotel::with('rooms')->where('status', 1)->paginate(8)->withQueryString();
+        }
+
         return view('customer.hotel', [
-            'hotels' => Hotel::with('rooms')->where('status', 1)->paginate(8)->withQueryString(),
+            'hotels' => $hotels,
         ]);
+
+
     }
 
     public function showHotel(Hotel $hotel){

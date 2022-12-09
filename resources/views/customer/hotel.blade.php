@@ -8,10 +8,45 @@
             <div class="p-4 pb-0 mb-0 bg-white rounded-t-2xl">
                 <h6 class="mb-1">Hotels</h6>
                 <p class="leading-normal text-sm">Architects design houses</p>
+                
+                <div class="flex pt-2">
+
+                    <p>
+                        Sort By: 
+                    </p>
+
+                    <select class="pl-2" name="sort" id="sort">
+
+                        <option value="default" {{ !isset($_GET['sort']) ? 'selected':'' }}>Default</option>
+                        <option value="min" {{ isset($_GET['sort']) && $_GET['sort'] == 'min' ? 'selected':'' }}>Minimum</option>
+                        <option value="max" {{ isset($_GET['sort']) && $_GET['sort'] == 'max'? 'selected':'' }}>Maximum</option>
+
+                    </select>
+
+                    <a href="{{ route('customer.hotels') }}" class="hidden" id="navigate"></a>
+
+                    <script>
+
+                        jQuery('#sort').on('change', function(){
+                            
+                            navigate = jQuery('#navigate');
+
+                            url = navigate.attr('href');
+
+
+                            document.location.href = url + "?sort=" + this.value
+
+                        });
+
+                    </script>
+
+                </div>
+
             </div>
             <div class="flex-auto p-4">
                 <div class="flex flex-wrap -mx-3">
-                    {{-- @dd($hotels) --}}
+                    
+
                     @foreach ($hotels as $hotel)
                     <div class="w-full max-w-full px-3 mt-6 mb-6 md:w-6/12 md:flex-none xl:mb-0 xl:w-3/12">
                         <div
@@ -31,9 +66,10 @@
                                         <h5>{{ $hotel->name }}</h5>
                                     </a>
 
-                                    <p class="text-sm text-lime-500">{{ $hotel->price_range }}</p>
-
+                                    <p class="text-sm text-lime-500">Price Range: ₱{{ $hotel->min_price }} - ₱{{ $hotel->max_price }}</p>
+                                    
                                 </div>
+                              
                                 <p class="mb-6 leading-normal text-sm">{!! $hotel->description !!}</p>
                                 <div class="flex items-center justify-between">
                                     <a href="{{ route('customer.hotel.show', $hotel) }}"
