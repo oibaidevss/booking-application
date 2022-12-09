@@ -12,7 +12,7 @@
                 <div class="flex pt-2">
 
                     <p>
-                        Sort By: 
+                        Sort by Price: 
                     </p>
 
                     <select class="pl-2" name="sort" id="sort">
@@ -83,7 +83,8 @@
                 </div>
                 <div
                 class="flex mt-6 justify-center p-4">
-                {{ $hotels->links() }}
+
+                {{ (!isset($_GET['sort'])) ? $hotels->links() : '' }}
                 </div>
             </div>
         </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Collection;
 use Illuminate\Http\Request;
 
 use App\Models\TouristSpotBooking;
@@ -30,16 +31,32 @@ class CustomerController extends Controller
 
     public function hotel() {
 
+        $hotels = Hotel::with('rooms')->where('status', 1)->get();
+
         if(isset($_GET['sort']) ) {
             if( $_GET['sort'] == 'min' ){
-                $hotels = Hotel::with('rooms')->where('status', 1)->orderBy('min_price', 'asc')->paginate(8)->withQueryString();
+
+                $collection = new Collection($hotels);
+                $sorted = $collection->sortBy('min_price');
+
+                return view('customer.hotel', [
+                    'hotels' => $sorted
+                ]);
+
             }  elseif ( $_GET['sort'] == 'max' ){
-                $hotels = Hotel::with('rooms')->where('status', 1)->orderBy('max_price', 'desc')->paginate(8)->withQueryString();
+
+                $collection = new Collection($hotels);
+                $sorted = $collection->sortByDesc('max_price');
+
+                return view('customer.hotel', [
+                    'hotels' => $sorted
+                ]);
+
             } else{
-                $hotels = Hotel::with('rooms')->where('status', 1)->paginate(8)->withQueryString();
+                $hotels = Hotel::with('rooms')->where('status', 1)->paginate(8);
             }
         } else{
-            $hotels = Hotel::with('rooms')->where('status', 1)->paginate(8)->withQueryString();
+            $hotels = Hotel::with('rooms')->where('status', 1)->paginate(8);
         }
 
         return view('customer.hotel', [

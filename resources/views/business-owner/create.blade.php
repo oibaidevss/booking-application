@@ -34,7 +34,8 @@
                             <x-form.input :value="old('business_permit')" type="file" name="business_permit" label="Business Permit" required />
 
                             @if(auth()->user()->business_type == "hotel")
-                            <x-form.input :value="old('price_range')" type="text" name="price_range" label="Price Range" required />
+                            <x-form.input :value="old('min_price')" type="text" name="min_price" label="Minimum Price" required />
+                            <x-form.input :value="old('max_price')" type="text" name="max_price" label="Maximum Price" required />
                             @endif
 
                             @if(auth()->user()->business_type == "tourist_spot")

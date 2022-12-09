@@ -174,7 +174,8 @@ class BusinessController extends Controller
 
         if( $user->business_type == 'hotel' ){  
             $business = Hotel::find($id);
-            $business->price_range = $request->price_range;
+            $business->min_price = $request->min_price;
+            $business->max_price = $request->max_price;
         }
 
         if( $user->business_type == 'restaurant' ){  
@@ -242,7 +243,9 @@ class BusinessController extends Controller
             'long' => ['required','regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/'],
             'picture' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048',
             'business_permit' => 'file',
-            'price_range' => ''
+            'price_range' => '',
+            'min_price' => 'required',
+            'max_price' => 'required'
         ]);
     }
 

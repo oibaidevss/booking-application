@@ -37,7 +37,8 @@
                             <x-form.input :value="$business->long" name="long" label="Longitude" required />
                             
                             @if(auth()->user()->business_type == "hotel")
-                            <x-form.input :value="$business->price_range" type="text" name="price_range" label="Price Range" required />
+                            <x-form.input :value="$business->min_price" type="text" name="min_price" label="Minimum Price" required />
+                            <x-form.input :value="$business->max_price" type="text" name="max_price" label="Maximum Price" required />    
                             @endif
 
                             @if(auth()->user()->business_type == "tourist_spot")
