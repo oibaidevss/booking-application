@@ -85,7 +85,8 @@ class DatabaseSeeder extends Seeder
          ])->assignRole('business owner');
 
          $spot = \App\Models\TouristSpot::factory()->create([
-            'user_id' => $business_owner_spot->id
+            'user_id' => $business_owner_spot->id,
+            'price' => rand(00000, 99999)
          ]);
          
          $customer = \App\Models\User::factory()->create([
@@ -101,7 +102,7 @@ class DatabaseSeeder extends Seeder
 
             $u = \App\Models\User::factory()->create([
                'business_type' => 'hotel'
-            ])->assignRole('business owner'); // Create Hotel
+            ])->assignRole('business owner'); // Create User
 
             $h = \App\Models\Hotel::factory()->create([
                'user_id' => $u->id,
@@ -124,7 +125,7 @@ class DatabaseSeeder extends Seeder
 
             $u = \App\Models\User::factory()->create([
                'business_type' => 'restaurant'
-            ])->assignRole('business owner'); // Create Hotel
+            ])->assignRole('business owner'); // Create User
 
             $h = \App\Models\Restaurant::factory()->create([
                'user_id' => $u->id,
@@ -139,6 +140,19 @@ class DatabaseSeeder extends Seeder
                   'restaurant_id' => $h->id
                ]);
             }
+         }
+
+         // Create Multiple Business Owners for Tourist Spots
+         for ($i=0; $i <= 10; $i++) { 
+
+            $u = \App\Models\User::factory()->create([
+               'business_type' => 'tourist_spot'
+            ])->assignRole('business owner'); // Create User
+
+            $h = \App\Models\TouristSpot::factory()->create([
+               'user_id' => $u->id,
+               'price' => rand(00000, 99999)
+            ]);
          }
          
     }

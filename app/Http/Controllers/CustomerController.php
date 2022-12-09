@@ -78,6 +78,35 @@ class CustomerController extends Controller
     }
 
     public function spot() {
+
+        $spots = TouristSpot::where('status', 1)->get();
+
+        if(isset($_GET['sort']) ) {
+            if( $_GET['sort'] == 'asc' ){
+
+                $collection = new Collection($spots);
+                $sorted = $collection->sortBy('price');
+
+                return view('customer.spot', [
+                    'spots' => $sorted
+                ]);
+
+            }  elseif ( $_GET['sort'] == 'desc' ){
+
+                $collection = new Collection($spots);
+                $sorted = $collection->sortByDesc('price');
+
+                return view('customer.spot', [
+                    'spots' => $sorted
+                ]);
+
+            } else{
+                $spots = TouristSpot::where('status', 1)->paginate(8)->withQueryString();
+            }
+        } else{
+            $spots = TouristSpot::where('status', 1)->paginate(8)->withQueryString();
+        }
+
         return view('customer.spot', [
             'spots' => TouristSpot::where('status', 1)->paginate(8)->withQueryString(),
         ]);

@@ -7,6 +7,42 @@
             class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 shadow-soft-xl rounded-2xl bg-clip-border">
             <div class="p-4 pb-0 mb-0 bg-white rounded-t-2xl">
                 <h6 class="mb-1">Tourist Spots</h6>
+                <div class="flex pt-2">
+
+                    <p>
+                        Sort by Price: 
+                    </p>
+
+                    <select class="pl-2" name="sort" id="sort">
+
+                        <option value="default" {{ !isset($_GET['sort']) ? 'selected':'' }}>Default</option>
+                        <option value="asc" {{ isset($_GET['sort']) && $_GET['sort'] == 'asc' ? 'selected':'' }}>Ascending</option>
+                        <option value="desc" {{ isset($_GET['sort']) && $_GET['sort'] == 'desc'? 'selected':'' }}>Descending</option>
+
+                    </select>
+
+                    <a href="{{ route('customer.spots') }}" class="hidden" id="navigate"></a>
+
+                    <script>
+
+                        jQuery('#sort').on('change', function(){
+                            
+                            navigate = jQuery('#navigate');
+
+                            url = navigate.attr('href');
+
+
+                            if(this.value === "default"){
+                                document.location.href = url
+                            }else{
+                                document.location.href = url + "?sort=" + this.value
+                            }
+
+                        });
+
+                    </script>
+
+                </div>
             </div>
             <div class="flex-auto p-4">
                 <div class="flex flex-wrap -mx-3">
@@ -30,7 +66,7 @@
                                         <h5>{{ $spot->name }}</h5>
                                     </a>
 
-                                    <p class="text-sm text-lime-500">PHP {{ $spot->price}} </p>
+                                    <p class="text-sm text-lime-500">₱{{ $spot->price}}</p>
                                 </div>
                                 <p class="mb-6 leading-normal text-sm">{{ $spot->description }}</p>
                                 <div class="flex items-center justify-between">
@@ -44,7 +80,7 @@
                 </div>
                 <div
                 class="flex mt-6 justify-center p-4">
-                {{ $spots->links() }}
+                {{ (!isset($_GET['sort'])) ? $spots->links() : '' }}
                 </div>
             </div>
         </div>
