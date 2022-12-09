@@ -171,7 +171,7 @@ class BusinessController extends Controller
             'business_permit' => 'file',
         ]);
 
-
+        
         if( $user->business_type == 'hotel' ){  
             $business = Hotel::find($id);
             $business->min_price = $request->min_price;
@@ -180,6 +180,8 @@ class BusinessController extends Controller
 
         if( $user->business_type == 'restaurant' ){  
             $business = Restaurant::find($id);
+            $business->min_price = $request->min_price;
+            $business->max_price = $request->max_price;
         }
         
         if( $user->business_type == 'tourist_spot' ){  

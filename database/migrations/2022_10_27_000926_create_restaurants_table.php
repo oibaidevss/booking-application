@@ -24,6 +24,9 @@ return new class extends Migration
             $table->string('lat')->nullable();
             $table->string('long')->nullable();
 
+            $table->string('min_price')->nullable(); // Minimum Price
+            $table->string('max_price')->nullable(); // Maximum Price
+
             $table->longText('description')->nullable();
 
             $table->string('business_permit')->nullable();

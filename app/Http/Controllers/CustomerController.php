@@ -94,8 +94,39 @@ class CustomerController extends Controller
     }
 
     public function restaurant() {
+
+        $restaurants = Restaurant::with('tables')->where('status', 1)->get();
+
+        if(isset($_GET['sort']) ) {
+            if( $_GET['sort'] == 'min' ){
+
+                $collection = new Collection($restaurants);
+                $sorted = $collection->sortBy('min_price');
+
+                return view('customer.restaurant', [
+                    'restaurants' => $sorted
+                ]);
+
+            }  elseif ( $_GET['sort'] == 'max' ){
+
+                $collection = new Collection($restaurants);
+                $sorted = $collection->sortByDesc('max_price');
+
+                return view('customer.restaurant', [
+                    'restaurants' => $sorted
+                ]);
+
+            } else{
+                $restaurants = Restaurant::with('tables')->where('status', 1)->paginate(8)->withQueryString();
+            }
+        } else{
+            $restaurants = Restaurant::with('tables')->where('status', 1)->paginate(8)->withQueryString();
+        }
+
+
+
         return view('customer.restaurant', [
-            'restaurants' => Restaurant::with('tables')->where('status', 1)->paginate(8)->withQueryString()
+            'restaurants' => $restaurants
         ]);
     }
 

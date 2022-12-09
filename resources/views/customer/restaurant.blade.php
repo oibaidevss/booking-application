@@ -7,6 +7,42 @@
             class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 shadow-soft-xl rounded-2xl bg-clip-border">
             <div class="p-4 pb-0 mb-0 bg-white rounded-t-2xl">
                 <h6 class="mb-1">Restaurants</h6>
+
+                <div class="flex pt-2">
+
+                    <p>
+                        Sort by Price: 
+                    </p>
+
+                    <select class="pl-2" name="sort" id="sort">
+
+                        <option value="default" {{ !isset($_GET['sort']) ? 'selected':'' }}>Default</option>
+                        <option value="min" {{ isset($_GET['sort']) && $_GET['sort'] == 'min' ? 'selected':'' }}>Minimum</option>
+                        <option value="max" {{ isset($_GET['sort']) && $_GET['sort'] == 'max'? 'selected':'' }}>Maximum</option>
+
+                    </select>
+
+                    <a href="{{ route('customer.restaurants') }}" class="hidden" id="navigate"></a>
+
+                    <script>
+
+                        jQuery('#sort').on('change', function(){
+                            
+                            navigate = jQuery('#navigate');
+
+                            url = navigate.attr('href');
+
+                            if(this.value === "default"){
+                                document.location.href = url
+                            }else{
+                                document.location.href = url + "?sort=" + this.value
+                            }
+
+                        });
+
+                    </script>
+
+                </div>
             </div>
             <div class="flex-auto p-4">
                 <div class="flex flex-wrap -mx-3">
@@ -25,9 +61,15 @@
                                 <p
                                     class="relative z-10 mb-2 leading-normal text-transparent bg-gradient-to-tl from-gray-900 to-slate-800 text-sm bg-clip-text">
                                    </p>
-                                <a href="javascript:;">
-                                    <h5>{{ $restaurant->name }}</h5>
-                                </a>
+                                <div class="flex justify-between">
+                                    <a href="javascript:;"> 
+                                        <h5>{{ $restaurant->name }}</h5> 
+                                    </a>
+
+                                    <p class="text-sm text-lime-500">Price Range: ₱{{ $restaurant->min_price }} - ₱{{ $restaurant->max_price }}</p>
+                                </div>
+                                    
+
                                 <p class="mb-6 leading-normal text-sm">{{ $restaurant->description }}</p>
                                 <div class="flex items-center justify-between">
                                     <a href="{{ route('customer.restaurant.show', $restaurant) }}"
@@ -41,7 +83,7 @@
                 </div>
                 <div
                 class="flex mt-6 justify-center p-4">
-                {{ $restaurants->links() }}
+                {{ (!isset($_GET['sort'])) ? $restaurants->links() : '' }}
                 </div>
             </div>
         </div>

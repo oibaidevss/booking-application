@@ -34,7 +34,11 @@
                             url = navigate.attr('href');
 
 
-                            document.location.href = url + "?sort=" + this.value
+                            if(this.value === "default"){
+                                document.location.href = url
+                            }else{
+                                document.location.href = url + "?sort=" + this.value
+                            }
 
                         });
 

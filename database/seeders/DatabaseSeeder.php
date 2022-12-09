@@ -64,6 +64,8 @@ class DatabaseSeeder extends Seeder
          ])->assignRole('business owner');
 
          $restaurant = \App\Models\Restaurant::factory()->create([
+            'min_price' => rand(000, 999),
+            'max_price' => rand(0000, 9999),
             'user_id' => $business_owner_restaurant->id
          ]);
 
@@ -113,6 +115,28 @@ class DatabaseSeeder extends Seeder
                   'room_number' => $x,
                   'floor' => $x,
                   'hotel_id' => $h->id
+               ]);
+            }
+         }
+
+         // Create Multiple Business Owners for Restaurant
+         for ($i=0; $i <= 10; $i++) { 
+
+            $u = \App\Models\User::factory()->create([
+               'business_type' => 'restaurant'
+            ])->assignRole('business owner'); // Create Hotel
+
+            $h = \App\Models\Restaurant::factory()->create([
+               'user_id' => $u->id,
+               'min_price' => rand(000, 999),
+               'max_price' => rand(0000, 9999),
+            ]);
+
+            for ($x=1; $x <= 10; $x++) { 
+               # code...
+               \App\Models\Table::factory()->create([
+                  'table_number' => $x,
+                  'restaurant_id' => $h->id
                ]);
             }
          }
