@@ -10,12 +10,18 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 class HotelBookingExport implements FromCollection, WithMapping, WithHeadings
 {
 
+    protected $created_at;
+
+    function __construct($created_at) {
+            $this->created_at = $created_at;
+    }
+
     /**
     * @return \Illuminate\Support\Collection
     */
     public function collection()
     {
-       return HotelBooking::with(['user', 'room'])->get();
+       return HotelBooking::with(['user', 'room'])->whereDate('created_at', '>=', $this->created_at)->get();
     }
 
     

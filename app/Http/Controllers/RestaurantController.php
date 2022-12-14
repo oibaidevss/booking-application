@@ -10,6 +10,8 @@ use App\Models\RestaurantBooking;
 use App\Exports\RestaurantBookingExport;
 use Maatwebsite\Excel\Facades\Excel;
 
+use Carbon\Carbon;
+
 class RestaurantController extends Controller
 {
     /**
@@ -146,7 +148,7 @@ class RestaurantController extends Controller
         ]);
     }
 
-    public function export_restaurant_bookings(RestaurantBooking $restaurantBooking){
-        return Excel::download(new RestaurantBookingExport, 'restaurant_booking.xlsx');
+    public function export_restaurant_bookings(RestaurantBooking $restaurantBooking, $created_at){
+        return Excel::download(new RestaurantBookingExport($created_at), 'exported-restaurant-bookings-' . Carbon::today()->toDateString() . '.xlsx');
     }
 }

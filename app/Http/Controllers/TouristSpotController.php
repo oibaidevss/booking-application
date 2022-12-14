@@ -11,6 +11,8 @@ use App\Models\User;
 use App\Exports\TouristSpotBookingExport;
 use Maatwebsite\Excel\Facades\Excel;
 
+use Carbon\Carbon;
+
 class TouristSpotController extends Controller
 {
     /**
@@ -148,7 +150,7 @@ class TouristSpotController extends Controller
         ]);
     }
 
-    public function export_spot_bookings(TouristSpotBooking $touristSpotBooking){
-        return Excel::download(new TouristSpotBookingExport, 'tourist_spot_booking.xlsx');
+    public function export_spot_bookings(TouristSpotBooking $touristSpotBooking, $create_at){
+        return Excel::download(new TouristSpotBookingExport($create_at), 'exported-tourist-spot-bookings-' . Carbon::today()->toDateString() . '.xlsx');
     }
 }

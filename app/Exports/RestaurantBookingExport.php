@@ -9,12 +9,19 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 
 class RestaurantBookingExport implements FromCollection, WithMapping, WithHeadings
 {
-   /**
+
+    protected $created_at;
+
+    function __construct($created_at) {
+            $this->created_at = $created_at;
+    }
+
+    /**
     * @return \Illuminate\Support\Collection
     */
     public function collection()
     {
-       return RestaurantBooking::with(['user', 'table'])->get();
+       return RestaurantBooking::with(['user', 'table'])->whereDate('created_at', '>=', $this->created_at)->get();
     }
 
     

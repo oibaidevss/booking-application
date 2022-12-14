@@ -62,4 +62,12 @@
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- main script file  -->
   <script src="{{asset('assets/js/soft-ui-dashboard-tailwind.js')}}" async></script>
+  <script src="https://code.jquery.com/jquery-3.6.2.min.js" integrity="sha256-2krYZKh//PcchRtd+H+VyyQoZ/e3EcrkxhM8ycwASPA=" crossorigin="anonymous"></script>
+  <script>
+      $("input[name=selectDate]").on("change", function (e) { 
+          e.preventDefault();
+          var link = $("#export").attr( 'data-href' );
+          $("#export").attr( 'href', link + this.value );
+      });
+  </script>
 </html>

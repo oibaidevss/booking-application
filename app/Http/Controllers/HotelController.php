@@ -10,6 +10,8 @@ use Illuminate\Validation\Rule;
 use App\Exports\HotelBookingExport;
 use Maatwebsite\Excel\Facades\Excel;
 
+use Carbon\Carbon;
+
 class HotelController extends Controller
 {
     /**
@@ -150,8 +152,8 @@ class HotelController extends Controller
         ]);
     }
 
-    public function export_hotel_bookings(HotelBooking $hotelBooking){
-        return Excel::download(new HotelBookingExport, 'hotel_booking.xlsx');
+    public function export_hotel_bookings(HotelBooking $hotelBooking, $created_at){
+        return Excel::download(new HotelBookingExport($created_at), 'exported-hotel-bookings-' . Carbon::today()->toDateString() . '.xlsx');
     }
     
 }
