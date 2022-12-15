@@ -14,6 +14,7 @@ use App\Http\Controllers\HotelController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\FrontEndController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,9 +27,7 @@ use App\Http\Controllers\SearchController;
 |
 */
 
-Route::get('/', function () {
-    return view('front-end.welcome');
-});
+Route::get('/', [FrontEndController::class, 'index']);
 Route::get('/about', function () {
     return view('front-end.about');
 });

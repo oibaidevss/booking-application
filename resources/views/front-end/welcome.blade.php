@@ -296,7 +296,50 @@
 
 
     <!-- Courses Start -->
-
+    <section class="details-card">
+        
+        <div class="container">
+            <h4 class="black-text d-block py-4 text-center">CHEAPEST HOTELS, RESTAURANTS, AND TOURIST SPOTS IN THE CITY!</h4>
+            <div class="justify-content-between d-flex">
+                <div class="col-md-4">
+                    <div class="card-content">
+                        <div class="card-img">
+                            <img class="h-100 w-100" style="max-width: 100%; max-height: 200px" src="{{ ($hotel->picture) ? asset("/storage/pictures/hotel/$hotel->id/" . $hotel->picture):asset('/assets/img/home-decor-1.jpg') }}"" alt="">
+                            <span><p class="pt-4 fs-6">{{$hotel->location}}</p></span>
+                        </div>
+                        <div class="card-desc">
+                            <h3>{{$hotel->name}}</h3>
+                            <p>{{ $hotel->description }}</p> 
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card-content">
+                        <div class="card-img">
+                            <img class="h-100 w-100" style="max-width: 100%; max-height: 200px" src="{{ ($restaurant->picture) ? asset("/storage/pictures/restaurant/$restaurant->id/" . $restaurant->picture):asset('/assets/img/home-decor-1.jpg') }}"" alt="">
+                            <span><p class="pt-4 fs-6">{{ $restaurant->location }}</p></span>
+                        </div>
+                        <div class="card-desc">
+                            <h3>{{ $restaurant->name }}</h3>
+                            <p>{{  $restaurant->description }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card-content">
+                        <div class="card-img">
+                            <img class="h-100 w-100" style="max-width: 100%; max-height: 200px" src="{{ ($touristSpot->picture) ? asset("/storage/pictures/tourist_spot/$touristSpot->id/" . $touristSpot->picture):asset('/assets/img/home-decor-1.jpg') }}"" alt="">
+                            <span><p class="pt-4 fs-6">{{ $touristSpot->location }}</p></span>
+                        </div>
+                        <div class="card-desc">
+                            <h3>{{ $touristSpot->name }}</h3>
+                            <p>{{ $touristSpot->description }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <!-- Courses End -->
 
 
