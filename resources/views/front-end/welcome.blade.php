@@ -296,10 +296,12 @@
 
 
     <!-- Courses Start -->
+    
     <section class="details-card">
         <div class="container">
             <h4 class="black-text d-block py-4 text-center">CHEAPEST HOTELS, RESTAURANTS, AND TOURIST SPOTS IN THE CITY!</h4>
             <div class="justify-content-between d-flex">
+                @if($get_hotel):
                 <div class="col-md-4">
                     <div class="card-content">
                         <div class="card-img">
@@ -313,6 +315,8 @@
                         </div>
                     </div>
                 </div>
+                @endif
+                @if($get_restaurant):
                 <div class="col-md-4">
                     <div class="card-content">
                         <div class="card-img">
@@ -326,6 +330,8 @@
                         </div>
                     </div>
                 </div>
+                @endif
+                @if($get_touristSpot):
                 <div class="col-md-4">
                     <div class="card-content">
                         <div class="card-img">
@@ -339,6 +345,7 @@
                         </div>
                     </div>
                 </div>
+                @endif
             </div>
         </div>
     </section>
