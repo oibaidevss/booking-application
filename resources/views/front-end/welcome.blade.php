@@ -297,46 +297,45 @@
 
     <!-- Courses Start -->
     <section class="details-card">
-        
         <div class="container">
             <h4 class="black-text d-block py-4 text-center">CHEAPEST HOTELS, RESTAURANTS, AND TOURIST SPOTS IN THE CITY!</h4>
             <div class="justify-content-between d-flex">
                 <div class="col-md-4">
                     <div class="card-content">
                         <div class="card-img">
-                            <img class="h-100 w-100" style="max-width: 100%; max-height: 200px" src="{{ ($hotel->picture) ? asset("/storage/pictures/hotel/$hotel->id/" . $hotel->picture):asset('/assets/img/home-decor-1.jpg') }}"" alt="">
-                            <p class="pt-4"><strong>PHP {{$hotel->min_price}}</strong></p>
-                            <span><p class="fs-6">{{$hotel->location}}</p></span>
+                            <img class="h-100 w-100" style="max-width: 100%; max-height: 200px" src="{{ ($get_hotel->picture) ? asset("/storage/pictures/hotel/$get_hotel->id/" . $get_hotel->picture):asset('/assets/img/home-decor-1.jpg') }}"" alt="">
+                            <p class="pt-4"><strong>PHP {{ $get_hotel->min_price }}</strong></p>
+                            <span><p class="fs-6">{{ $get_hotel->location }}</p></span>
                         </div>
                         <div class="card-desc">
-                            <h3>{{$hotel->name}}</h3>
-                            <p>{{ $hotel->description }}</p> 
+                            <h3>{{ $get_hotel->name }}</h3>
+                            <p>{{ $get_hotel->description }}</p> 
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="card-content">
                         <div class="card-img">
-                            <img class="h-100 w-100" style="max-width: 100%; max-height: 200px" src="{{ ($restaurant->picture) ? asset("/storage/pictures/restaurant/$restaurant->id/" . $restaurant->picture):asset('/assets/img/home-decor-1.jpg') }}"" alt="">
-                            <p class="pt-4"><strong>PHP {{$restaurant->min_price}}</strong></p>
-                            <span><p class="fs-6">{{ $restaurant->location }}</p></span>
+                            <img class="h-100 w-100" style="max-width: 100%; max-height: 200px" src="{{ ($get_restaurant->picture) ? asset("/storage/pictures/restaurant/$get_restaurant->id/" . $get_restaurant->picture):asset('/assets/img/home-decor-1.jpg') }}"" alt="">
+                            <p class="pt-4"><strong>PHP {{$get_restaurant->min_price}}</strong></p>
+                            <span><p class="fs-6">{{ $get_restaurant->location }}</p></span>
                         </div>
                         <div class="card-desc">
-                            <h3>{{ $restaurant->name }}</h3>
-                            <p>{{  $restaurant->description }}</p>
+                            <h3>{{ $get_restaurant->name }}</h3>
+                            <p>{{  $get_restaurant->description }}</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="card-content">
                         <div class="card-img">
-                            <img class="h-100 w-100" style="max-width: 100%; max-height: 200px" src="{{ ($touristSpot->picture) ? asset("/storage/pictures/tourist_spot/$touristSpot->id/" . $touristSpot->picture):asset('/assets/img/home-decor-1.jpg') }}"" alt="">
-                            <p class="pt-4"><strong>PHP {{$touristSpot->price}}</strong></p>
-                            <span><p class="fs-6">{{ $touristSpot->location }}</p></span>
+                            <img class="h-100 w-100" style="max-width: 100%; max-height: 200px" src="{{ ($get_touristSpot->picture) ? asset("/storage/pictures/tourist_spot/$get_touristSpot->id/" . $get_touristSpot->picture):asset('/assets/img/home-decor-1.jpg') }}"" alt="">
+                            <p class="pt-4"><strong>PHP {{$get_touristSpot->price}}</strong></p>
+                            <span><p class="fs-6">{{ $get_touristSpot->location }}</p></span>
                         </div>
                         <div class="card-desc">
-                            <h3>{{ $touristSpot->name }}</h3>
-                            <p>{{ $touristSpot->description }}</p>
+                            <h3>{{ $get_touristSpot->name }}</h3>
+                            <p>{{ $get_touristSpot->description }}</p>
                         </div>
                     </div>
                 </div>

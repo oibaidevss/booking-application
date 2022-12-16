@@ -14,23 +14,28 @@ class FrontEndController extends Controller
 {
     function index(){
 
-        $hotels = Hotel::with('rooms')->where('status', 1)->get();
+        $hotels = Hotel::where('status', 1)->get();
         $collection = new Collection($hotels);
-        $hotel = $collection->sortBy('min_price')->first();
+        $d_hotel = $collection->min('min_price');
 
         $restaurants = Restaurant::with('tables')->where('status', 1)->get();
         $collection = new Collection($restaurants);
-        $restaurant = $collection->sortBy('min_price')->first();
+        $d_restaurant = $collection->min('min_price');
 
         $touristSpots = TouristSpot::where('status', 1)->get();
         $collection = new Collection($touristSpots);
-        $touristSpot = $collection->sortBy('price')->first();
+        $d_touristSpot = $collection->min('price');
+
+        
+        $get_hotel = Hotel::where('min_price', $d_hotel)->first(); 
+        $get_restaurant = Restaurant::where('min_price', $d_restaurant)->first(); 
+        $get_tourist_spot = TouristSpot::where('price', $d_touristSpot)->first(); 
 
         return view('front-end.welcome', 
             [
-                'hotel' => $hotel,
-                'restaurant' => $restaurant,
-                'touristSpot' => $touristSpot,
+                'get_hotel' => $get_hotel,
+                'get_restaurant' => $get_restaurant,
+                'get_touristSpot' => $get_tourist_spot,
             ]
         );
     }
