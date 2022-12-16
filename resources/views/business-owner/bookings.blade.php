@@ -10,17 +10,18 @@
                         <h6>Bookings</h6>
 
                         <div>
+                            <span class="text-xs">Select Date: </span> <input class="text-xs p-1" type="date" name="selectDate">
                             @if (auth()->user()->business_type == 'hotel')
-                                
-                            <a href="{{ route('hotel.export') }}" class="bg-gradient-to-tl from-green-600 to-lime-400 text-xs rounded-2 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white px-4 py-2"> <i class="fa fa-download"></i>  Export </a>
+                            
+                            <a id="export" data-href="{{ route('hotel.export', '') }}/" class="bg-gradient-to-tl from-green-600 to-lime-400 text-xs rounded-2 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white px-4 py-2"> <i class="fa fa-download"></i>  Export </a>
                             
                             @elseif (auth()->user()->business_type == 'restaurant')
 
-                            <a href="{{ route('restaurant.export') }}" class="bg-gradient-to-tl from-green-600 to-lime-400 text-xs rounded-2 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white px-4 py-2"> <i class="fa fa-download"></i>  Export </a>
+                            <a id="#export" data-href="{{ route('restaurant.export', '') }}/" class="bg-gradient-to-tl from-green-600 to-lime-400 text-xs rounded-2 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white px-4 py-2"> <i class="fa fa-download"></i>  Export </a>
 
                             @elseif (auth()->user()->business_type == 'tourist_spot')
 
-                            <a href="{{ route('spot.export') }}" class="bg-gradient-to-tl from-green-600 to-lime-400 text-xs rounded-2 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white px-4 py-2"> <i class="fa fa-download"></i>  Export </a>
+                            <a id="#export" data-href="{{ route('spot.export', '') }}/" class="bg-gradient-to-tl from-green-600 to-lime-400 text-xs rounded-2 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white px-4 py-2"> <i class="fa fa-download"></i>  Export </a>
 
                             @endif
                         </div>

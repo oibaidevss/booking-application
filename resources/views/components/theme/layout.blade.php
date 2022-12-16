@@ -69,5 +69,7 @@
           var link = $("#export").attr( 'data-href' );
           $("#export").attr( 'href', link + this.value );
       });
+
+      console.log('test');
   </script>
 </html>

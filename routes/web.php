@@ -129,9 +129,9 @@ Route::prefix('business')->middleware(['auth', 'verified', 'role:business owner'
         
     })->name('business.bookings.approved');
 
-    Route::get('hotels/bookings/export',[HotelController::class, 'export_hotel_bookings'])->name('hotel.export');
-    Route::get('restaurants/bookings/export',[RestaurantController::class, 'export_restaurant_bookings'])->name('restaurant.export');
-    Route::get('spots/bookings/export',[TouristSpotController::class, 'export_spot_bookings'])->name('spot.export');
+    Route::get('hotels/bookings/export/{created_at}',[HotelController::class, 'export_hotel_bookings'])->name('hotel.export');
+    Route::get('restaurants/bookings/export/{created_at}',[RestaurantController::class, 'export_restaurant_bookings'])->name('restaurant.export');
+    Route::get('spots/bookings/export/{created_at}',[TouristSpotController::class, 'export_spot_bookings'])->name('spot.export');
 
 });
 
