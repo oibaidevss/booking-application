@@ -16,6 +16,7 @@ class SearchController extends Controller
   
 
         $hotels = Hotel::where([
+            ['status', 1],
             ['name', '!=', null],
             [function ($query) use ($request){
                 if ( ($term = $request->term) ){
@@ -26,6 +27,7 @@ class SearchController extends Controller
         ->paginate(4);
 
         $restaurants = Restaurant::where([
+            ['status', 1],
             ['name', '!=', null],
             [function ($query) use ($request){
                 if ( ($term = $request->term) ){
@@ -37,6 +39,7 @@ class SearchController extends Controller
 
         $spots = TouristSpot::where([
             ['name', '!=', null],
+            ['status', 1],
             [function ($query) use ($request){
                 if ( ($term = $request->term) ){
                     $query->orWhere('name', 'LIKE', '%' .$term. '%')->get();

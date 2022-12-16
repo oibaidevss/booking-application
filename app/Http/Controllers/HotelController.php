@@ -112,6 +112,7 @@ class HotelController extends Controller
 
     public function archive(Hotel $hotel)
     {
+        $hotel->status = 0;
         $hotel->is_archived = 1;
         $hotel->update();
         return back()->with('success', 'Archived');
@@ -121,6 +122,7 @@ class HotelController extends Controller
     {
 
         $hotel->is_archived = 0;
+        $hotel->status = 1;
         $hotel->update();
         return back()->with('success', 'Restored');
     }

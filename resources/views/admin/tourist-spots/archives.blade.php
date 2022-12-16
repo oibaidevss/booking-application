@@ -69,7 +69,7 @@
                                         @method('PATCH')
                                         
                                         <button type="submit"
-                                        class="font-semibold leading-tight text-green-500 text-xs text-slate-400 px-1">Restore</button>
+                                        class="font-semibold leading-tight text-xs text-slate-400 px-1">Restore</button>
                                     </form>
                                 
                                     <form method="POST" action="/admin/spots/{{ $spot->id }}">

@@ -74,7 +74,7 @@
                                     @method('PUT')
                                     
                                     <button type="submit"
-                                    class="font-semibold leading-tight text-red-500 text-xs text-slate-400 px-1">Archive</button>
+                                    class="font-semibold leading-tight text-red-500 text-xs px-1">Archive</button>
                                 </form>
 
                                  @if ( $hotel->status == false )

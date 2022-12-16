@@ -110,6 +110,7 @@ class TouristSpotController extends Controller
 
     public function archive(TouristSpot $TouristSpot)
     {
+        $TouristSpot->status = 0;
         $TouristSpot->is_archived = 1;
         $TouristSpot->update();
         return back()->with('success', 'Archived');
@@ -117,7 +118,7 @@ class TouristSpotController extends Controller
 
     public function restore(TouristSpot $TouristSpot)
     {
-
+        $TouristSpot->status = 1;
         $TouristSpot->is_archived = 0;
         $TouristSpot->update();
         return back()->with('success', 'Restored');

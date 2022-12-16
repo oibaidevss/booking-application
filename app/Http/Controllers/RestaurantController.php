@@ -118,6 +118,7 @@ class RestaurantController extends Controller
 
     public function archive(Restaurant $restaurant)
     {
+        $restaurant->status = 0;
         $restaurant->is_archived = 1;
         $restaurant->update();
         return back()->with('success', 'Archived');
@@ -127,6 +128,7 @@ class RestaurantController extends Controller
     {
 
         $restaurant->is_archived = 0;
+        $restaurant->status = 1;
         $restaurant->update();
         return back()->with('success', 'Restored');
     }

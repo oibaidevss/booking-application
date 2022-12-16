@@ -23,8 +23,8 @@ class CustomerController extends Controller
     public function index(){
         return view('customer.index', [
 
-            'hotels' => Hotel::with('rooms')->get(),
-            'restaurants' => Restaurant::with('tables')->get(),
+            'hotels' => Hotel::with('rooms')->where('status', 1)->get(),
+            'restaurants' => Restaurant::with('tables')->where('status', 1)->get(),
 
         ]);
     }

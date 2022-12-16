@@ -74,7 +74,7 @@
                                     @method('PATCH')
                                     
                                     <button type="submit"
-                                    class="font-semibold leading-tight text-green-500 text-xs text-slate-400 px-1">Archived</button>
+                                    class="font-semibold leading-tight text-red-500 text-xs px-1">Archived</button>
                                 </form>
                                 
                                
