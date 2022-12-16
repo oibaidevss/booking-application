@@ -53,7 +53,7 @@
                             class="relative flex flex-col min-w-0 break-words bg-transparent border-0 shadow-none rounded-2xl bg-clip-border">
                             <div class="relative">
                                 <a class="block shadow-xl rounded-2xl">
-                                    <img src="../assets/img/home-decor-1.jpg" alt="img-blur-shadow"
+                                    <img src="{{ ($spot->picture != '') ? asset("/storage/pictures/tourist_spot/$spot->id/" . $spot->picture):asset('/assets/img/home-decor-1.jpg') }}" alt="img-blur-shadow"
                                         class="max-w-full shadow-soft-2xl rounded-2xl">
                                 </a>
                             </div>
