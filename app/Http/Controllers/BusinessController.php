@@ -44,9 +44,10 @@ class BusinessController extends Controller
 
         if( $user->business_type == 'hotel' ){  
            $hotel =  Hotel::create(array_merge($this->validateHotel(), ['user_id' => $user->id]));
+
            if($request->hasFile('picture')){
                 $picture = $request->picture->getClientOriginalName();
-                $request->picture->storeAs('pictures', $picture, 'public');
+                $request->picture->storeAs("pictures/$user->business_type/$hotel->id", $picture, 'public');
                 $hotel->update(['picture'=>$picture]);
            }
 
@@ -63,7 +64,7 @@ class BusinessController extends Controller
             $restaurant =  Restaurant::create(array_merge($this->validateRestaurant(), ['user_id' => $user->id]));
             if($request->hasFile('picture')){
                 $picture = $request->picture->getClientOriginalName();
-                $request->picture->storeAs('pictures', $picture, 'public');
+                $request->picture->storeAs("pictures/$user->business_type/$restaurant->id", $picture, 'public');
                 $restaurant->update(['picture'=>$picture]);
            }
 
@@ -80,7 +81,7 @@ class BusinessController extends Controller
             $spot =  TouristSpot::create(array_merge($this->validateTouristSpot(), ['user_id' => $user->id]));
             if($request->hasFile('picture')){
                 $picture = $request->picture->getClientOriginalName();
-                $request->picture->storeAs('pictures', $picture, 'public');
+                $request->picture->storeAs("pictures/$user->business_type/$spot->id", $picture, 'public');
                 $spot->update(['picture'=>$picture]);
            }
 
