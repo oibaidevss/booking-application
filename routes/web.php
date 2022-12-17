@@ -121,6 +121,10 @@ Route::prefix('business')->middleware(['auth', 'verified', 'role:business owner'
             $booking = App\Models\RestaurantBooking::find($booking);
         }
 
+        if(auth()->user()->business_type == "tourist_spot"){
+            $booking = App\Models\TouristSpotBooking::find($booking);
+        }
+
         $booking->update([
             'status' => 'approved'
         ]);
